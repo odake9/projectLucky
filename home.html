@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Online Store</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -14,14 +14,18 @@
       border-radius: 0;
     }
     
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
+    /* Remove the jumbotron's default bottom margin and add background */
+    .jumbotron {
       margin-bottom: 0;
+      background-image: url('homeimage1.jpg'); /* your background image */
+      background-size: cover;
+      background-position: center;
+      color: rgb(0, 0, 0); /* make text white so it's visible on background */
     }
-   
+
     /* Add a gray background color and some padding to the footer */
     footer {
-      background-color: #f2f2f2;
+      background-color: #f7f7f7;
       padding: 25px;
     }
   </style>
@@ -30,8 +34,8 @@
 
 <div class="jumbotron">
   <div class="container text-center">
-    <h1>Online Store</h1>      
-    <p>Mission, Vission & Values</p>
+    <h1>Lucky Milk Tea</h1>      
+    <p>Mission, Vision & Values</p>
   </div>
 </div>
 
@@ -51,10 +55,11 @@
         <li><a href="#">Products</a></li>
         <li><a href="#">Deals</a></li>
         <li><a href="#">Stores</a></li>
+        <li><a href="#">Order</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+        <li><a href="login.html"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
       </ul>
     </div>
@@ -65,23 +70,35 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+        <div class="panel-heading">MONDAY SPECIAL DEAL</div>
+        <div class="panel-body">
+        <center>
+          <img src="xq1.jpeg"style="width:110px">
+        </center>
+        </div>
+        <div class="panel-footer">Mango & Passion Fruit Tea</div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-danger">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+        <div class="panel-heading">TUESDAY SPECIAL DEAL</div>
+        <div class="panel-body">
+          <center>
+          <img src="xq2.jpeg"style="width:110px">
+        </center>
+        </div>
+        <div class="panel-footer">Lime Mojito</div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-success">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+        <div class="panel-heading">WEDNESDAY SPECIAL DEAL</div>
+        <div class="panel-body">
+          <center>
+          <img src="xq3.jpeg"style="width:110px">
+        </center>
+        </div>
+        <div class="panel-footer">Kiwi Fruit Tea</div>
       </div>
     </div>
   </div>
@@ -91,23 +108,35 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+        <div class="panel-heading">THURSDAY SPECIAL DEAL</div>
+        <div class="panel-body">
+          <center>
+          <img src="xq4.jpeg"style="width:110px">
+        </center>
+        </div>
+        <div class="panel-footer">Strawberry ice blended with ice cream</div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+        <div class="panel-heading">FRIDAY SPECIAL DEAL</div>
+        <div class="panel-body">
+          <center>
+          <img src="xq5.jpeg"style="width:110px">
+        </center>
+        </div>
+        <div class="panel-footer">Taro Ice blended with Pudding</div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
-        <div class="panel-heading">BLACK FRIDAY DEAL</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+        <div class="panel-heading">SATURDAY SPECIAL DEAL</div>
+        <div class="panel-body">
+          <center>
+          <img src="xq6.jpeg"style="width:110px">
+        </center>
+        </div>
+        <div class="panel-footer">Lucky Family Milk Tea</div>
       </div>
     </div>
   </div>
@@ -118,6 +147,7 @@
   <form class="form-inline">Get deals:
     <input type="email" class="form-control" size="50" placeholder="Email Address">
     <button type="button" class="btn btn-danger">Sign Up</button>
+    <a >
   </form>
 </footer>
 
