@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      #signature-iframe, #refreshing-iframe, #iceblended-iframe{
+        display: none;
+        width: 1000px;
+        height: 500px;
+        border: 1px solid #000000;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10%;
+      }
+    </style>
   </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -33,6 +44,34 @@
       </div>
     </div>
   </nav>
-  
+  <div class="list">
+    <ul>
+      <li><a href="#" data-target="signature">Signature</a></li>
+      <li><a href="#" data-target="refreshing">Refreshing</a></li>
+      <li><a href="#" data-target="iceblended">Ice Blended</a></li>
+    </ul>
+  </div>
+
+  <iframe id="signature" src="signature.html" frameborder="0"></iframe>
+  <iframe id="refreshing" src="refreshing.html" frameborder="0"></iframe>
+  <iframe id="iceblended" src="iceblended.html" frameborder="0"></iframe>
+
+  <script>
+    const links = document.querySelectorAll('a[data-target]');
+    const iframes = document.querySelectorAll('iframe');
+
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // Hide all iframes
+        iframes.forEach(iframe => iframe.style.display = 'none');
+
+        // Show the one clicked
+        const targetId = this.getAttribute('data-target');
+        document.getElementById(targetId).style.display = 'block';
+      });
+    });
+  </script>
 
 </body>
