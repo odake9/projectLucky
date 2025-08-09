@@ -1,0 +1,31 @@
+.navbar {
+    margin-bottom: 50px;
+    border-radius: 0;
+  }
+  
+  /* Remove the jumbotron's default bottom margin and add background */
+  .text h1, p{
+    position: relative;
+    text-align: center;
+    margin-bottom: 0;
+    color: rgb(0, 0, 0); /* make text white so it's visible on background */
+  }
+
+  .jumbotron::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('homeimage1.jpg'); /* your background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+  }
+
+  /* Add a gray background color and some padding to the footer */
+  footer {
+    background-color: #f7f7f7;
+    padding: 25px;
+  }
