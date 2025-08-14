@@ -29,3 +29,23 @@
     background-color: #f7f7f7;
     padding: 25px;
   }
+
+  .navbar-inverse {
+      background-color: #ec9dc5 !important; /* Light Pink */
+      border-color: #ec9dc5 !important;
+    }
+    .navbar-inverse .navbar-brand,
+    .navbar-inverse .navbar-nav>li>a {
+      color: white !important;
+    }
+    .navbar-inverse .navbar-nav>li>a:hover,
+    .navbar-inverse .navbar-brand:hover {
+      background-color: #ff80b3 !important; /* Darker Pink on Hover */
+      color: white !important;
+    }
+    .navbar-inverse .navbar-toggle {
+      border-color: white !important;
+    }
+    .navbar-inverse .icon-bar {
+      background-color: white !important;
+    }
