@@ -1,1 +1,310 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milk Tea Menu</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background-color: #fff8f0;
+      color: #333;
+    }
+
+    header {
+      background-color: #ffcfdf;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #6b4f4f;
+    }
+
+    .back-btn, .cart-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #ff9aa2;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .back-btn:hover, .cart-btn:hover {
+      background-color: #ff6f91;
+    }
+
+    .back-btn {
+      left: 1rem;
+    }
+
+    .cart-btn {
+      right: 1rem;
+    }
+
+    .cart-count {
+      background-color: white;
+      color: #ff6f91;
+      font-weight: bold;
+      border-radius: 50%;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .category-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+      background-color: #ffe5ec;
+    }
+
+    .category-buttons button {
+      background-color: #ff9aa2;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .category-buttons button:hover,
+    .category-buttons button.active {
+      background-color: #ff6f91;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .menu-item {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 300px;
+      object-fit: fill;
+    }
+
+    .menu-info {
+      padding: 1rem;
+    }
+
+    .menu-info h3 {
+      margin: 0;
+      color: #6b4f4f;
+      font-size: 1.3rem;
+    }
+
+    .menu-info p {
+      margin: 0.5rem 0;
+      color: #555;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #d46a6a;
+      font-size: 1.1rem;
+    }
+
+    .order-btn {
+      background-color: #ff9aa2;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .order-btn:hover {
+      background-color: #ff6f91;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="home.html" class="back-btn">← Back to Home</a>
+    <h1>~ Lucky Milk Tea ~</h1>
+    <a href="cart.html" class="cart-btn">
+      🛒 Cart <span class="cart-count" id="cart-count">0</span>
+    </a>
+  </header>
+
+  <!-- Category Filter Buttons -->
+  <div class="category-buttons">
+    <button class="active" data-category="all">All</button>
+    <button data-category="Signature">Signature</button>
+    <button data-category="Refreshing">Refreshing</button>
+    <button data-category="Ice Blended">Ice Blended</button>
+  </div>
+
+  <section class="menu" id="menu">
+    <!-- Items will be inserted by JavaScript -->
+  </section>
+
+  <script>
+    const menuItems = [
+      {
+        name: "Lucky Family Milk Tea",
+        description: "Black tea with creamy milk and tapioca pearls.",
+        price: 4.50,
+        category: "Signature",
+        image: "xq6.jpeg"
+      },
+      {
+        name: "Brown Sugar Boba",
+        description: "Brown sugar syrup with fresh milk and pearls.",
+        price: 5.50,
+        category: "Signature",
+        image: "https://simplyhomecooked.com/wp-content/uploads/2023/04/Brown-sugar-boba-6.jpg"
+      },
+      {
+        name: "Taro Milk Tea",
+        description: "Sweet taro flavor with chewy boba pearls.",
+        price: 5.00,
+        category: "Signature",
+        image: "https://raepublic.com/wp-content/uploads/2025/04/Homemade-Taro-Bubble-Tea.jpg"
+      },
+      {
+        name: "Matcha Latte",
+        description: "Rich matcha green tea with smooth milk.",
+        price: 5.50,
+        category: "Signature",
+        image: "https://cdn.loveandlemons.com/wp-content/uploads/2023/06/iced-matcha-latte.jpg"
+      },
+      {
+        name: "Strawberry Ice Blended with Ice Cream",
+        description: "Strawberry puree blended with milk and ice-cream",
+        price: 5.80,
+        category: "Ice Blended",
+        image: "xq4.jpeg"
+      },
+      {
+        name: "Taro Ice Blended with Pudding",
+        description: "Chocolate milk blended with ice and topped with cream.",
+        price: 6.00,
+        category: "Ice Blended",
+        image: "xq5.jpeg"
+      },
+      {
+        name: "Mango & Passion Fruit Tea",
+        description: "Refreshing tea mixed with the sweetness of mango and passion fruit",
+        price: 6.00,
+        category: "Refreshing",
+        image: "xq1.jpeg"
+      },
+      {
+        name: "Lime Mojito",
+        description: "A daiquiri with mint over crushed ice, topped with soda.",
+        price: 6.00,
+        category: "Refreshing",
+        image: "xq2.jpeg"
+      },
+      {
+        name: "Chocolate Ice Blended with Ice cream",
+        description: "Chocolate milk blended with ice and topped with cream.",
+        price: 6.00,
+        category: "Ice Blended",
+        image: "https://www.coffeebean.com/cdn/shop/files/product_pure_chocolate_ice_blended_530x430_ce78d130-e76d-4daa-8806-24f4a6f25673.jpg?v=1736534923&width=390"
+      },
+      {
+        name: "Strawberry Lemonade",
+        description: "Tart lemon juice is blended with ripe strawberries.",
+        price: 6.00,
+        category: "Refreshing",
+        image: "https://www.lemontreedwelling.com/wp-content/uploads/2020/05/strawberry-lemonade-featured.jpg"
+      },
+      {
+        name: "Peach Iced Tea",
+        description: "Tart lemon juice is blended with ripe strawberries.",
+        price: 6.00,
+        category: "Refreshing",
+        image: "https://www.eatingwell.com/thmb/S4mEBHCn_c3y0U17S9dWEubvW1Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/peach-iced-tea-hero-1x1-15009_preview_maxWidth_4000_maxHeight_4000_ppi_300_quality_100-0d9f432284a447fc9151868c5acf6c7e.jpg"
+      },
+      {
+        name: "Mango Ice Blended with Ice Cream",
+        description: "Mango milk blended with ice and topped with cream.",
+        price: 6.00,
+        category: "Ice Blended",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoFi5rYsS4t08giHqjSgUpsPByQD3BvloWcw&s"
+      },
+    ];
+
+    const menuContainer = document.getElementById("menu");
+    const categoryButtons = document.querySelectorAll(".category-buttons button");
+    const cartCount = document.getElementById("cart-count");
+    let cart = 0;
+
+    function displayMenu(category) {
+      menuContainer.innerHTML = "";
+      const filteredItems = category === "all"
+        ? menuItems
+        : menuItems.filter(item => item.category === category);
+
+      filteredItems.forEach(item => {
+        const menuCard = document.createElement("div");
+        menuCard.classList.add("menu-item");
+        menuCard.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <div class="menu-info">
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
+            <p class="price">RM ${item.price.toFixed(2)}</p>
+            <button class="order-btn">Add to cart</button>
+          </div>
+        `;
+        menuContainer.appendChild(menuCard);
+
+        menuCard.querySelector(".order-btn").addEventListener("click", () => {
+          cart++;
+          cartCount.textContent = cart;
+        });
+      });
+    }
+
+    // Initial display
+    displayMenu("all");
+
+    // Filter button click
+    categoryButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelector(".category-buttons .active").classList.remove("active");
+        button.classList.add("active");
+        displayMenu(button.dataset.category);
+      });
+    });
+  </script>
+  <script src="order.js"></script>
+</body>
+</html>

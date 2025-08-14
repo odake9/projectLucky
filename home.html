@@ -4,18 +4,60 @@
   <title>Lucky Milk Tea</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="home.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Typing animation */
+    .typing {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid orange;
+      animation: typing 3s steps(30, end), blink 0.7s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    /* Panel animation */
+    .panel {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease-out;
+    }
+    .panel.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Image hover effect */
+    .panel-body img {
+      transition: transform 0.3s ease;
+    }
+    .panel-body img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+
+  <!-- jQuery & Bootstrap JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<div class="jumbotron">
-  <div class="text">
-    <h1>Lucky Milk Tea</h1>      
-    <p>Discover the art of handcrafted milk tea</p>
-  </div>
+<div class="jumbotron text-center">
+  <h1 class="typing">Lucky Milk Tea</h1>      
+  <p>Discover the art of handcrafted milk tea</p>
 </div>
 
 <nav class="navbar navbar-inverse">
@@ -30,8 +72,8 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="home.html">Home</a></li>
-        <li><a href="menu.html">Menu</a></li>
         <li><a href="deals.html">Deals</a></li>
+        <li><a href="menu.html">Menu</a></li>
         <li><a href="order.html">Order</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -49,9 +91,7 @@
       <div class="panel panel-primary">
         <div class="panel-heading">MONDAY SPECIAL DEAL</div>
         <div class="panel-body" style="height: 200px;">
-        <center>
-          <img src="xq1.jpeg"style="width:110px">
-        </center>
+          <center><img src="xq1.jpeg" style="width:110px"></center>
         </div>
         <div class="panel-footer">Mango & Passion Fruit Tea</div>
       </div>
@@ -60,9 +100,7 @@
       <div class="panel panel-danger">
         <div class="panel-heading">TUESDAY SPECIAL DEAL</div>
         <div class="panel-body" style="height: 200px;">
-          <center>
-          <img src="xq2.jpeg"style="width:110px">
-        </center>
+          <center><img src="xq2.jpeg" style="width:110px"></center>
         </div>
         <div class="panel-footer">Lime Mojito</div>
       </div>
@@ -71,9 +109,7 @@
       <div class="panel panel-success">
         <div class="panel-heading">WEDNESDAY SPECIAL DEAL</div>
         <div class="panel-body" style="height: 200px;">
-          <center>
-          <img src="xq3.jpeg"style="width:110px">
-        </center>
+          <center><img src="xq3.jpeg" style="width:110px"></center>
         </div>
         <div class="panel-footer">Kiwi Fruit Tea</div>
       </div>
@@ -87,9 +123,7 @@
       <div class="panel panel-primary">
         <div class="panel-heading">THURSDAY SPECIAL DEAL</div>
         <div class="panel-body" style="height: 200px;">
-          <center>
-          <img src="xq4.jpeg"style="width:110px">
-        </center>
+          <center><img src="xq4.jpeg" style="width:110px"></center>
         </div>
         <div class="panel-footer">Strawberry ice blended with ice cream</div>
       </div>
@@ -98,9 +132,7 @@
       <div class="panel panel-primary">
         <div class="panel-heading">FRIDAY SPECIAL DEAL</div>
         <div class="panel-body" style="height: 200px;">
-          <center>
-          <img src="xq5.jpeg"style="width:110px">
-        </center>
+          <center><img src="xq5.jpeg" style="width:110px"></center>
         </div>
         <div class="panel-footer">Taro Ice blended with Pudding</div>
       </div>
@@ -109,9 +141,7 @@
       <div class="panel panel-primary">
         <div class="panel-heading">SATURDAY SPECIAL DEAL</div>
         <div class="panel-body" style="height: 200px;">
-          <center>
-          <img src="xq6.jpeg"style="width:110px">
-        </center>
+          <center><img src="xq6.jpeg" style="width:110px"></center>
         </div>
         <div class="panel-footer">Lucky Family Milk Tea</div>
       </div>
@@ -124,9 +154,26 @@
   <form class="form-inline">Get deals:
     <input type="email" class="form-control" size="50" placeholder="Email Address">
     <button type="button" class="btn btn-danger">Sign Up</button>
-    <a >
   </form>
 </footer>
+
+<!-- Animation Script -->
+<script>
+  function revealOnScroll() {
+    const panels = document.querySelectorAll('.panel');
+    const windowHeight = window.innerHeight;
+
+    panels.forEach(panel => {
+      const panelTop = panel.getBoundingClientRect().top;
+      if (panelTop < windowHeight - 50) {
+        panel.classList.add('show');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll);
+</script>
 
 </body>
 </html>
