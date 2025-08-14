@@ -4,11 +4,11 @@
   }
   
   /* Remove the jumbotron's default bottom margin and add background */
-  .text h1, p{
+  .text h1,p{
     position: relative;
     text-align: center;
     margin-bottom: 0;
-    color: rgb(0, 0, 0); /* make text white so it's visible on background */
+    color:black; /* make text white so it's visible on background */
   }
 
   .jumbotron::before{
