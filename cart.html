@@ -1,1 +1,193 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - Milk Tea Shop</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background-color: #fff8f0;
+      color: #333;
+    }
+
+    header {
+      background-color: #ffcfdf;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #6b4f4f;
+    }
+
+    .header-buttons {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .nav-btn {
+      background-color: #ff9aa2;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-btn:hover {
+      background-color: #ff6f91;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #ffe5ec;
+      color: #6b4f4f;
+    }
+
+    .remove-btn {
+      background-color: #ff9aa2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.3rem 0.6rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .remove-btn:hover {
+      background-color: #ff6f91;
+    }
+
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 1rem;
+    }
+
+    .checkout-btn {
+      background-color: #ff9aa2;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: block;
+      margin-left: auto;
+    }
+
+    .checkout-btn:hover {
+      background-color: #ff6f91;
+    }
+
+    .empty-message {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-buttons">
+      <a href="index.html" class="nav-btn">Home</a>
+      <a href="menu.html" class="nav-btn">← Back to Menu</a>
+    </div>
+    <h1>Your Cart</h1>
+  </header>
+
+  <main>
+    <div id="cart-container"></div>
+  </main>
+
+  <script>
+    function loadCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartContainer = document.getElementById("cart-container");
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `<p class="empty-message">🛒 Your cart is empty.</p>`;
+        return;
+      }
+
+      let total = 0;
+      let tableHTML = `
+        <table>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Remove</th>
+          </tr>
+      `;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        tableHTML += `
+          <tr>
+            <td>${item.name}</td>
+            <td>$${item.price.toFixed(2)}</td>
+            <td><button class="remove-btn" onclick="removeItem(${index})">X</button></td>
+          </tr>
+        `;
+      });
+
+      tableHTML += `</table>
+        <p class="total">Total: $${total.toFixed(2)}</p>
+        <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+      `;
+
+      cartContainer.innerHTML = tableHTML;
+    }
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    function checkout() {
+      alert("✅ Thank you for your purchase! Your order is being processed.");
+      localStorage.removeItem("cart");
+      loadCart();
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>
