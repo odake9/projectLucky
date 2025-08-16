@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+  <style>
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(120deg, #f6d365, #fda085);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .checkout-container {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      animation: fadeIn 0.6s ease-in-out;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #ff5722;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    #total {
+      font-size: 24px;
+      color: #4caf50;
+    }
+
+    .btn {
+      background: #4caf50;
+      color: white;
+      padding: 15px 40px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .btn:hover {
+      background: #388e3c;
+      transform: scale(1.05);
+    }
+
+    #tngLogo {
+      display: none;
+      margin-top: 30px;
+      text-align: center;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    #tngLogo img {
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #tngLogo img:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-container">
+    <h2>Confirm Your Payment</h2>
+    <p>Total: <strong id="total">0.00</strong> MYR</p>
+
+    <button class="btn" onclick="showTNG()">Confirm Payment</button>
+
+    <div id="tngLogo">
+      <h3>Payment Confirmed via TNG</h3>
+      <a href="https://payment.tngdigital.com.my/sc/bDLofadvsx" target="_blank">
+        <img src="tng.jpg" alt="Touch n Go">
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Load cart total from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let grandTotal = 0;
+
+    cart.forEach(item => {
+      let price = parseFloat(item.price) || 0;
+      let qty = parseInt(item.quantity) || 1;
+      grandTotal += price * qty;
+    });
+
+    document.getElementById("total").textContent = grandTotal.toFixed(2);
+
+    // Show TNG logo after confirm
+    function showTNG() {
+      document.getElementById("tngLogo").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
