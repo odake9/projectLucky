@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: steelblue;
+  background:linear-gradient(120deg, #d5096f, #ab059259);
   color: #fff;
   font-family: 'Muli', sans-serif;
   display: flex;
@@ -30,19 +30,20 @@ body {
 
 .container a {
   text-decoration: none;
-  color: lightblue;
+  color: #ec9dc5;
 }
 
 .btn {
   cursor: pointer;
   display: inline-block;
   width: 100%;
-  background: lightblue;
+  background: #ec9dc5;
   padding: 15px;
   font-family: inherit;
   font-size: 16px;
   border: 0;
   border-radius: 5px;
+  color: white;
 }
 
 .btn:focus {
@@ -51,6 +52,11 @@ body {
 
 .btn:active {
   transform: scale(0.98);
+}
+
+.btn:hover {
+  background-color:#9a0283;  
+  transform: scale(1.05);      
 }
 
 .text {
@@ -79,7 +85,7 @@ body {
 .form-control input:focus,
 .form-control input:valid {
   outline: 0;
-  border-bottom-color: lightblue;
+  border-bottom-color: #ec9dc5;
 }
 
 .form-control label {
@@ -98,6 +104,6 @@ body {
 
 .form-control input:focus ~ label span,
 .form-control input:valid ~ label span {
-  color: lightblue;
+  color: #ec9dc5;
   transform: translateY(-30px);
 }
