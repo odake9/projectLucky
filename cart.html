@@ -164,7 +164,7 @@
   <header>
     <div class="header-buttons">
       <a href="home.html" class="nav-btn">Home</a>
-      <a href="order.html" class="nav-btn">← Back to Menu</a>
+      <a href="menu.html" class="nav-btn">← Back to Menu</a>
     </div>
     <h1>Your Cart</h1>
   </header>
@@ -239,14 +239,39 @@
   }
 
   function checkout() {
-    let remark = document.getElementById("remark").value.trim();
-    localStorage.setItem("orderRemark", remark);
-
-    alert(`✅ Thank you for your order! Your drinks are being prepared.\nRemark: ${remark || "No remark"}`);
-    
-    localStorage.removeItem("cart");
-    loadCart();
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
   }
+
+  let remark = document.getElementById("remark").value.trim();
+
+  fetch("save_order.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      cart: cart,
+      remark: remark
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("✅ Order saved! Your drinks are being prepared.");
+      localStorage.removeItem("cart");
+      localStorage.removeItem("orderRemark");
+      loadCart();
+    } else {
+      alert("❌ Failed to save order: " + data.message);
+    }
+  })
+  .catch(err => {
+    console.error("Error:", err);
+    alert("⚠️ Error saving order!");
+  });
+}
+
 
   // New function for Payment
   function payWithTNG() {

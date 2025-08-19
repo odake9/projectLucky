@@ -1,5 +1,6 @@
 const cartTableBody = document.querySelector("#cart-table tbody");
 const grandTotalElem = document.getElementById("grand-total");
+const confirmOrderBtn = document.getElementById("confirm-order");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -58,10 +59,41 @@ function attachEvents() {
   });
 }
 
-// Save
+// Save cart to localStorage
 function saveCart(reRender = true) {
   localStorage.setItem("cart", JSON.stringify(cart));
   if (reRender) renderCart();
+}
+
+// Confirm order and send to server
+if (confirmOrderBtn) {
+  confirmOrderBtn.addEventListener("click", () => {
+    if (cart.length === 0) {
+      alert("Your cart is empty!");
+      return;
+    }
+
+    fetch("save_order.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cart: cart })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("Order saved successfully!");
+        localStorage.removeItem("cart");
+        cart = [];
+        renderCart();
+      } else {
+        alert("Failed to save order: " + data.message);
+      }
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      alert("Error saving order!");
+    });
+  });
 }
 
 // Init
