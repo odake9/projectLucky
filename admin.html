@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Dashboard - Lucky Milk Tea</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #fff8f0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Navbar Pink Theme */
+    .navbar-inverse {
+      background-color: #ff99cc !important;
+      border-color: #ff80b3 !important;
+    }
+    .navbar-inverse .navbar-brand,
+    .navbar-inverse .navbar-nav>li>a {
+      color: white !important;
+    }
+    .navbar-inverse .navbar-nav>li>a:hover,
+    .navbar-inverse .navbar-brand:hover {
+      background-color: #ff80b3 !important;
+      color: white !important;
+    }
+
+    /* Dashboard Cards */
+    .panel {
+      border-radius: 12px;
+      box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+    }
+    .panel-heading {
+      border-radius: 12px 12px 0 0;
+      font-weight: bold;
+      text-align: center;
+    }
+    .panel-footer {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="home.html">Lucky Milk Tea Admin</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="home.html">🏠 Back to Website</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <h2 class="text-center" style="margin: 20px 0; color:#6b4f4f;">📊 Admin Dashboard</h2>
+  <div class="row">
+    <!-- Orders Panel -->
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading" style="background-color:#ff80b3; border-color:#ff80b3;">Orders</div>
+        <div class="panel-body">
+          <h3 class="text-center">25</h3>
+          <p class="text-center">Pending Orders</p>
+        </div>
+        <div class="panel-footer">
+          <a href="orders.html" class="btn btn-pink btn-sm" style="background:#ff99cc; color:white;">View Orders</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sales Panel -->
+    <div class="col-sm-4">
+      <div class="panel panel-success">
+        <div class="panel-heading" style="background-color:#ff99cc; border-color:#ff99cc;">Sales</div>
+        <div class="panel-body">
+          <h3 class="text-center">$2,340</h3>
+          <p class="text-center">Total Revenue This Week</p>
+        </div>
+        <div class="panel-footer">
+          <a href="sales.html" class="btn btn-pink btn-sm" style="background:#ff99cc; color:white;">View Sales</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Management -->
+    <div class="col-sm-4">
+      <div class="panel panel-info">
+        <div class="panel-heading" style="background-color:#ff66a3; border-color:#ff66a3;">Menu</div>
+        <div class="panel-body">
+          <h3 class="text-center">30</h3>
+          <p class="text-center">Menu Items</p>
+        </div>
+        <div class="panel-footer">
+          <a href="menu-management.html" class="btn btn-pink btn-sm" style="background:#ff99cc; color:white;">Manage Menu</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Staff List -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="background:#ffb3d9; color:#6b4f4f;">👩‍💻 Staff List</div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Staff Name</th>
+                <th>Role</th>
+                <th>Date Registered</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alice Tan</td>
+                <td>Manager</td>
+                <td>2025-01-05</td>
+              </tr>
+              <tr>
+                <td>Ben Wong</td>
+                <td>Cashier</td>
+                <td>2025-02-12</td>
+              </tr>
+              <tr>
+                <td>Chloe Lim</td>
+                <td>Barista</td>
+                <td>2025-03-20</td>
+              </tr>
+              <tr>
+                <td>Daniel Lee</td>
+                <td>Delivery Staff</td>
+                <td>2025-04-10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center" style="margin-top:20px; background:#ffccdd; padding:10px;">
+  <p>© 2025 Lucky Milk Tea Admin Dashboard</p>
+</footer>
+
+</body>
+</html>
