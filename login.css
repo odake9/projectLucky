@@ -107,3 +107,31 @@ body {
   color: #ec9dc5;
   transform: translateY(-30px);
 }
+
+.home-link {
+  text-decoration: none;       
+  color: white;               
+  background-color: #d5096f;   
+  padding: 10px 20px;          
+  border-radius: 8px;          
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.home-link:hover {
+  background-color:#9a0283;  
+  transform: scale(1.05);      
+}
+
+.forgot-link {
+  font-size: 14px;
+  color: #ff66a3; /* pink theme to match your site */
+  text-decoration: none;
+  float: left;
+  margin-bottom: 20px;
+}
+.forgot-link:hover {
+  text-decoration: underline;
+  color: #cc0052;
+}
