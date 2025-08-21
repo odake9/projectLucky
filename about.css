@@ -1,0 +1,60 @@
+/* General Page Styling */
+body {
+  background-color: #ffe6f2; /* light pink background */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+/* Back Button */
+.back-btn-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.back-btn {
+  background-color: pink;
+  color: white;
+  border: none;
+  font-size: 16px;
+  padding: 10px 20px;
+  transition: 0.3s;
+}
+.back-btn:hover {
+  background-color: #ff99cc;
+  color: white;
+}
+
+/* About Box */
+.about-box {
+  background-color: #fff0f5; /* softer pink */
+  border: 1px solid black;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.row{
+  background-color: #fff0f5; /* softer pink */
+  border: 1px solid black;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+/* Shop Section */
+.shop-section {
+  margin-top: 40px;
+}
+.shop-img {
+  width: 70%;
+  border-radius: 10px;
+}
+.visit-text {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+/* Footer */
+.footer {
+  background-color: #ffd6eb;
+  padding: 20px;
+  margin-top: 30px;
+  font-size: 14px;
+}
