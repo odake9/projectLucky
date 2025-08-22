@@ -1,37 +1,67 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const orderId = localStorage.getItem("lastOrderId");
-  if (!orderId) {
-    document.querySelector(".receipt").innerHTML = "<h2>No order found</h2>";
-    return;
-  }
+// order.js
 
-  fetch(`get_order.php?order_id=${orderId}`)
-    .then(res => res.json())
-    .then(data => {
-      if (!data.success) {
-        document.querySelector(".receipt").innerHTML = "<h2>Error loading order</h2>";
-        return;
-      }
+const menuContainer = document.getElementById("menu");
+const categoryButtons = document.querySelectorAll(".category-buttons button");
+const cartCount = document.getElementById("cart-count");
 
-      document.getElementById("order-date").textContent = "Date: " + data.order.order_date;
-      const tbody = document.querySelector("#order-table tbody");
-      tbody.innerHTML = "";
+// Load cart from localStorage
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+updateCartCount();
 
-      data.items.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${item.name}</td>
-          <td>${item.quantity}</td>
-          <td>${parseFloat(item.price).toFixed(2)}</td>
-          <td>${(item.price * item.quantity).toFixed(2)}</td>
-          <td>${item.remark || "-"}</td>
-        `;
-        tbody.appendChild(row);
-      });
+function updateCartCount() {
+  const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartCount.textContent = totalQty;
+}
 
-      document.getElementById("grand-total").textContent = data.order.total.toFixed(2);
-    })
-    .catch(() => {
-      document.querySelector(".receipt").innerHTML = "<h2>Error loading order</h2>";
+function addToCart(item) {
+  const existingItem = cart.find(cartItem => cartItem.name === item.name);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      ...item,
+      quantity: 1,
+      remark: "" // remark will be editable later in cart.html
     });
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+}
+
+function displayMenu(category) {
+  menuContainer.innerHTML = "";
+  const filteredItems = category === "all"
+    ? menuItems
+    : menuItems.filter(item => item.category === category);
+
+  filteredItems.forEach(item => {
+    const menuCard = document.createElement("div");
+    menuCard.classList.add("menu-item");
+    menuCard.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <div class="menu-info">
+        <h3>${item.name}</h3>
+        <p>${item.description}</p>
+        <p class="price">RM ${item.price.toFixed(2)}</p>
+        <button class="order-btn">Add to cart</button>
+      </div>
+    `;
+    menuContainer.appendChild(menuCard);
+
+    menuCard.querySelector(".order-btn").addEventListener("click", () => {
+      addToCart(item);
+    });
+  });
+}
+
+// Initial menu display
+displayMenu("all");
+
+// Category filter buttons
+categoryButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelector(".category-buttons .active").classList.remove("active");
+    button.classList.add("active");
+    displayMenu(button.dataset.category);
+  });
 });

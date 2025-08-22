@@ -25,5 +25,32 @@
     <button onclick="window.print()" class="print-btn">🖨️ Print Receipt</button>
   </div>
   <script src="order.js"></script>
+  <script>
+const urlParams = new URLSearchParams(window.location.search);
+const orderId = urlParams.get("order_id");
+
+fetch("get_order.php?order_id=" + orderId)
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("order-date").textContent = data.order.order_date;
+
+    let tbody = document.querySelector("#order-table tbody");
+    tbody.innerHTML = "";
+    data.items.forEach(item => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price.toFixed(2)}</td>
+          <td>${(item.price * item.quantity).toFixed(2)}</td>
+          <td>${item.remark || ""}</td>
+        </tr>
+      `;
+    });
+
+    document.getElementById("grand-total").textContent = data.order.total.toFixed(2);
+  });
+</script>
+
 </body>
 </html>
