@@ -8,47 +8,6 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-  <!-- Custom CSS -->
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    /* Typing animation */
-    .typing {
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 3px solid orange;
-      animation: typing 3s steps(30, end), blink 0.7s step-end infinite;
-    }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-
-    /* Panel animation */
-    .panel {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.6s ease-out;
-    }
-    .panel.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Image hover effect */
-    .panel-body img {
-      transition: transform 0.3s ease;
-    }
-    .panel-body img:hover {
-      transform: scale(1.1);
-    }
-  </style>
-
   <!-- jQuery & Bootstrap JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -56,7 +15,7 @@
 <body>
 
 <div class="jumbotron text-center">
-  <h1 class="typing">Lucky Milk Tea</h1>      
+  <h1 class="slide-in">Lucky Milk Tea</h1>      
   <p>Discover the art of handcrafted milk tea</p>
 </div>
 
@@ -72,7 +31,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="home.html">Home</a></li>
-        <li><a href="deals.html">Deals</a></li>
+        <li><a href="about.html">About us</a></li>
         <li><a href="menu.html">Menu</a></li>
         <li><a href="order.html">Order</a></li>
         <li><a href="contact.html">Contact</a></li>

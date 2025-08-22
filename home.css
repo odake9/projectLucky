@@ -7,39 +7,42 @@ body {
       font-family: Arial, sans-serif;
     }
 
-    /* Typing animation */
-    .typing {
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 3px solid orange;
-      animation: typing 3s steps(30, end), blink 0.7s step-end infinite;
-    }
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
+    /* Typing animation (smoother) */
+/* Slide-in text animation */
+.slide-in {
+  opacity: 0;
+  transform: translateX(-50px); /* Slide from left */
+  animation: slideIn 1s ease-out forwards;
+}
 
-    /* Panel animation */
-    .panel {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.6s ease-out;
-    }
-    .panel.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
-    /* Image hover effect */
-    .panel-body img {
-      transition: transform 0.3s ease;
-    }
-    .panel-body img:hover {
-      transform: scale(1.1);
-    }
+/* Panel slide-in from bottom */
+.panel {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.panel.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image hover effect (keep smooth) */
+.panel-body img {
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+.panel-body img:hover {
+  transform: scale(1.08);
+  filter: brightness(1.05);
+}
+
+
   
   /* Remove the jumbotron's default bottom margin and add background */
   .text h1,p{
