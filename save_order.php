@@ -2,7 +2,7 @@
 header("Content-Type: application/json");
 
 // DB connection
-$conn = new mysqli("localhost", "root", "", "milktea_db");
+$conn = new mysqli("localhost", "root", "", "milk_tea_shop");
 if ($conn->connect_error) {
     echo json_encode(["success" => false, "message" => "DB connection failed"]);
     exit;

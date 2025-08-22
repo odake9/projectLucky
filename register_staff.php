@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root"; // change if different
 $password = "";     // change if you set one
-$dbname = "lucky_milktea";
+$dbname = "milk_tea_shop";
 
 // Connect to MySQL
 $conn = new mysqli($servername, $username, $password, $dbname);
