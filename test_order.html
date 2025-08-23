@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Save Order</title>
+</head>
+<body>
+  <h1>Test Save Order</h1>
+  <button id="sendOrder">Send Order</button>
+
+  <script>
+    document.getElementById("sendOrder").addEventListener("click", () => {
+      // Example cart
+      const myCart = [
+        { name: "Milk Tea", price: 5.50, quantity: 2, remark: "Less sugar" },
+        { name: "Brown Sugar Boba", price: 6.00, quantity: 1, remark: "Extra ice" }
+      ];
+
+      fetch("http://localhost/projectLucky/api/save_order.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cart: myCart })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Response:", data);
+        alert("Order saved! Order ID: " + data.order_id);
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("Failed to save order. Check console for details.");
+      });
+    });
+  </script>
+</body>
+</html>

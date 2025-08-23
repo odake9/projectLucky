@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Receipt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdf6f0;
+      text-align: center;
+      padding: 30px;
+    }
+    .receipt {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      margin-bottom: 5px;
+    }
+    .date {
+      margin-bottom: 20px;
+      color: #555;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    th {
+      background: #f4a261;
+      color: #fff;
+    }
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: right;
+    }
+    .print-btn {
+      background: #2a9d8f;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .print-btn:hover {
+      background: #21867a;
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt">
+    <h1>Lucky Milk Tea</h1>
+    <p class="date" id="order-date"></p>
+
+    <table id="order-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Price (RM)</th>
+          <th>Total (RM)</th>
+          <th>Remark</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <p class="total">Grand Total: RM <span id="grand-total">0.00</span></p>
+    <button onclick="window.print()" class="print-btn">🖨️ Print Receipt</button>
+  </div>
+
+  <script>
+  // Get order_id from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get("order_id");
+
+  if (!orderId) {
+    document.querySelector(".receipt").innerHTML = "<p>No order selected!</p>";
+  } else {
+    fetch("order.php?order_id=" + orderId)
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) {
+          document.querySelector(".receipt").innerHTML = "<p>" + data.message + "</p>";
+          return;
+        }
+
+        // Show order date
+        document.getElementById("order-date").textContent = "Order Date: " + data.order.order_date;
+
+        // Fill table
+        let tbody = document.querySelector("#order-table tbody");
+        tbody.innerHTML = "";
+        data.items.forEach(item => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${item.name}</td>
+              <td>${item.quantity}</td>
+              <td>${parseFloat(item.price).toFixed(2)}</td>
+              <td>${(item.price * item.quantity).toFixed(2)}</td>
+              <td>${item.remark || ""}</td>
+            </tr>
+          `;
+        });
+
+        // Show grand total
+        document.getElementById("grand-total").textContent = parseFloat(data.order.total).toFixed(2);
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        document.querySelector(".receipt").innerHTML = "<p>Failed to load order.</p>";
+      });
+  }
+  </script>
+</body>
+</html>

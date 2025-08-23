@@ -107,7 +107,11 @@ document.getElementById("confirm-order").addEventListener("click", () => {
 
   fetch("save_order.php", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Content-Type": "application/json" },
     body: JSON.stringify({ cart, total })
   })
   .then(res => res.json())
