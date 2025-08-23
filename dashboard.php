@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "lucky_milktea";
+$dbname = "milk_tea_shop";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 $sql = "SELECT name, role, date_registered FROM staff ORDER BY date_registered DESC";
