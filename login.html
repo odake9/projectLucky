@@ -2,64 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Lucky Milk Tea</title>
+  <title>Lucky Milk Tea - Login</title>
   <link rel="stylesheet" href="login.css">
-  <script defer src="login.js"></script>
 </head>
 <body>
-
   <div class="container">
-      <h1>Please Login</h1>
-      <form>
-        <div class="form-control">
-          <input type="text" required>
-          <label>Email</label>
-          <!-- <label>
-            <span style="transition-delay: 0ms">E</span>
-              <span style="transition-delay: 50ms">m</span>
-              <span style="transition-delay: 100ms">a</span>
-              <span style="transition-delay: 150ms">i</span>
-              <span style="transition-delay: 200ms">l</span>
-        </label> -->
-        </div>
+    <h1>Please Login</h1>
+    <form action="login.php" method="POST">
+      <div class="form-control">
+        <input type="email" name="email" required>
+        <label>
+          <span>E</span><span>m</span><span>a</span><span>i</span><span>l</span>
+        </label>
+      </div>
 
-        <div class="form-control">
-          <input type="password" required>
-          <label>Password</label>
-        </div>
+      <div class="form-control">
+        <input type="password" name="password" required>
+        <label>
+          <span>P</span><span>a</span><span>s</span><span>s</span><span>w</span><span>o</span><span>r</span><span>d</span>
+        </label>
+      </div>
 
-        <button class="btn">Login</button>
+      <a href="forgot.html" class="forgot-link">Forgot Password?</a>
 
-        <p class="text">Don't have an account? <a href="register.html">Register</a> </p>
-      </form>
-    </div>
-  <hr>
-  <hr>
-    <a href="home.html" class="home-link">HOME</a>
+      <button type="submit" class="btn">Login</button>
 
-<style>
-.home-link {
-  text-decoration: none;       /* remove underline */
-  color: white;                /* text color */
-  background-color: #3498db;   /* blue background */
-  padding: 10px 20px;          /* spacing inside */
-  border-radius: 8px;          /* rounded corners */
-  text-decoration: none;       
-  color: white;               
-  background-color: #d5096f;   
-  padding: 10px 20px;          
-  border-radius: 8px;          
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.2s;
-}
+      <p class="text">Don't have an account? <a href="register.html">Register</a></p>
+    </form>
+  </div>
 
-.home-link:hover {
-  background-color: #217dbb;   /* darker blue on hover */
-  transform: scale(1.05);      /* slight zoom effect */
-  background-color:#9a0283;  
-  transform: scale(1.05);      
-}
-</style>
+  <a href="home.html" class="home-link">HOME</a>
 </body>
 </html>

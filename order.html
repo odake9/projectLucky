@@ -68,7 +68,6 @@
           <th>Qty</th>
           <th>Price (RM)</th>
           <th>Total (RM)</th>
-          <th>Remark</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -76,6 +75,7 @@
 
     <p class="total">Grand Total: RM <span id="grand-total">0.00</span></p>
     <button onclick="window.print()" class="print-btn">🖨️ Print Receipt</button>
+    <a href="home.html" class="print-btn">HOME</a>
   </div>
 
   <script>
@@ -107,7 +107,6 @@
               <td>${item.quantity}</td>
               <td>${parseFloat(item.price).toFixed(2)}</td>
               <td>${(item.price * item.quantity).toFixed(2)}</td>
-              <td>${item.remark || ""}</td>
             </tr>
           `;
         });
