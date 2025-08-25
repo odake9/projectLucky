@@ -23,7 +23,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <h2>Staff Dashboard</h2>
     <ul>
-      <li><a href="dashboard.php">👩‍💻 View Staff List</a></li>
+      <li><a href="#">👩‍💻 View Staff List</a></li>
       <li><a href="logout.php">🚪 Logout</a></li>
     </ul>
   </div>
