@@ -85,7 +85,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
   <div class="admin-container">
     <div class="card">
       <div class="icon">👨‍💼</div>
-      <a href="staff_manage.php">Manage Staff</a>
+      <a href="#">Manage Staff</a>
     </div>
     <div class="card">
       <div class="icon">📚</div>

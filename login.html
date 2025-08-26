@@ -1,36 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>Login - Lucky Milk Tea</title>
   <meta charset="UTF-8">
-  <title>Lucky Milk Tea - Login</title>
-  <link rel="stylesheet" href="login.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    }
+
+    /* Login Box */
+    .login-box {
+      background: #fff;
+      padding: 35px 40px;
+      border-radius: 15px;
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 24px;
+    }
+
+    /* Inputs */
+    .login-box input[type="email"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .login-box input[type="email"]:focus,
+    .login-box input[type="password"]:focus {
+      border-color: #7873f5;
+      outline: none;
+      box-shadow: 0 0 6px rgba(120, 115, 245, 0.6);
+    }
+
+    /* Button */
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: 0.3s ease;
+    }
+
+    .login-box button:hover {
+      background: linear-gradient(135deg, #7873f5, #ff6ec4);
+    }
+
+    /* Links */
+    .login-box a {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #7873f5;
+      transition: 0.2s;
+    }
+
+    .login-box a:hover {
+      text-decoration: underline;
+    }
+
+    .back-btn {
+      font-weight: 500;
+    }
+
+    .forgot-btn {
+      font-style: italic;
+      color: #555;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Please Login</h1>
+
+  <div class="login-box">
+    <h2>🔑 Login</h2>
     <form action="login.php" method="POST">
-      <div class="form-control">
-        <input type="email" name="email" required>
-        <label>
-          <span>E</span><span>m</span><span>a</span><span>i</span><span>l</span>
-        </label>
-      </div>
-
-      <div class="form-control">
-        <input type="password" name="password" required>
-        <label>
-          <span>P</span><span>a</span><span>s</span><span>s</span><span>w</span><span>o</span><span>r</span><span>d</span>
-        </label>
-      </div>
-
-      <a href="forgot_password.html" class="forgot-link">Forgot Password?</a>
-
-      <button type="submit" class="btn">Login</button>
-
-      <p class="text">Don't have an account? <a href="register.html">Register</a></p>
+      <input type="email" name="email" placeholder="📧 Email" required>
+      <input type="password" name="password" placeholder="🔒 Password" required>
+      <button type="submit">Login</button>
     </form>
+    <a href="register.html" class="back-btn">✨ Create Account</a>
+    <a href="home.html" class="back-btn">🏠 Home</a>
+    <a href="forgot_password.html" class="forgot-btn">❓ Forgot Password?</a>
   </div>
-<br>
-  <a href="home.html" class="home-link">HOME</a>
+
 </body>
 </html>

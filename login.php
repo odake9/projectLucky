@@ -9,10 +9,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get form data
-$email = $_POST['email'] ?? '';
-$pass = $_POST['password'] ?? '';
-
+// Function to show styled error
 function showError($message) {
     echo "
     <!DOCTYPE html>
@@ -32,49 +29,54 @@ function showError($message) {
                 margin: 0;
             }
             .error-box {
-                background: #ffe5e5;
-                border: 2px solid #ff6b6b;
-                padding: 20px 30px;
-                border-radius: 12px;
+                background: #fff;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
                 text-align: center;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
                 max-width: 400px;
+                width: 100%;
             }
             .error-box h2 {
-                margin: 0 0 10px;
-                font-size: 1.4rem;
-                color: #b00020;
+                color: #ff4d4d;
+                margin-bottom: 15px;
+                font-size: 22px;
             }
             .error-box p {
                 color: #333;
-                margin: 5px 0 15px;
+                font-size: 16px;
+                margin-bottom: 20px;
             }
-            .back-btn {
-                background: #ff9aa2;
-                color: white;
-                border: none;
+            .btn {
+                display: inline-block;
                 padding: 10px 20px;
+                background: #ff4d4d;
+                color: #fff;
                 border-radius: 8px;
-                cursor: pointer;
                 text-decoration: none;
-                transition: background 0.2s;
+                font-weight: bold;
+                transition: 0.3s;
             }
-            .back-btn:hover {
-                background: #ff6f91;
+            .btn:hover {
+                background: #e63939;
             }
         </style>
     </head>
     <body>
         <div class='error-box'>
-            <h2>⚠️ Login Failed</h2>
+            <h2>⚠️ Login Error</h2>
             <p>$message</p>
-            <a href='login.html' class='back-btn'>🔙 Back to Login</a>
+            <a href='login.html' class='btn'>🔙 Back to Login</a>
         </div>
     </body>
     </html>
     ";
     exit();
 }
+
+// Get form data
+$email = $_POST['email'] ?? '';
+$pass = $_POST['password'] ?? '';
 
 if (!empty($email) && !empty($pass)) {
     // Check if email exists
@@ -99,17 +101,17 @@ if (!empty($email) && !empty($pass)) {
             if ($row['role'] === 'admin') {
                 header("Location: admin.php");
             } else {
-                header("Location: staff.php"); // 👈 staff goes to menu
+                header("Location: staff.php"); 
             }
             exit();
         } else {
-            showError("❌ The password you entered is incorrect.");
+            showError("Password is incorrect. Please try again.");
         }
     } else {
-        showError("❌ No account found with that email.");
+        showError("No account found with that email.");
     }
 } else {
-    showError("⚠️ Please enter both email and password.");
+    showError("Please enter both email and password.");
 }
 
 $conn->close();
