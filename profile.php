@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 
     <br>
-    <a href="admin.html" class="btn">Back to Dashboard</a>
+    <a href="admin.php" class="btn">Back to Dashboard</a>
     <br>
     <br>
     <a href="logout.php" class="btn logout">Logout</a>

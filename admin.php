@@ -55,8 +55,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
   <ul class="admin-menu">
     <li><a href="staff_manage.php">👨‍💼 Manage Staff</a></li>
     <li><a href="admin_menu.html">📚 Menu</a></li>
-    <li><a href="attendance.php">📝 Record Staff Training Attendance</a></li>
-    <li><a href="feedback_list.php">💬 View Feedback</a></li>
+    <li><a href="staff_list.php">💬 Staff List </a></li>
+    <li><a href="profile.php">📝 View Profile</a></li>
     <li><a href="logout.php">🚪 Logout</a></li>
   </ul>
 
