@@ -5,7 +5,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,51 +13,97 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f8f9fa;
-      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      margin: 0;
+      padding: 0;
     }
     h1 {
       text-align: center;
-      margin-bottom: 30px;
+      margin: 30px 0;
+      color: #343a40;
+      font-weight: bold;
     }
-    ul.admin-menu {
-      list-style-type: none;
-      padding: 0;
-      max-width: 500px;
+
+    .admin-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 900px;
       margin: auto;
+      padding: 20px;
     }
-    ul.admin-menu li {
-      background: #007bff;
-      color: white;
-      margin: 10px 0;
-      padding: 15px;
+
+    .card {
+      background: white;
+      width: 220px;
+      padding: 25px 20px;
       text-align: center;
-      border-radius: 8px;
-      transition: background 0.3s;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
-    ul.admin-menu li a {
-      color: white;
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      background: #f1f9ff;
+    }
+
+    .card a {
       text-decoration: none;
+      color: #007bff;
       font-size: 18px;
+      font-weight: 600;
       display: block;
+      margin-top: 10px;
     }
-    ul.admin-menu li:hover {
-      background: #0056b3;
+
+    .card a:hover {
+      color: #0056b3;
+    }
+
+    .icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+      color: #007bff;
+      transition: color 0.3s;
+    }
+
+    .card:hover .icon {
+      color: #0056b3;
     }
   </style>
 </head>
 <body>
 
-  <h1>Welcome Admin</h1>
+  <h1>🌟 Welcome Admin 🌟</h1>
 
-  <ul class="admin-menu">
-    <li><a href="staff_manage.php">👨‍💼 Manage Staff</a></li>
-    <li><a href="admin_menu.html">📚 Menu</a></li>
-    <li><a href="attendance.php">📝 Record Staff Training Attendance</a></li>
-    <li><a href="feedback_list.php">💬 View Feedback</a></li>
-    <li><a href="logout.php">🚪 Logout</a></li>
-  </ul>
+  <div class="admin-container">
+    <div class="card">
+      <div class="icon">👨‍💼</div>
+      <a href="staff_manage.php">Manage Staff</a>
+    </div>
+    <div class="card">
+      <div class="icon">📚</div>
+      <a href="admin_menu.html">Menu</a>
+    </div>
+    <div class="card">
+      <div class="icon">💬</div>
+      <a href="admin_viewfeedback.php">View Feedback</a>
+    </div>
+    <div class="card">
+      <div class="icon">📝</div>
+      <a href="profile.php">View Profile</a>
+    </div>
+    <div class="card">
+      <div class="icon">🚪</div>
+      <a href="logout.php">Logout</a>
+    </div>
+  </div>
 
 </body>
 </html>

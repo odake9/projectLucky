@@ -197,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 
     <br>
-    <a href="admin.php" class="btn dashboard">🏠 Dashboard</a>
+    <a href="staff.php" class="btn dashboard">🏠 Dashboard</a>
     <a href="logout.php" class="btn logout">🚪 Logout</a>
   </div>
 </body>
