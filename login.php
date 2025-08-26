@@ -9,7 +9,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get data from form
+// Get form data
 $email = $_POST['email'] ?? '';
 $pass = $_POST['password'] ?? '';
 
@@ -29,10 +29,15 @@ if (!empty($email) && !empty($pass)) {
             // Save user info in session
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['name'] = $row['name'];
+            $_SESSION['email'] = $row['email'];
             $_SESSION['role'] = $row['role'];
 
-            // Redirect to staff.html
-            header("Location: admin.html");
+            // Redirect based on role
+            if ($row['role'] === 'admin') {
+                header("Location: admin.php");
+            } else {
+                header("Location: admin.php");
+            }
             exit();
         } else {
             echo "❌ Wrong password.";
@@ -45,10 +50,4 @@ if (!empty($email) && !empty($pass)) {
 }
 
 $conn->close();
-?>
-<?php
-session_start();
-$_SESSION['email'] = $email; // store user/admin email after successful login
-header("Location: dashboard.php"); // redirect to dashboard
-exit;
 ?>
