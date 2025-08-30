@@ -10,19 +10,26 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard - Lucky Milk Tea</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #fff5f9);
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
     h1 {
+      margin: 40px 0 20px;
+      color: #d63384;
+      font-weight: 600;
       text-align: center;
-      margin: 30px 0;
-      color: #343a40;
-      font-weight: bold;
+      font-size: 34px;
+      letter-spacing: 1px;
     }
 
     .admin-container {
@@ -30,74 +37,81 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      gap: 20px;
-      max-width: 900px;
-      margin: auto;
+      gap: 25px;
+      max-width: 1100px;
       padding: 20px;
     }
 
     .card {
-      background: white;
-      width: 220px;
-      padding: 25px 20px;
+      width: 240px;
+      padding: 30px 20px;
       text-align: center;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 6px 15px rgba(214, 51, 132, 0.15);
       transition: all 0.3s ease;
       cursor: pointer;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      background: #f1f9ff;
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 12px 25px rgba(214, 51, 132, 0.25);
+      background: #fff0f6;
+    }
+
+    .icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #d63384;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .card:hover .icon {
+      transform: scale(1.2);
+      color: #ff4d94;
     }
 
     .card a {
       text-decoration: none;
-      color: #007bff;
+      color: #d63384;
       font-size: 18px;
       font-weight: 600;
       display: block;
-      margin-top: 10px;
+      margin-top: 8px;
+      transition: color 0.3s ease;
     }
 
-    .card a:hover {
-      color: #0056b3;
+    .card:hover a {
+      color: #ff4d94;
     }
 
-    .icon {
-      font-size: 40px;
-      margin-bottom: 10px;
-      color: #007bff;
-      transition: color 0.3s;
-    }
-
-    .card:hover .icon {
-      color: #0056b3;
+    @media (max-width: 768px) {
+      .card {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>🌟 Welcome Staff 🌟</h1>
+  <h1>🌸 Welcome, Staff 🌸</h1>
 
   <div class="admin-container">
     <div class="card">
       <div class="icon">👨‍💼</div>
-      <a href="#">Manage Staff</a>
+      <a href="staff_manage.php">Manage Staff</a>
     </div>
     <div class="card">
       <div class="icon">📚</div>
-      <a href="staff_menu.html">Menu</a>
+      <a href="admin_menu.html">Menu</a>
     </div>
     <div class="card">
       <div class="icon">💬</div>
-      <a href="staff_viewfeedback.php">View Feedback</a>
+      <a href="admin_viewfeedback.php">View Feedback</a>
     </div>
     <div class="card">
       <div class="icon">📝</div>
-      <a href="staff_profile.php">View Profile</a>
+      <a href="profile.php">View Profile</a>
     </div>
     <div class="card">
       <div class="icon">🚪</div>

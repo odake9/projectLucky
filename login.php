@@ -110,8 +110,6 @@ if (!empty($email) && !empty($pass)) {
     } else {
         showError("No account found with that email.");
     }
-} else {
-    showError("Please enter both email and password.");
 }
 
 $conn->close();

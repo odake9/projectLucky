@@ -99,16 +99,16 @@ elseif (isset($_POST['reset_password'])) {
         if ($stmt->execute()) {
             unset($_SESSION['otp']);
             unset($_SESSION['reset_email']);
-            showMessage("✅ Password reset successfully!", "success", "login.php");
+            showMessage("✅ Password reset successfully!", "success", "login.html");
         } else {
             showMessage("❌ Error updating password. Please try again.", "error");
         }
         $stmt->close();
     } else {
-        showMessage("❌ Invalid OTP!", "error", "reset_password_form.php");
+        showMessage("❌ Invalid OTP!", "error", "forgot_password.html");
     }
 } else {
-    showMessage("⚠️ Invalid request.", "error");
+    showMessage("⚠️ Invalid Request!", "error", "forgot_password.html");
 }
 
 $conn->close();
