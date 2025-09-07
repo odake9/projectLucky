@@ -37,67 +37,72 @@
 
   <script>
     function loadCart() {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const cartContainer = document.getElementById("cart-container");
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartContainer = document.getElementById("cart-container");
 
-      if (cart.length === 0) {
-        cartContainer.innerHTML = `<p class="empty-message">🛒 Your cart is empty.</p>`;
-        return;
-      }
+  if (cart.length === 0) {
+    cartContainer.innerHTML = `<p class="empty-message">🛒 Your cart is empty.</p>`;
+    return;
+  }
 
-      let total = 0;
-      let tableHTML = `<table>
-        <tr><th>Image</th><th>Item</th><th>Price</th><th>Quantity</th><th>Remove</th></tr>`;
+  let total = 0;
+  let tableHTML = `<table>
+    <tr><th>Image</th><th>Item</th><th>Price</th><th>Quantity</th><th>Remove</th></tr>`;
 
-      cart.forEach((item, index) => {
-        total += item.price * item.quantity;
-        tableHTML += `<tr>
-          <td><img src="${item.image}" alt="${item.name}" width="60" style="border-radius:8px;"></td>
-          <td>${item.name}</td>
-          <td>RM ${item.price.toFixed(2)}</td>
-          <td>
-            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
-            ${item.quantity}
-            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-          </td>
-          <td><button class="remove-btn" onclick="removeItem(${index})">REMOVE</button></td>
-        </tr>`;
-      });
+  cart.forEach((item, index) => {
+    total += item.price * item.quantity;
+    tableHTML += `<tr>
+      <td><img src="${item.image}" alt="${item.name}" width="60" style="border-radius:8px;"></td>
+      <td>${item.name}</td>
+      <td>RM ${item.price.toFixed(2)}</td>
+      <td>
+        <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+        ${item.quantity}
+        <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+      </td>
+      <td><button class="remove-btn" onclick="removeItem(${index})">REMOVE</button></td>
+    </tr>`;
+  });
 
-      tableHTML += `</table>
-        <label><strong>Remark:</strong></label>
-        <textarea id="remark" class="remark-box" placeholder="E.g., Less sugar, add pearls..."></textarea>
-        <p class="total">Total: RM ${total.toFixed(2)}</p>
-        <button class="checkout-btn" onclick="confirmOrder()" id="confirm-order">Confirm Order</button>
-        <button class="payment-btn" onclick="payWithTNG()">💳 Pay with TNG eWallet</button>`;
-      cartContainer.innerHTML = tableHTML;
-    }
+  tableHTML += `</table>
+    <label><strong>Remark:</strong></label>
+    <textarea id="remark" class="remark-box" placeholder="E.g., Less sugar, add pearls..."></textarea>
+    <p class="total">Total: RM ${total.toFixed(2)}</p>
+    <button class="checkout-btn" onclick="goToCheckout()">🛒 Checkout</button>`;
+  cartContainer.innerHTML = tableHTML;
+}
 
-    function changeQty(index, change) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart[index].quantity += change;
-      if (cart[index].quantity < 1) cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      loadCart();
-    }
+function changeQty(index, change) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart[index].quantity += change;
+  if (cart[index].quantity < 1) cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCart();
+}
 
-    function removeItem(index) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      loadCart();
-    }
-  
+function removeItem(index) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCart();
+}
 
-    function payWithTNG() {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      let remark = document.getElementById("remark").value.trim();
-      alert(`💳 Please pay RM ${total.toFixed(2)} via TNG eWallet.\nRemark: ${remark || "No remark"}`);
-      window.open("payment.html", "_blank");
-    }
+function goToCheckout() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
 
-    loadCart();
+  let remark = document.getElementById("remark").value.trim();
+  localStorage.setItem("remark", remark);
+
+  // ✅ go to payment page
+  window.location.href = "payment.html";
+}
+
+loadCart();
+
   </script>
 
 <script>

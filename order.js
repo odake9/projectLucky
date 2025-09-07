@@ -1,5 +1,3 @@
-// order.js
-
 const menuContainer = document.getElementById("menu");
 const categoryButtons = document.querySelectorAll(".category-buttons button");
 const cartCount = document.getElementById("cart-count");
@@ -8,11 +6,15 @@ const cartCount = document.getElementById("cart-count");
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 updateCartCount();
 
+// Update cart badge
 function updateCartCount() {
   const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartCount.textContent = totalQty;
+  if (cartCount) {
+    cartCount.textContent = totalQty;
+  }
 }
 
+// Add item to cart
 function addToCart(item) {
   const existingItem = cart.find(cartItem => cartItem.name === item.name);
   if (existingItem) {
@@ -25,9 +27,10 @@ function addToCart(item) {
     });
   }
   localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
+  updateCartCount(); // 🔥 instantly update badge
 }
 
+// Display menu items
 function displayMenu(category) {
   menuContainer.innerHTML = "";
   const filteredItems = category === "all"
@@ -48,6 +51,7 @@ function displayMenu(category) {
     `;
     menuContainer.appendChild(menuCard);
 
+    // Add to cart button
     menuCard.querySelector(".order-btn").addEventListener("click", () => {
       addToCart(item);
     });
@@ -64,4 +68,10 @@ categoryButtons.forEach(button => {
     button.classList.add("active");
     displayMenu(button.dataset.category);
   });
+});
+
+// Sync across multiple tabs
+window.addEventListener("storage", () => {
+  cart = JSON.parse(localStorage.getItem("cart")) || [];
+  updateCartCount();
 });
