@@ -15,27 +15,28 @@
       background: white;
       border-radius: 16px;
       padding: 30px;
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
       animation: fadeIn 0.6s ease-in-out;
       text-align: center;
     }
 
-    h2 {
-      margin-bottom: 10px;
-      color: #00ff9d;
-    }
+    h2 { margin-bottom: 10px; color: #00b894; }
+    p { font-size: 18px; margin-bottom: 10px; }
+    #total { font-size: 22px; font-weight: bold; color: #d63031; }
 
-    p {
-      font-size: 18px;
-      margin-bottom: 20px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
     }
-
-    #total {
-      font-size: 24px;
-      color: #ff0000;
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
     }
+    th { background: #ffe0f0; color: #444; }
 
     .btn {
       background: #de8686;
@@ -46,29 +47,22 @@
       border-radius: 12px;
       cursor: pointer;
       transition: transform 0.2s, background 0.3s;
+      margin-top: 15px;
     }
+    .btn:hover { background: #cb119a; transform: scale(1.05); }
 
-    .btn:hover {
-      background: #cb119a;
-      transform: scale(1.05);
-    }
-
-    #tngLogo {
+    .payment-section {
       display: none;
       margin-top: 30px;
       text-align: center;
       animation: fadeIn 0.6s ease-in-out;
     }
-
-    #tngLogo img {
-      width: 200px;
+    .payment-section img {
+      width: 180px;
       cursor: pointer;
       transition: transform 0.3s ease;
     }
-
-    #tngLogo img:hover {
-      transform: scale(1.1);
-    }
+    .payment-section img:hover { transform: scale(1.1); }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
@@ -80,35 +74,86 @@
 
   <div class="checkout-container">
     <h2>Confirm Your Payment</h2>
-    <p>Total: <strong id="total">0.00</strong> MYR</p>
 
-    <button class="btn" onclick="showTNG()">Confirm Payment</button>
+    <!-- Cart items -->
+    <table id="cartTable">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price (RM)</th>
+          <th>Qty</th>
+          <th>Subtotal (RM)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-    <div id="tngLogo">
-      <h3>Payment Confirmed via TNG</h3>
-      <a href="https://payment.tngdigital.com.my/sc/bDLofadvsx" target="_blank">
-        <img src="tng.jpg" alt="Touch n Go">
-      </a>
+    <p>Total: <span id="total">0.00</span> MYR</p>
+
+    <button class="btn" onclick="showPayments()">Confirm Payment</button>
+    <button class="btn" style="background:#aaa;" onclick="cancelPayment()">Cancel</button>
+
+
+    <!-- Payment Options -->
+    <div id="paymentOptions" style="display:none; margin-top:30px;">
+      <h3>Select Payment Method</h3>
+
+      <div class="payment-section">
+        <h4>Touch ’n Go</h4>
+        <a href="https://payment.tngdigital.com.my/sc/bDLofadvsx" target="_blank">
+          <img src="tng.jpg" alt="Touch n Go">
+        </a>
+      </div>
+
+      <div class="payment-section">
+        <h4>FPX Payment</h4>
+        <a href="https://www.mepsfpx.com.my/" target="_blank">
+          <img src="fpx-logo.jpg" alt="FPX Payment">
+        </a>
+      </div>
     </div>
   </div>
 
   <script>
-    // Load cart total from localStorage
+    // Load cart from localStorage
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let grandTotal = 0;
+    let tbody = document.querySelector("#cartTable tbody");
 
-    cart.forEach(item => {
-      let price = parseFloat(item.price) || 0;
-      let qty = parseInt(item.quantity) || 1;
-      grandTotal += price * qty;
-    });
+    if (cart.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4">Your cart is empty.</td></tr>`;
+    } else {
+      cart.forEach(item => {
+        let price = parseFloat(item.price) || 0;
+        let qty = parseInt(item.quantity) || 1;
+        let subtotal = price * qty;
+        grandTotal += subtotal;
+
+        let row = `
+          <tr>
+            <td>${item.name}</td>
+            <td>${price.toFixed(2)}</td>
+            <td>${qty}</td>
+            <td>${subtotal.toFixed(2)}</td>
+          </tr>
+        `;
+        tbody.insertAdjacentHTML("beforeend", row);
+      });
+    }
 
     document.getElementById("total").textContent = grandTotal.toFixed(2);
 
-    // Show TNG logo after confirm
-    function showTNG() {
-      document.getElementById("tngLogo").style.display = "block";
+    function showPayments() {
+      document.getElementById("paymentOptions").style.display = "block";
+      document.querySelectorAll(".payment-section").forEach(div => div.style.display = "block");
     }
+
+    function cancelPayment() {
+      if (confirm("Are you sure you want to cancel the payment and return to your cart?")) {
+        window.location.href = "cart.html";
+      }
+    }
+
   </script>
 
 </body>
