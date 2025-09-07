@@ -103,7 +103,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     </div>
     <div class="card">
       <div class="icon">📚</div>
-      <a href="admin_menu.html">Menu</a>
+      <a href="admin_menu.php">Edit Menu</a>
     </div>
     <div class="card">
       <div class="icon">💬</div>
