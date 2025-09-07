@@ -97,7 +97,7 @@ $result = $conn->query($sql);
 
 <div class="top-actions">
   <a href="admin.php" class="btn btn-default">⬅️ Back to Dashboard</a>
-  <a href="menu.php" class="btn btn-info">👀 View Menu</a>
+  <a href="admin_view_menu.php" class="btn btn-info">👀 View Menu</a>
   <a href="add_menu.php" class="btn btn-pink">➕ Add New Menu Item</a>
 </div>
 
