@@ -9,7 +9,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Dashboard - Lucky Milk Tea</title>
+  <title>Staff Dashboard - Lucky Milk Tea</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -103,7 +103,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
     </div>
     <div class="card">
       <div class="icon">📚</div>
-      <a href="admin_menu.html">Menu</a>
+      <a href="staff_menu.php">Edit Menu</a>
     </div>
     <div class="card">
       <div class="icon">💬</div>
