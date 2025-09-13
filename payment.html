@@ -3,20 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- W3.CSS Framework -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
   <style>
+    body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
     body {
-      font-family: "Poppins", Arial, sans-serif;
       background: linear-gradient(120deg, #f6d365, #fda085);
       margin: 0;
-      padding: 20px;
     }
 
     .checkout-container {
       background: white;
       border-radius: 16px;
       padding: 30px;
-      max-width: 700px;
-      margin: auto;
+      max-width: 800px;
+      margin: 80px auto;
       box-shadow: 0 6px 20px rgba(0,0,0,0.15);
       animation: fadeIn 0.6s ease-in-out;
       text-align: center;
@@ -32,7 +40,7 @@
       margin: 20px 0;
     }
     th, td {
-      padding: 10px;
+      padding: 12px;
       border-bottom: 1px solid #ddd;
       text-align: center;
     }
@@ -41,15 +49,22 @@
     .btn {
       background: #de8686;
       color: white;
-      padding: 15px 40px;
+      padding: 12px 30px;
       font-size: 18px;
       border: none;
       border-radius: 12px;
       cursor: pointer;
       transition: transform 0.2s, background 0.3s;
-      margin-top: 15px;
+      margin: 10px;
     }
     .btn:hover { background: #cb119a; transform: scale(1.05); }
+
+    .btn-cancel {
+      background: #aaa;
+    }
+    .btn-cancel:hover {
+      background: #777;
+    }
 
     .payment-section {
       display: none;
@@ -72,11 +87,18 @@
 </head>
 <body>
 
+  <!-- Top Navigation -->
+  <div class="w3-top w3-bar w3-red w3-padding">
+    <span class="w3-bar-item"><i class="fa fa-shopping-cart"></i> Checkout</span>
+    <a href="cart.html" class="w3-bar-item w3-button w3-right"><i class="fa fa-arrow-left"></i> Back to Cart</a>
+  </div>
+
+  <!-- Checkout Container -->
   <div class="checkout-container">
     <h2>Confirm Your Payment</h2>
 
     <!-- Cart items -->
-    <table id="cartTable">
+    <table id="cartTable" class="w3-table w3-striped w3-bordered">
       <thead>
         <tr>
           <th>Item</th>
@@ -90,9 +112,8 @@
 
     <p>Total: <span id="total">0.00</span> MYR</p>
 
-    <button class="btn" onclick="showPayments()">Confirm Payment</button>
-    <button class="btn" style="background:#aaa;" onclick="cancelPayment()">Cancel</button>
-
+    <button class="btn" onclick="showPayments()"><i class="fa fa-credit-card"></i> Confirm Payment</button>
+    <button class="btn btn-cancel" onclick="cancelPayment()"><i class="fa fa-times"></i> Cancel</button>
 
     <!-- Payment Options -->
     <div id="paymentOptions" style="display:none; margin-top:30px;">
@@ -153,7 +174,6 @@
         window.location.href = "cart.html";
       }
     }
-
   </script>
 
 </body>

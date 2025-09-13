@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Cart - Milk Tea Shop</title>
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     body { font-family: "Poppins", sans-serif; margin: 0; background: #fff8f0; }
     header { background: #ffcfdf; padding: 1rem; text-align: center; position: relative; }
@@ -28,7 +32,7 @@
 </head>
 <body>
   <header>
-    <a href="menu.html" class="nav-btn">← Back to Menu</a>
+    <a href="menu.php" class="nav-btn">← Back to Menu</a>
     <h1>Your Cart</h1>
   </header>
   <main>
@@ -37,101 +41,101 @@
 
   <script>
     function loadCart() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const cartContainer = document.getElementById("cart-container");
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartContainer = document.getElementById("cart-container");
 
-  if (cart.length === 0) {
-    cartContainer.innerHTML = `<p class="empty-message">🛒 Your cart is empty.</p>`;
-    return;
-  }
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `<p class="empty-message">🛒 Your cart is empty.</p>`;
+        return;
+      }
 
-  let total = 0;
-  let tableHTML = `<table>
-    <tr><th>Image</th><th>Item</th><th>Price</th><th>Quantity</th><th>Remove</th></tr>`;
+      let total = 0;
+      let tableHTML = `<table class="w3-table-all">
+        <tr><th>Image</th><th>Item</th><th>Price</th><th>Quantity</th><th>Remove</th></tr>`;
 
-  cart.forEach((item, index) => {
-    total += item.price * item.quantity;
-    tableHTML += `<tr>
-      <td><img src="${item.image}" alt="${item.name}" width="60" style="border-radius:8px;"></td>
-      <td>${item.name}</td>
-      <td>RM ${item.price.toFixed(2)}</td>
-      <td>
-        <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
-        ${item.quantity}
-        <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-      </td>
-      <td><button class="remove-btn" onclick="removeItem(${index})">REMOVE</button></td>
-    </tr>`;
-  });
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        tableHTML += `<tr>
+          <td><img src="${item.image}" alt="${item.name}" width="60" style="border-radius:8px;"></td>
+          <td>${item.name}</td>
+          <td>RM ${item.price.toFixed(2)}</td>
+          <td>
+            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+            ${item.quantity}
+            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+          </td>
+          <td><button class="remove-btn" onclick="removeItem(${index})">REMOVE</button></td>
+        </tr>`;
+      });
 
-  tableHTML += `</table>
-    <label><strong>Remark:</strong></label>
-    <textarea id="remark" class="remark-box" placeholder="E.g., Less sugar, add pearls..."></textarea>
-    <p class="total">Total: RM ${total.toFixed(2)}</p>
-    <button class="checkout-btn" onclick="goToCheckout()">🛒 Checkout</button>`;
-  cartContainer.innerHTML = tableHTML;
-}
+      tableHTML += `</table>
+        <label><strong>Remark:</strong></label>
+        <textarea id="remark" class="remark-box" placeholder="E.g., Less sugar, add pearls..."></textarea>
+        <p class="total">Total: RM ${total.toFixed(2)}</p>
+        <button class="checkout-btn" onclick="goToCheckout()">🛒 Checkout</button>`;
+      cartContainer.innerHTML = tableHTML;
+    }
 
-function changeQty(index, change) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart[index].quantity += change;
-  if (cart[index].quantity < 1) cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  loadCart();
-}
+    function changeQty(index, change) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].quantity += change;
+      if (cart[index].quantity < 1) cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
 
-function removeItem(index) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  loadCart();
-}
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
 
-function goToCheckout() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
+    function goToCheckout() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
 
-  let remark = document.getElementById("remark").value.trim();
-  localStorage.setItem("remark", remark);
+      let remark = document.getElementById("remark").value.trim();
+      localStorage.setItem("remark", remark);
 
-  // ✅ go to payment page
-  window.location.href = "payment.html";
-}
+      // ✅ go to payment page
+      window.location.href = "payment.html";
+    }
 
-loadCart();
-
+    loadCart();
   </script>
 
-<script>
-document.getElementById("confirm-order").addEventListener("click", () => {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const confirmBtn = document.getElementById("confirm-order");
+      if (confirmBtn) {
+        confirmBtn.addEventListener("click", () => {
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  fetch("save_order.php", {
-    method: "POST",
-    headers: { 
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Content-Type": "application/json" },
-    body: JSON.stringify({ cart, total })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert("Order placed successfully!");
-      localStorage.removeItem("cart");
-      window.location.href = "order.html?order_id=" + data.order_id;
-    } else {
-      alert("Error placing order: " + data.message);
-    }
-  })
-  .catch(err => alert("Error: " + err));
-});
-</script>
+          fetch("save_order.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart, total })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert("Order placed successfully!");
+              localStorage.removeItem("cart");
+              window.location.href = "order.html?order_id=" + data.order_id;
+            } else {
+              alert("Error placing order: " + data.message);
+            }
+          })
+          .catch(err => alert("Error: " + err));
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>

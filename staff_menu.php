@@ -19,7 +19,7 @@ $result = $conn->query($sql);
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Staff Menu - Lucky Milk Tea</title>
+  <title>Admin Menu - Lucky Milk Tea</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <style>
     body {
@@ -98,7 +98,7 @@ $result = $conn->query($sql);
 <div class="top-actions">
   <a href="staff.php" class="btn btn-default">⬅️ Back to Dashboard</a>
   <a href="staff_view_menu.php" class="btn btn-info">👀 View Menu</a>
-  <a href="add_menu.php" class="btn btn-pink">➕ Add New Menu Item</a>
+  <a href="staff_add_menu.php" class="btn btn-pink">➕ Add New Menu Item</a>
 </div>
 
 <div class="menu-container">
@@ -114,8 +114,7 @@ $result = $conn->query($sql);
       <div class="price">RM <?php echo number_format($row['price'], 2); ?></div>
       <small><em><?php echo $row['category']; ?></em></small>
       <br><br>
-      <a href="edit_menu.php?id=<?php echo $row['id']; ?>" class="btn btn-warning btn-sm">✏️ Edit</a>
-      <a href="delete_menu.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">🗑 Delete</a>
+      <a href="staff_edit_menu.php?id=<?php echo $row['id']; ?>" class="btn btn-warning btn-sm">✏️ Edit</a>
     </div>
   <?php } ?>
 </div>

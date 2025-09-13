@@ -22,6 +22,11 @@ $result = $conn->query($sql);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Milk Tea Menu</title>
+
+  <!-- W3.CSS Framework (doesn't break design) -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
   <style>
     body { font-family: "Poppins", sans-serif; margin: 0; background-color: #fff8f0; color: #333; }
     header { background-color: #ffcfdf; padding: 1rem; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative; }
@@ -50,11 +55,6 @@ $result = $conn->query($sql);
   <header>
     <a href="home.html" class="back-btn">← Back to Home</a>
     <h1>~ Lucky Milk Tea ~</h1>
-    <a href="cart.php" class="cart-btn">
-      🛒 Cart <span class="cart-count" id="cart-count">
-        <?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
-      </span>
-    </a>
     <a href="cart.html" class="cart-btn">
       🛒 Cart <span class="cart-count" id="cart-count">0</span>
     </a>
@@ -80,11 +80,11 @@ $result = $conn->query($sql);
           <h3><?php echo $row['name']; ?></h3>
           <p><?php echo $row['description']; ?></p>
           <p class="price">RM <?php echo number_format($row['price'], 2); ?></p>
-          <form action="menu.php" method="POST">
-            <input type="hidden" name="item_name" value="<?php echo $row['name']; ?>">
-            <input type="hidden" name="item_price" value="<?php echo $row['price']; ?>">
-            <button type="submit" name="add_to_cart" class="order-btn">Order Now</button>
-          </form>
+          <button 
+            class="order-btn" 
+            onclick="addToCart('<?php echo $row['name']; ?>', '<?php echo $row['price']; ?>', 'uploads/<?php echo $row['image']; ?>')">
+            🛒 Order Now
+          </button>
         </div>
       </div>
     <?php } ?>
@@ -109,41 +109,37 @@ $result = $conn->query($sql);
         });
       });
     });
+
+    // Cart functions
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartCount = document.getElementById("cart-count");
+
+    function updateCartCount() {
+      const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCount.textContent = totalQty;
+    }
+
+    function addToCart(name, price, image) {
+      let existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price: parseFloat(price), image, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      alert(name + " added to cart 🧋");
+    }
+
+    // Run on load
+    updateCartCount();
+
+    // Sync across tabs
+    window.addEventListener("storage", () => {
+      cart = JSON.parse(localStorage.getItem("cart")) || [];
+      updateCartCount();
+    });
   </script>
 </body>
 </html>
-<?php
-// Handle add to cart
-if (isset($_POST['add_to_cart'])) {
-  $item = [
-    "name" => $_POST['item_name'],
-    "price" => $_POST['item_price'],
-    "quantity" => 1
-  ];
-  $_SESSION['cart'][] = $item;
-  header("Location: menu.php"); // refresh to update cart count
-  exit();
-}
-
-$conn->close();
-?>
-
-<script>
-  // Load cart from localStorage
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const cartCount = document.getElementById("cart-count");
-
-  function updateCartCount() {
-    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalQty;
-  }
-
-  // Run immediately when page loads
-  updateCartCount();
-
-  // Update cart count whenever storage changes (like if user updates cart in another tab)
-  window.addEventListener("storage", () => {
-    cart = JSON.parse(localStorage.getItem("cart")) || [];
-    updateCartCount();
-  });
-</script>
+<?php $conn->close(); ?>

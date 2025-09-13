@@ -99,7 +99,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
   <div class="admin-container">
     <div class="card">
       <div class="icon">👨‍💼</div>
-      <a href="staff_manage.php">Manage Staff</a>
+      <a href="#">Manage Staff</a>
     </div>
     <div class="card">
       <div class="icon">📚</div>
@@ -107,11 +107,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
     </div>
     <div class="card">
       <div class="icon">💬</div>
-      <a href="admin_viewfeedback.php">View Feedback</a>
+      <a href="staff_view_feedback.php">View Feedback</a>
     </div>
     <div class="card">
       <div class="icon">📝</div>
-      <a href="profile.php">View Profile</a>
+      <a href="staff_profile.php">View Profile</a>
     </div>
     <div class="card">
       <div class="icon">🚪</div>

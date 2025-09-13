@@ -17,7 +17,6 @@ $user = $result->fetch_assoc();
 if (isset($_POST['update_profile'])) {
     $name = $_POST['name'];
 
-    // Check if image uploaded
     if (!empty($_FILES['profile_image']['name'])) {
         $targetDir = "uploads/";
         if (!is_dir($targetDir)) mkdir($targetDir);
@@ -36,8 +35,7 @@ if (isset($_POST['update_profile'])) {
         alert('✅ Profile updated successfully!');
         window.location.href='profile.php';
       </script>";
-exit();
-
+    exit();
 }
 
 // Handle password change
@@ -48,37 +46,21 @@ if (isset($_POST['change_password'])) {
 
     $stored_pass = $user['password']; // from DB
 
-    // Check old password (works for both plain + hash)
-    $is_valid = false;
-    if (password_verify($old_password, $stored_pass)) {
-        $is_valid = true; // old user with hashed password
-    } elseif ($old_password === $stored_pass) {
-        $is_valid = true; // old user with plaintext password
-    }
+    $is_valid = password_verify($old_password, $stored_pass) || $old_password === $stored_pass;
 
     if ($is_valid) {
         if ($new_password === $confirm_password) {
-            // Always save new password securely (hash it)
             $hashed_new = password_hash($new_password, PASSWORD_DEFAULT);
             $stmt = $conn->prepare("UPDATE users SET password=? WHERE id=?");
-
-            if (!$stmt) {
-                die("SQL Error: " . $conn->error);
-            }
-
             $stmt->bind_param("si", $hashed_new, $user_id);
-
-            if ($stmt->execute()) {
-                $msg = "<p style='color:lime;'>✅ Password changed successfully!</p>";
-            } else {
-                $msg = "<p style='color:red;'>❌ Error updating password: " . $stmt->error . "</p>";
-            }
+            $stmt->execute();
             $stmt->close();
+            $msg = "<p class='w3-text-green'>✅ Password changed successfully!</p>";
         } else {
-            $msg = "<p style='color:red;'>⚠️ New passwords do not match!</p>";
+            $msg = "<p class='w3-text-red'>⚠️ New passwords do not match!</p>";
         }
     } else {
-        $msg = "<p style='color:red;'>⚠️ Old password is incorrect!</p>";
+        $msg = "<p class='w3-text-red'>⚠️ Old password is incorrect!</p>";
     }
 }
 ?>
@@ -87,123 +69,113 @@ if (isset($_POST['change_password'])) {
 <head>
   <meta charset="UTF-8">
   <title>Your Profile</title>
+
+  <!-- W3.CSS Framework -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
   <style>
     body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9a8b);
-  background-size: 300% 300%;
-  animation: gradientMove 10s ease infinite;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* instead of fixed height */
-  color: #fff;
-}
-
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9a8b);
+      background-size: 300% 300%;
+      animation: gradientMove 10s ease infinite;
+      margin: 0;
+      padding: 0;
+    }
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
     .profile-container {
-      background: rgba(255, 255, 255, 0.1);
+      max-width: 450px;
+      margin: 50px auto;
+      padding: 30px;
+      background: rgba(255,255,255,0.1);
       border-radius: 20px;
-      padding: 40px;
-      width: 450px;
       text-align: center;
       backdrop-filter: blur(12px);
       box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     }
     .profile-card img {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-
-  /* Keep the white border but make it pop */
-  border: 4px solid #fff;
-  box-shadow: 0 0 0 4px rgba(0,0,0,0.3), /* dark outline */
-              0 6px 15px rgba(0,0,0,0.4); /* soft shadow */
-}
-
-    h1 { margin-bottom: 10px; font-size: 28px; }
-    h2 { margin: 20px 0 10px; font-size: 22px; }
-    p { margin: 5px 0; font-size: 15px; }
-    .form-input { margin: 15px 0; text-align: left; }
-    label { font-weight: bold; font-size: 14px; }
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 4px rgba(0,0,0,0.3), 0 6px 15px rgba(0,0,0,0.4);
+    }
+    h1, h2 { margin: 10px 0; }
+    .form-input { text-align: left; margin: 10px 0; }
+    label { font-weight: bold; }
     input[type="text"], input[type="file"], input[type="password"] {
-      padding: 12px;
       width: 100%;
+      padding: 10px;
+      margin-top: 5px;
       border-radius: 10px;
       border: none;
-      margin-top: 8px;
-      font-size: 14px;
       outline: none;
       background: rgba(255,255,255,0.2);
       color: #fff;
     }
     .btn {
-      padding: 12px 25px;
+      padding: 10px 20px;
       border-radius: 12px;
       border: none;
-      color: white;
-      font-size: 16px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      margin: 10px 5px;
-      display: inline-block;
-      text-decoration: none;
+      margin: 5px;
     }
-    .dashboard { background: linear-gradient(45deg, #4facfe, #00f2fe); }
-    .logout { background: linear-gradient(45deg, #ff6a6a, #ff0000); }
+    .dashboard { background: #4facfe; color: #fff; }
+    .logout { background: #ff6a6a; color: #fff; }
   </style>
 </head>
 <body>
-  <div class="profile-container">
-    <div class="profile-card">
-      <img src="uploads/<?php echo $user['profile_image']; ?>" alt="Profile Picture"><br><br>
-      <h1><?php echo $user['name']; ?></h1>
-      <p><strong>Email:</strong> <?php echo $user['email']; ?></p>
-      <p><strong>Role:</strong> <?php echo $user['role']; ?></p>
-      <p><strong>Registered:</strong> <?php echo $user['date_registered']; ?></p>
-    </div>
 
-    <h2>Edit Profile</h2>
-    <form method="POST" enctype="multipart/form-data">
-      <div class="form-input">
-        <label>Name:</label>
-        <input type="text" name="name" value="<?php echo $user['name']; ?>" required>
-      </div>
-      <div class="form-input">
-        <label>Upload New Picture:</label>
-        <input type="file" name="profile_image" accept="image/*">
-      </div>
-      <button type="submit" name="update_profile" class="btn dashboard">💾 Update Profile</button>
-    </form>
-
-    <h2>Change Password</h2>
-    <?php if (!empty($msg)) echo $msg; ?>
-    <form method="POST">
-      <div class="form-input">
-        <label>Old Password:</label>
-        <input type="password" name="old_password" required>
-      </div>
-      <div class="form-input">
-        <label>New Password:</label>
-        <input type="password" name="new_password" required>
-      </div>
-      <div class="form-input">
-        <label>Confirm New Password:</label>
-        <input type="password" name="confirm_password" required>
-      </div>
-      <button type="submit" name="change_password" class="btn dashboard">🔑 Change Password</button>
-    </form>
-
-    <br>
-    <a href="admin.php" class="btn dashboard">🏠 Dashboard</a>
-    <a href="logout.php" class="btn logout">🚪 Logout</a>
+<div class="profile-container w3-card-4 w3-padding-16">
+  <div class="profile-card">
+    <img src="uploads/<?php echo $user['profile_image']; ?>" alt="Profile Picture"><br><br>
+    <h1 class="w3-text-white"><?php echo $user['name']; ?></h1>
+    <p><strong>Email:</strong> <?php echo $user['email']; ?></p>
+    <p><strong>Role:</strong> <?php echo $user['role']; ?></p>
+    <p><strong>Registered:</strong> <?php echo $user['date_registered']; ?></p>
   </div>
+
+  <h2 class="w3-text-white">Edit Profile</h2>
+  <form method="POST" enctype="multipart/form-data" class="w3-container">
+    <div class="form-input">
+      <label>Name:</label>
+      <input type="text" name="name" value="<?php echo $user['name']; ?>" required>
+    </div>
+    <div class="form-input">
+      <label>Upload New Picture:</label>
+      <input type="file" name="profile_image" accept="image/*">
+    </div>
+    <button type="submit" name="update_profile" class="btn dashboard w3-button w3-blue">💾 Update Profile</button>
+  </form>
+
+  <h2 class="w3-text-white">Change Password</h2>
+  <?php if (!empty($msg)) echo $msg; ?>
+  <form method="POST" class="w3-container">
+    <div class="form-input">
+      <label>Old Password:</label>
+      <input type="password" name="old_password" required>
+    </div>
+    <div class="form-input">
+      <label>New Password:</label>
+      <input type="password" name="new_password" required>
+    </div>
+    <div class="form-input">
+      <label>Confirm New Password:</label>
+      <input type="password" name="confirm_password" required>
+    </div>
+    <button type="submit" name="change_password" class="btn dashboard w3-button w3-green">🔑 Change Password</button>
+  </form>
+
+  <br>
+  <a href="admin.php" class="btn dashboard w3-button w3-orange">🏠 Dashboard</a>
+  <a href="logout.php" class="btn logout w3-button w3-red">🚪 Logout</a>
+</div>
+
 </body>
 </html>

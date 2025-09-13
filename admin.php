@@ -10,7 +10,13 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard - Lucky Milk Tea</title>
+
+  <!-- ✅ W3.CSS Framework -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  <!-- ✅ Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -94,26 +100,26 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 </head>
 <body>
 
-  <h1>🌸 Welcome, Admin 🌸</h1>
+  <h1 class="w3-animate-top">🌸 Welcome, Admin 🌸</h1>
 
-  <div class="admin-container">
-    <div class="card">
+  <div class="admin-container w3-animate-opacity">
+    <div class="card w3-hover-shadow">
       <div class="icon">👨‍💼</div>
       <a href="staff_manage.php">Manage Staff</a>
     </div>
-    <div class="card">
+    <div class="card w3-hover-shadow">
       <div class="icon">📚</div>
       <a href="admin_menu.php">Edit Menu</a>
     </div>
-    <div class="card">
+    <div class="card w3-hover-shadow">
       <div class="icon">💬</div>
       <a href="admin_viewfeedback.php">View Feedback</a>
     </div>
-    <div class="card">
+    <div class="card w3-hover-shadow">
       <div class="icon">📝</div>
       <a href="profile.php">View Profile</a>
     </div>
-    <div class="card">
+    <div class="card w3-hover-shadow">
       <div class="icon">🚪</div>
       <a href="logout.php">Logout</a>
     </div>

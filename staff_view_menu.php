@@ -21,58 +21,55 @@ $result = $conn->query($sql);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Staff View - Milk Tea Menu</title>
+  <title>Admin View - Milk Tea Menu</title>
+
+  <!-- ✅ W3.CSS Framework -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
   <style>
-    body { font-family: "Poppins", sans-serif; margin: 0; background-color: #fff8f0; color: #333; }
-    header { background-color: #ffcfdf; padding: 1rem; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative; }
-    header h1 { margin: 0; font-size: 2rem; color: #6b4f4f; }
-    .dashboard-btn { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); background-color: #ff9aa2; color: white; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; text-decoration: none; transition: background 0.2s; display: flex; align-items: center; gap: 0.4rem; }
-    .dashboard-btn:hover { background-color: #ff6f91; }
-    .category-buttons { display: flex; justify-content: center; gap: 1rem; padding: 1rem; background-color: #ffe5ec; }
-    .category-buttons button { background-color: #ff9aa2; color: white; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; font-size: 0.9rem; }
-    .category-buttons button:hover, .category-buttons button.active { background-color: #ff6f91; }
+    body { font-family: "Poppins", sans-serif; margin: 0; background-color: #fff8f0; }
+    header { position: relative; padding: 1rem; background-color: #ffcfdf; text-align: center; }
+    header h1 { margin: 0; color: #6b4f4f; }
+    .dashboard-btn { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); }
+    .category-buttons { margin: 1rem 0; text-align: center; }
+    .category-buttons button { margin: 0 0.3rem; }
     .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; padding: 2rem; max-width: 1200px; margin: auto; }
-    .menu-item { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.2s ease; }
-    .menu-item:hover { transform: translateY(-5px); }
-    .menu-item img { width: 100%; height: 300px; object-fit: cover; }
-    .menu-info { padding: 1rem; }
-    .menu-info h3 { margin: 0; color: #6b4f4f; font-size: 1.3rem; }
-    .menu-info p { margin: 0.5rem 0; color: #555; }
-    .price { font-weight: bold; color: #d46a6a; font-size: 1.1rem; }
-    .order-btn { background-color: #ff9aa2; color: white; padding: 0.5rem 1rem; border: none; border-radius: 8px; cursor: pointer; transition: background 0.2s; margin-top: 0.5rem; }
-    .order-btn:hover { background-color: #ff6f91; }
+    .menu-item img { height: 250px; object-fit: cover; }
+    .order-btn { width: 100%; }
   </style>
 </head>
 <body>
-  <header>
-    <a href="staff.php" class="dashboard-btn">📊 Dashboard</a>
-    <h1>~ Lucky Milk Tea (Staff) ~</h1>
+
+  <header class="w3-card w3-round-large w3-padding">
+    <a href="staff_menu.php" class="w3-button w3-red dashboard-btn">📊 Dashboard</a>
+    <h1 class="w3-center">~ Lucky Milk Tea (Staff) ~</h1>
   </header>
 
   <!-- Category Filter Buttons -->
   <div class="category-buttons">
-    <button class="active" data-category="all">All</button>
-    <button data-category="Signature">Signature</button>
-    <button data-category="Refreshing">Refreshing</button>
-    <button data-category="Ice Blended">Ice Blended</button>
+    <button class="w3-button w3-pink w3-round w3-small active" data-category="all">All</button>
+    <button class="w3-button w3-pink w3-round w3-small" data-category="Signature">Signature</button>
+    <button class="w3-button w3-pink w3-round w3-small" data-category="Refreshing">Refreshing</button>
+    <button class="w3-button w3-pink w3-round w3-small" data-category="Ice Blended">Ice Blended</button>
   </div>
 
-  <section class="menu" id="menu">
+  <section class="menu">
     <?php while($row = $result->fetch_assoc()) { ?>
-      <div class="menu-item" data-category="<?php echo $row['category']; ?>">
+      <div class="w3-card-4 w3-round menu-item w3-white" data-category="<?php echo $row['category']; ?>">
         <?php if (!empty($row['image'])) { ?>
-          <img src="uploads/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>">
+          <img src="uploads/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>" class="w3-image">
         <?php } else { ?>
-          <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No Image">
+          <img src="https://via.placeholder.com/300x200?text=No+Image" alt="No Image" class="w3-image">
         <?php } ?>
-        <div class="menu-info">
+        <div class="w3-container">
           <h3><?php echo $row['name']; ?></h3>
           <p><?php echo $row['description']; ?></p>
-          <p class="price">RM <?php echo number_format($row['price'], 2); ?></p>
+          <p class="w3-text-red"><b>RM <?php echo number_format($row['price'], 2); ?></b></p>
           <form action="admin_view_menu.php" method="POST">
             <input type="hidden" name="item_name" value="<?php echo $row['name']; ?>">
             <input type="hidden" name="item_price" value="<?php echo $row['price']; ?>">
-            <button type="submit" name="add_to_cart" class="order-btn">Order Now</button>
+            <button type="submit" name="add_to_cart" class="w3-button w3-pink w3-round order-btn">Order Now</button>
           </form>
         </div>
       </div>
@@ -99,8 +96,10 @@ $result = $conn->query($sql);
       });
     });
   </script>
+
 </body>
 </html>
+
 <?php
 // Handle add to cart
 if (isset($_POST['add_to_cart'])) {
@@ -110,7 +109,7 @@ if (isset($_POST['add_to_cart'])) {
     "quantity" => 1
   ];
   $_SESSION['cart'][] = $item;
-  header("Location: admin_view_menu.php"); // refresh to update cart count
+  header("Location: admin_view_menu.php"); // refresh to update cart
   exit();
 }
 

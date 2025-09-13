@@ -10,131 +10,107 @@ if ($conn->connect_error) {
     die("DB Connection failed: " . $conn->connect_error);
 }
 
-// ===== Handle Form Submit =====
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name     = $_POST['name'];
-    $email    = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // encrypt password
-    $role     = $_POST['role'];
-
-    $sql = "INSERT INTO users (name, email, password, role, date_registered) 
-            VALUES ('$name', '$email', '$password', '$role', NOW())";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('New staff added successfully!');</script>";
-    } else {
-        echo "<script>alert('Error: " . $conn->error . "');</script>";
-    }
+// ===== Delete Staff =====
+if (isset($_GET['delete'])) {
+    $id = intval($_GET['delete']);
+    $conn->query("DELETE FROM users WHERE id=$id");
+    echo "<script>alert('✅ Staff removed successfully!'); window.location='staff_manage.php';</script>";
 }
+
+// ===== Fetch All Staff =====
+$result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Add Staff</title>
+  <title>Manage Staff - Lucky Milk Tea</title>
+
+  <!-- W3.CSS Framework -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      background: #fdf6ec;
       margin: 0;
-      padding: 40px;
-    }
-    .container {
-      max-width: 450px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      animation: fadeIn 1s ease-in-out;
-    }
-    h2 {
-      text-align: center;
+      padding: 20px;
       color: #333;
-      margin-bottom: 25px;
     }
-    label {
-      font-weight: 500;
-      margin-bottom: 6px;
-      display: block;
-      color: #444;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-bottom: 18px;
-      font-size: 14px;
-    }
-    input:focus, select:focus {
-      border-color: #f6ad55;
-      outline: none;
-      box-shadow: 0 0 5px rgba(246, 173, 85, 0.6);
-    }
-    .btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .btn-add {
-      background: #28a745;
-      color: white;
-    }
-    .btn-add:hover {
-      background: #218838;
-    }
-    .btn-home {
-      display: block;
+    h1 {
       text-align: center;
-      margin-top: 12px;
-      background: #f76c6c;
-      color: white;
-      text-decoration: none;
-      padding: 10px;
+      margin: 20px 0;
+      color: #6d4c41;
+    }
+    .top-btns {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .w3-btn {
       border-radius: 8px;
-      font-size: 15px;
-      transition: 0.3s;
+      font-weight: 500;
+      margin: 4px;
     }
-    .btn-home:hover {
-      background: #e63946;
+    table {
+      background: #fff;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    th {
+      background: #f4a261 !important;
+      color: #fff;
+      text-align: center;
+    }
+    td {
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h2>➕ Add New Staff</h2>
-  <form method="POST">
-    <label>Name</label>
-    <input type="text" name="name" required>
+  <div class="top-btns">
+    <a href="admin.php" class="w3-button w3-red">🏠 Back to Dashboard</a>
+    <a href="add_staff.php" class="w3-button w3-green">➕ Add New Staff</a>
+  </div>
 
-    <label>Email</label>
-    <input type="email" name="email" required>
+  <h1 class="w3-animate-top">👨‍💼 Staff Management</h1>
 
-    <label>Password</label>
-    <input type="password" name="password" required>
+  <div class="w3-responsive">
+    <table class="w3-table-all w3-hoverable w3-card-4">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Date Registered</th>
+        <th>Actions</th>
+      </tr>
+      <?php if ($result->num_rows > 0): ?>
+        <?php while ($row = $result->fetch_assoc()): ?>
+          <tr>
+            <td><?= $row['id'] ?></td>
+            <td><?= htmlspecialchars($row['name']) ?></td>
+            <td><?= htmlspecialchars($row['email']) ?></td>
+            <td><?= ucfirst($row['role']) ?></td>
+            <td><?= $row['date_registered'] ?></td>
+            <td>
+              <!-- View Button -->
+              <a href="view_staff.php?id=<?= $row['id'] ?>" class="w3-button w3-blue w3-round">👁 View</a>
 
-    <label>Role</label>
-    <select name="role" required>
-      <option value="staff">Staff</option>
-      <option value="admin">Admin</option>
-    </select>
-
-    <button type="submit" class="btn btn-add">Add Staff</button>
-  </form>
-
-  <a href="admin.php" class="btn-home">🏠 Back to Dashboard</a>
-</div>
+              <!-- Remove Button -->
+              <a href="staff_manage.php?delete=<?= $row['id'] ?>" 
+                 class="w3-button w3-red w3-round" 
+                 onclick="return confirm('⚠️ Are you sure to remove this staff?')">🗑 Remove</a>
+            </td>
+          </tr>
+        <?php endwhile; ?>
+      <?php else: ?>
+        <tr>
+          <td colspan="6" style="text-align:center; color:red;">No staff found</td>
+        </tr>
+      <?php endif; ?>
+    </table>
+  </div>
 
 </body>
 </html>
+<?php $conn->close(); ?>

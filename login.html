@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- ✅ W3.CSS Framework -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
   <style>
     body {
       font-family: "Poppins", sans-serif;
@@ -108,12 +112,12 @@
 </head>
 <body>
 
-  <div class="login-box">
+  <div class="login-box w3-animate-opacity">
     <h2>🔑 Login</h2>
     <form action="login.php" method="POST">
-      <input type="email" name="email" placeholder="📧 Email" required>
-      <input type="password" name="password" placeholder="🔒 Password" required>
-      <button type="submit">Login</button>
+      <input class="w3-input w3-border" type="email" name="email" placeholder="📧 Email" required>
+      <input class="w3-input w3-border" type="password" name="password" placeholder="🔒 Password" required>
+      <button class="w3-button w3-round-large" type="submit">Login</button>
     </form>
     <a href="register.html" class="back-btn">✨ Create Account</a>
     <a href="home.html" class="back-btn">🏠 Home</a>

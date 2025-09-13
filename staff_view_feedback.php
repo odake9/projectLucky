@@ -50,7 +50,7 @@ $result = $conn->query($sql);
 </head>
 <body>
 
-  <a href="admin.php" class="w3-button w3-red back-btn">🏠 Back to Dashboard</a>
+  <a href="staff.php" class="w3-button w3-red back-btn">🏠 Back to Dashboard</a>
 
   <h1>Customer Feedback</h1>
 
