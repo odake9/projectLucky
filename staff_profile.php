@@ -57,7 +57,7 @@ if (isset($_POST['change_password'])) {
             $stmt->close();
             $msg = "<p class='w3-text-green'>✅ Password changed successfully!</p>";
         } else {
-            $msg = "<p class='w3-text-red'>⚠️ New passwords do not match!</p>";
+            $msg = "<p class='w3-text-red'>⚠️ New passwords does not match!</p>";
         }
     } else {
         $msg = "<p class='w3-text-red'>⚠️ Old password is incorrect!</p>";

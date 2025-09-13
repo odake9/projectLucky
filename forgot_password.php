@@ -77,7 +77,7 @@ if (isset($_POST['request_otp'])) {
             showMessage("❌ Mailer Error: {$mail->ErrorInfo}. For testing, OTP = $otp", "error");
         }
     } else {
-        showMessage("❌ Email not found!", "error");
+        showMessage("❌ Email not found!", "error", "forgot_password.html");
     }
 }
 
