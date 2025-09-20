@@ -83,7 +83,7 @@ $result = $conn->query($sql);
           <button 
             class="order-btn" 
             onclick="addToCart('<?php echo $row['name']; ?>', '<?php echo $row['price']; ?>', 'uploads/<?php echo $row['image']; ?>')">
-            🛒 Order Now
+            🛒 Add to Cart
           </button>
         </div>
       </div>
