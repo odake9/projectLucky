@@ -38,10 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             VALUES ('$name', '$description', '$price', '$category', '$image')";
     
     if ($conn->query($sql) === TRUE) {
-        header("Location: admin_menu.php?success=1");
-        exit();
-    } else {
-        echo "Error: " . $conn->error;
+    echo "<script>
+        alert('✅ Menu item added successfully!');
+        window.location.href = 'admin_menu.php';
+    </script>";
+    exit();
     }
 }
 ?>
