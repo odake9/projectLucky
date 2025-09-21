@@ -64,6 +64,18 @@
   </main>
 
   <script>
+  function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // ✅ confirmation popup
+    if (confirm(`Are you sure you want to remove "${cart[index].name}" from the cart?`)) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+      alert("Item removed successfully!"); // optional success message
+    }
+  }
+
     function loadCart() {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       const cartContainer = document.getElementById("cart-container");
@@ -104,13 +116,6 @@
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart[index].quantity += change;
       if (cart[index].quantity < 1) cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      loadCart();
-    }
-
-    function removeItem(index) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.splice(index, 1);
       localStorage.setItem("cart", JSON.stringify(cart));
       loadCart();
     }
