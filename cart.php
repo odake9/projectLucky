@@ -81,42 +81,106 @@ if (isset($_GET['remove'])) {
   <?php } ?>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const rows = document.querySelectorAll("#cart-table tr[data-index]");
-  const totalElement = document.getElementById("total");
+  function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  function updateTotal() {
-    let total = 0;
-    rows.forEach(row => {
-      let price = parseFloat(row.querySelector(".price").dataset.price);
-      let qty = parseInt(row.querySelector(".qty-input").value);
-      let subtotal = price * qty;
-      row.querySelector(".subtotal").innerText = "RM " + subtotal.toFixed(2);
-      total += subtotal;
-    });
-    totalElement.innerText = "Total: RM " + total.toFixed(2);
+    // ✅ confirmation popup
+    if (confirm(`Are you sure you want to remove "${cart[index].name}" from the cart?`)) {
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+      alert("Item removed successfully!"); // optional success message
+    }
   }
 
-  rows.forEach(row => {
-    let minus = row.querySelector(".minus");
-    let plus = row.querySelector(".plus");
-    let qtyInput = row.querySelector(".qty-input");
+    function loadCart() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartContainer = document.getElementById("cart-container");
 
-    minus.addEventListener("click", () => {
-      if (qtyInput.value > 1) qtyInput.value--;
-      updateTotal();
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `<p class="empty-message">🛒 Your cart is empty.</p>`;
+        return;
+      }
+
+      let total = 0;
+      let tableHTML = `<table class="w3-table-all">
+        <tr><th>Image</th><th>Item</th><th>Price</th><th>Quantity</th><th>Remove</th></tr>`;
+
+      cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        tableHTML += `<tr>
+          <td><img src="${item.image}" alt="${item.name}" width="60" style="border-radius:8px;"></td>
+          <td>${item.name}</td>
+          <td>RM ${item.price.toFixed(2)}</td>
+          <td>
+            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+            ${item.quantity}
+            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+          </td>
+          <td><button class="remove-btn" onclick="removeItem(${index})">REMOVE</button></td>
+        </tr>`;
+      });
+
+      tableHTML += `</table>
+        <label><strong>Remark:</strong></label>
+        <textarea id="remark" class="remark-box" placeholder="E.g., Less sugar, add pearls..."></textarea>
+        <p class="total">Total: RM ${total.toFixed(2)}</p>
+        <button class="checkout-btn" onclick="goToCheckout()">🛒 Checkout</button>`;
+      cartContainer.innerHTML = tableHTML;
+    }
+
+    function changeQty(index, change) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart[index].quantity += change;
+      if (cart[index].quantity < 1) cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    function goToCheckout() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+
+      let remark = document.getElementById("remark").value.trim();
+      localStorage.setItem("remark", remark);
+
+      // ✅ go to payment page
+      window.location.href = "payment.html";
+    }
+
+    loadCart();
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const confirmBtn = document.getElementById("confirm-order");
+      if (confirmBtn) {
+        confirmBtn.addEventListener("click", () => {
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+          fetch("save_order.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart, total })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              alert("Order placed successfully!");
+              localStorage.removeItem("cart");
+              window.location.href = "order.html?order_id=" + data.order_id;
+            } else {
+              alert("Error placing order: " + data.message);
+            }
+          })
+          .catch(err => alert("Error: " + err));
+        });
+      }
     });
-
-    plus.addEventListener("click", () => {
-      qtyInput.value++;
-      updateTotal();
-    });
-
-    qtyInput.addEventListener("input", updateTotal);
-  });
-
-  updateTotal(); // init
-});
-</script>
+  </script>
 </body>
 </html>
