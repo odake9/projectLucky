@@ -64,6 +64,7 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
       text-align: center;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -100,6 +101,8 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
               <a href="staff_manage.php?delete=<?= $row['id'] ?>" 
                  class="w3-button w3-red w3-round" 
                  onclick="return confirm('⚠️ Are you sure to remove this staff?')">🗑 Remove</a>
+
+              <a href="edit_staff.php?id=<?= $row['id'] ?>" class="w3-button w3-orange w3-round">✏️ Edit</a>
             </td>
           </tr>
         <?php endwhile; ?>
