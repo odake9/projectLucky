@@ -15,8 +15,10 @@
   <style>
     body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
     body {
+      font-family: "Poppins", Arial, sans-serif;
       background: linear-gradient(120deg, #f6d365, #fda085);
       margin: 0;
+      padding: 20px;
     }
 
     .checkout-container {
@@ -59,12 +61,8 @@
     }
     .btn:hover { background: #cb119a; transform: scale(1.05); }
 
-    .btn-cancel {
-      background: #aaa;
-    }
-    .btn-cancel:hover {
-      background: #777;
-    }
+    .btn-cancel { background: #aaa; }
+    .btn-cancel:hover { background: #777; }
 
     .payment-section {
       display: none;
@@ -121,14 +119,14 @@
 
       <div class="payment-section">
         <h4>Touch ’n Go</h4>
-        <a href="https://payment.tngdigital.com.my/sc/bDLofadvsx" target="_blank">
+        <a id="tngLink" href="https://payment.tngdigital.com.my/sc/bDLofadvsx" target="_blank">
           <img src="tng.jpg" alt="Touch n Go">
         </a>
       </div>
 
       <div class="payment-section">
         <h4>FPX Payment</h4>
-        <a href="https://www.mepsfpx.com.my/" target="_blank">
+        <a id="fpxLink" href="fpx.php" target="_blank">
           <img src="fpx-logo.jpg" alt="FPX Payment">
         </a>
       </div>
@@ -167,6 +165,10 @@
     function showPayments() {
       document.getElementById("paymentOptions").style.display = "block";
       document.querySelectorAll(".payment-section").forEach(div => div.style.display = "block");
+
+      // Dynamically pass grandTotal to payment links
+      document.getElementById("tngLink").href = "https://payment.tngdigital.com.my/sc/bDLofadvsx";
+      document.getElementById("fpxLink").href = "fpx.php?total=" + grandTotal.toFixed(2);
     }
 
     function cancelPayment() {
