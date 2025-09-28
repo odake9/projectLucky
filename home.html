@@ -6,13 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Reset / base */
     * { margin:0; padding:0; box-sizing: border-box; }
     body { font-family: "Poppins", sans-serif; background-color: #fff8f0; color: #333; line-height: 1.6; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
 
-    /* Navbar */
     header {
       position: fixed;
       top:0; left:0; right:0;
@@ -27,11 +25,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 1rem;
     }
     .nav-logo {
       font-size: 1.5rem;
       font-weight: bold;
-      color: #d63384; /* pink accent */
+      color: #d63384;
     }
     nav ul {
       list-style: none;
@@ -42,8 +41,11 @@
       color: #ff6f91;
     }
 
-    /* Login button */
-    .login-btn {
+    .nav-actions {
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-btn {
       display: flex;
       align-items: center;
       background: #ff9aa2;
@@ -55,18 +57,17 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-    .login-btn i {
+    .nav-btn i {
       margin-right: 0.5rem;
     }
-    .login-btn:hover {
+    .nav-btn:hover {
       background: #ff6f91;
     }
 
-    /* Hero / Banner */
     .hero {
-      margin-top: 80px; /* leave space for fixed header */
+      margin-top: 80px;
       background: url("homeimage1.jpg") center center/cover no-repeat;
-      height: calc(100vh - 80px); /* fill full screen minus navbar height */
+      height: calc(100vh - 80px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -108,7 +109,6 @@
       transform: translateY(-3px);
     }
 
-    /* Footer */
     footer {
       background: white;
       padding: 2rem;
@@ -126,14 +126,16 @@
         <ul>
           <li><a href="about.html">About</a></li>
           <li><a href="menu.php">Menu</a></li>
-          <li><a href="contact.php">Contact & Send Feeback</a></li>
-          <li><a href="cart.html">Cart</a></li>
+          <li><a href="contact.php">Contact & Send Feedback</a></li>
+          <li><a href="order_status.php">Order</a></li>
         </ul>
       </nav>
-      <!-- Login button replaces cart -->
-      <a href="login.html" class="login-btn">
-        <i class="fa fa-user"></i> Login
-      </a>
+      <div class="nav-actions">
+        <!-- Login button -->
+        <a href="login.html" class="nav-btn">
+          <i class="fa fa-user"></i> Login
+        </a>
+      </div>
     </div>
   </header>
 
