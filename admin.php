@@ -115,6 +115,14 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
       <div class="icon">💬</div>
       <a href="admin_viewfeedback.php">View Feedback</a>
     </div>
+    <div class="card">
+      <div class="icon">📦</div>
+      <a href="admin_view_orders.php">View Order</a>
+    </div>
+    <div class="card w3-hover-shadow">
+      <div class="icon">📊</div>
+      <a href="admin_sales_report.php">View Sales Report</a>
+    </div>
     <div class="card w3-hover-shadow">
       <div class="icon">📝</div>
       <a href="profile.php">View Profile</a>
