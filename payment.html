@@ -20,7 +20,6 @@
       margin: 0;
       padding: 20px;
     }
-
     .checkout-container {
       background: white;
       border-radius: 16px;
@@ -31,11 +30,9 @@
       animation: fadeIn 0.6s ease-in-out;
       text-align: center;
     }
-
     h2 { margin-bottom: 10px; color: #00b894; }
     p { font-size: 18px; margin-bottom: 10px; }
     #total { font-size: 22px; font-weight: bold; color: #d63031; }
-
     table {
       width: 100%;
       border-collapse: collapse;
@@ -47,7 +44,6 @@
       text-align: center;
     }
     th { background: #ffe0f0; color: #444; }
-
     .btn {
       background: #de8686;
       color: white;
@@ -60,10 +56,8 @@
       margin: 10px;
     }
     .btn:hover { background: #cb119a; transform: scale(1.05); }
-
     .btn-cancel { background: #aaa; }
     .btn-cancel:hover { background: #777; }
-
     .payment-section {
       display: none;
       margin-top: 30px;
@@ -76,7 +70,6 @@
       transition: transform 0.3s ease;
     }
     .payment-section img:hover { transform: scale(1.1); }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -119,14 +112,14 @@
 
       <div class="payment-section">
         <h4>Touch ’n Go</h4>
-        <a id="tngLink" href="https://payment.tngdigital.com.my/sc/bDLofadvsx" target="_blank">
+        <a id="tngLink" href="#" target="_blank">
           <img src="tng.jpg" alt="Touch n Go">
         </a>
       </div>
 
       <div class="payment-section">
         <h4>FPX Payment</h4>
-        <a id="fpxLink" href="fpx.php" target="_blank">
+        <a id="fpxLink" href="#" target="_blank">
           <img src="fpx-logo.jpg" alt="FPX Payment">
         </a>
       </div>
@@ -163,18 +156,36 @@
     document.getElementById("total").textContent = grandTotal.toFixed(2);
 
     function showPayments() {
-      document.getElementById("paymentOptions").style.display = "block";
-      document.querySelectorAll(".payment-section").forEach(div => div.style.display = "block");
+      // Save order in DB
+      fetch("save_order.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "cart=" + encodeURIComponent(JSON.stringify(cart)) + "&total=" + grandTotal.toFixed(2)
+      })
+      .then(res => res.text())
+      .then(data => {
+        console.log("Order saved:", data);
 
-      // Dynamically pass grandTotal to payment links
-      document.getElementById("tngLink").href = "https://payment.tngdigital.com.my/sc/bDLofadvsx";
-      document.getElementById("fpxLink").href = "fpx.php?total=" + grandTotal.toFixed(2);
+        document.getElementById("paymentOptions").style.display = "block";
+        document.querySelectorAll(".payment-section").forEach(div => div.style.display = "block");
+
+        // Dynamic links
+        document.getElementById("tngLink").href = "https://payment.tngdigital.com.my/sc/bDLofadvsx";
+        document.getElementById("fpxLink").href = "fpx.php?total=" + grandTotal.toFixed(2);
+      });
     }
 
     function cancelPayment() {
       if (confirm("Are you sure you want to cancel the payment and return to your cart?")) {
         window.location.href = "cart.html";
       }
+    }
+
+    // Show success popup if redirected
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("status") === "success") {
+      alert("✅ Payment Successful! Thank you for your order.");
+      localStorage.removeItem("cart"); // clear cart
     }
   </script>
 
