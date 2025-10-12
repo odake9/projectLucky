@@ -1,8 +1,13 @@
 <?php
-// Example callback handler
 $data = $_POST;
-if ($data['status'] == 1) { // 1 = successful payment
+if ($data['status'] == 1) {
     $orderId = $data['order_id'];
-    // Update database: mark order as "Paid"
+    $amount = $data['amount'];
+    $billcode = $data['billcode'];
+    $date = date("Y-m-d H:i:s");
+
+    $conn = new mysqli("localhost", "root", "", "milk_tea_shop");
+    $conn->query("INSERT INTO payments (order_id, billcode, amount, status, date)
+                  VALUES ('$orderId', '$billcode', '$amount', 'SUCCESS', '$date')");
 }
 ?>

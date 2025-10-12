@@ -1,56 +1,60 @@
 <?php
-// (Optional) You can also check ToyyibPay return parameters:
-$status_id = $_GET['status_id'] ?? '';
-$billcode = $_GET['billcode'] ?? '';
-$order_id = $_GET['order_id'] ?? '';
+// Example: payment_success.php
 
-// Example: Only show success message if payment is successful
-if ($status_id == 1) {
-    $message = "✅ Payment Successful!";
+$status = isset($_GET['status']) ? $_GET['status'] : null;
+$billcode = isset($_GET['billcode']) ? $_GET['billcode'] : null;
+$order_id = isset($_GET['order_id']) ? $_GET['order_id'] : null;
+
+if ($status == 1) {
+    $paymentStatus = "✅ Payment Successful";
 } else {
-    $message = "❌ Payment Failed or Cancelled.";
+    $paymentStatus = "❌ Payment Failed";
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="5;url=home.html"> <!-- redirect after 5 seconds -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Result</title>
-<style>
+  <meta charset="UTF-8">
+  <title>Payment Receipt - Lucky Milk Tea</title>
+  <style>
     body {
-        font-family: "Poppins", sans-serif;
-        text-align: center;
-        padding: 80px;
-        background: #f9fafb;
+      font-family: Poppins, sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .container {
-        background: white;
-        padding: 40px;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        display: inline-block;
+    .receipt {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 400px;
+      text-align: center;
     }
-    h1 { color: #28a745; }
-    p { font-size: 18px; }
-    a {
-        display: inline-block;
-        margin-top: 20px;
-        text-decoration: none;
-        background: #007bff;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 10px;
+    h2 { color: #333; }
+    .status { font-size: 18px; margin: 10px 0; }
+    .home-btn {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
     }
-    a:hover { background: #0056b3; }
-</style>
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1><?php echo $message; ?></h1>
-    <p>You will be redirected to the home page in 5 seconds.</p>
-    <a href="home.html">Go to Home Now</a>
-</div>
+  <div class="receipt">
+    <h2>Lucky Milk Tea Receipt</h2>
+    <p class="status"><?= $paymentStatus ?></p>
+    <p><b>Order ID:</b> <?= htmlspecialchars($order_id) ?></p>
+    <p><b>Bill Code:</b> <?= htmlspecialchars($billcode) ?></p>
+    <p><b>Date:</b> <?= date("Y-m-d H:i:s") ?></p>
+    <hr>
+    <p>Thank you for your purchase!</p>
+    <a href="home.html" class="home-btn">Back to Home</a>
+  </div>
 </body>
 </html>
