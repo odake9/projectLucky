@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Checkout</title>
+  <title>Checkout - Lucky Milk Tea</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- W3.CSS Framework -->
+  <!-- W3.CSS -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,83 +13,177 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
   <style>
-    body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
     body {
-      font-family: "Poppins", Arial, sans-serif;
-      background: linear-gradient(120deg, #f6d365, #fda085);
+      font-family: "Poppins", sans-serif;
       margin: 0;
-      padding: 20px;
+      background-color: #fff8f0;
+      color: #5a3e36;
     }
+
+    /* Header Bar */
+    header {
+      background-color: #f8e8d0;
+      color: #6b4f4f;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    .back-btn {
+      background-color: #d9bca3;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #c79c73;
+    }
+
+    /* Checkout Card */
     .checkout-container {
-      background: white;
+      background: #ffffff;
       border-radius: 16px;
-      padding: 30px;
+      padding: 2rem;
       max-width: 800px;
-      margin: 80px auto;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      margin: 3rem auto;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
       animation: fadeIn 0.6s ease-in-out;
-      text-align: center;
     }
-    h2 { margin-bottom: 10px; color: #00b894; }
-    p { font-size: 18px; margin-bottom: 10px; }
-    #total { font-size: 22px; font-weight: bold; color: #d63031; }
+
+    h2 {
+      color: #6b4f4f;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #8c7b6a;
+      margin-bottom: 1.5rem;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
+      margin-bottom: 1rem;
+      background: #fffdf9;
     }
+
     th, td {
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
+      padding: 0.8rem;
+      border-bottom: 1px solid #e0cfc0;
       text-align: center;
     }
-    th { background: #ffe0f0; color: #444; }
-    .btn {
-      background: #de8686;
-      color: white;
-      padding: 12px 30px;
-      font-size: 18px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.3s;
-      margin: 10px;
+
+    th {
+      background-color: #f4e3d7;
+      color: #5a3e36;
     }
-    .btn:hover { background: #cb119a; transform: scale(1.05); }
-    .btn-cancel { background: #aaa; }
-    .btn-cancel:hover { background: #777; }
+
+    tr:hover {
+      background-color: #fff3e6;
+      transition: 0.2s;
+    }
+
+    #total {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #b35b47;
+    }
+
+    /* Buttons */
+    .btn {
+      background-color: #d9bca3;
+      color: white;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      margin: 0.5rem;
+    }
+
+    .btn:hover {
+      background-color: #c79c73;
+      transform: scale(1.03);
+    }
+
+    .btn-cancel {
+      background-color: #b0a18f;
+    }
+
+    .btn-cancel:hover {
+      background-color: #8d7c6a;
+    }
+
+    /* Payment Section */
     .payment-section {
       display: none;
-      margin-top: 30px;
+      margin-top: 2rem;
       text-align: center;
       animation: fadeIn 0.6s ease-in-out;
     }
-    .payment-section img {
-      width: 180px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
+
+    .payment-section h4 {
+      color: #6b4f4f;
+      margin-bottom: 0.5rem;
     }
-    .payment-section img:hover { transform: scale(1.1); }
+
+    .payment-section img {
+      width: 150px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .payment-section img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    #paymentOptions {
+      margin-top: 2rem;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Top Navigation -->
-  <div class="w3-top w3-bar w3-red w3-padding">
-    <span class="w3-bar-item"><i class="fa fa-shopping-cart"></i> Checkout</span>
-    <a href="cart.html" class="w3-bar-item w3-button w3-right"><i class="fa fa-arrow-left"></i> Back to Cart</a>
-  </div>
+  <header>
+    <a href="cart.html" class="back-btn"><i class="fa fa-arrow-left"></i> Back to Cart</a>
+    <h1><i class="fa fa-credit-card"></i> Checkout</h1>
+  </header>
 
-  <!-- Checkout Container -->
   <div class="checkout-container">
     <h2>Confirm Your Payment</h2>
+    <p>Please review your order before proceeding to payment.</p>
 
     <!-- Cart items -->
-    <table id="cartTable" class="w3-table w3-striped w3-bordered">
+    <table id="cartTable">
       <thead>
         <tr>
           <th>Item</th>
@@ -103,12 +197,14 @@
 
     <p>Total: <span id="total">0.00</span> MYR</p>
 
-    <button class="btn" onclick="showPayments()"><i class="fa fa-credit-card"></i> Confirm Payment</button>
-    <button class="btn btn-cancel" onclick="cancelPayment()"><i class="fa fa-times"></i> Cancel</button>
+    <div style="text-align:center;">
+      <button class="btn" onclick="showPayments()"><i class="fa fa-money-bill-wave"></i> Confirm Payment</button>
+      <button class="btn btn-cancel" onclick="cancelPayment()"><i class="fa fa-times"></i> Cancel</button>
+    </div>
 
     <!-- Payment Options -->
-    <div id="paymentOptions" style="display:none; margin-top:30px;">
-      <h3>Select Payment Method</h3>
+    <div id="paymentOptions" style="display:none;">
+      <h3 style="color:#6b4f4f;">Select Payment Method</h3>
 
       <div class="payment-section">
         <h4>Touch ’n Go</h4>
@@ -147,8 +243,7 @@
             <td>${price.toFixed(2)}</td>
             <td>${qty}</td>
             <td>${subtotal.toFixed(2)}</td>
-          </tr>
-        `;
+          </tr>`;
         tbody.insertAdjacentHTML("beforeend", row);
       });
     }
@@ -156,7 +251,6 @@
     document.getElementById("total").textContent = grandTotal.toFixed(2);
 
     function showPayments() {
-      // Save order in DB
       fetch("save_order.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -165,28 +259,38 @@
       .then(res => res.text())
       .then(data => {
         console.log("Order saved:", data);
-
         document.getElementById("paymentOptions").style.display = "block";
         document.querySelectorAll(".payment-section").forEach(div => div.style.display = "block");
 
-        // Dynamic links
         document.getElementById("tngLink").href = "https://payment.tngdigital.com.my/sc/bDLofadvsx";
         document.getElementById("fpxLink").href = "fpx.php?total=" + grandTotal.toFixed(2);
       });
     }
 
+
+    function redirectToPayment(method) {
+      const total = grandTotal.toFixed(2);
+      if (method === "tng") {
+        window.location.href = `https://payment.tngdigital.com.my/sc/bDLofadvsx?amount=${total}&desc=LuckyMilkTeaOrder`;
+      } else {
+        window.location.href = `fpx.php?total=${total}`;
+      }
+    }
+
+
     function cancelPayment() {
-      if (confirm("Are you sure you want to cancel the payment and return to your cart?")) {
+      if (confirm("Are you sure you want to cancel and return to your cart?")) {
         window.location.href = "cart.html";
       }
     }
 
-    // Show success popup if redirected
     const params = new URLSearchParams(window.location.search);
     if (params.get("status") === "success") {
       alert("✅ Payment Successful! Thank you for your order.");
       localStorage.removeItem("cart"); // clear cart
+      window.location.href = "order-status.html"; // 👈 Redirect to order status page
     }
+
   </script>
 
 </body>

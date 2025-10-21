@@ -26,57 +26,166 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
   <meta charset="UTF-8">
   <title>Manage Staff - Lucky Milk Tea</title>
 
-  <!-- W3.CSS Framework -->
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: #fdf6ec;
+      background: linear-gradient(135deg, #fbe8e1, #f7d9c4, #fceee4);
       margin: 0;
-      padding: 20px;
-      color: #333;
+      padding: 0;
+      color: #5c3b28;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
     h1 {
       text-align: center;
-      margin: 20px 0;
-      color: #6d4c41;
+      margin: 40px 0 25px;
+      color: #5c3b28;
+      font-size: 34px;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      animation: fadeInDown 0.8s ease-in-out;
     }
+
+    /* ====== FIXED BUTTON SECTION ====== */
     .top-btns {
-      margin-bottom: 20px;
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      width: 100%;
     }
-    .w3-btn {
-      border-radius: 8px;
+
+    .btn {
+      background: #c17856;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
       font-weight: 500;
-      margin: 4px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(193,120,86,0.3);
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    .btn:hover {
+      background: #a9643b;
+      transform: translateY(-2px);
+    }
+
+    .btn.red { background: #e57373; }
+    .btn.red:hover { background: #c62828; }
+
+    .btn.green { background: #81c784; }
+    .btn.green:hover { background: #388e3c; }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      padding: 30px;
+      animation: fadeInUp 0.8s ease-in-out;
+    }
+
     table {
-      background: #fff;
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
     }
+
+    th, td {
+      padding: 14px;
+      text-align: center;
+      font-size: 16px;
+    }
+
     th {
-      background: #f4a261 !important;
+      background: #c17856;
       color: #fff;
-      text-align: center;
+      letter-spacing: 1px;
     }
-    td {
+
+    tr:nth-child(even) {
+      background: #fff5ee;
+    }
+
+    tr:hover {
+      background: #ffe8d6;
+      transition: background 0.3s;
+    }
+
+    td a {
+      text-decoration: none;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      margin: 0 4px;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    td a.view { background: #81c784; }
+    td a.view:hover { background: #4caf50; }
+
+    td a.edit { background: #f4a261; }
+    td a.edit:hover { background: #e76f51; }
+
+    td a.delete { background: #e57373; }
+    td a.delete:hover { background: #c62828; }
+
+    footer {
+      margin-top: 40px;
       text-align: center;
+      color: #5c3b28;
+      opacity: 0.8;
+      font-size: 14px;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .btn {
+        width: 80%;
+        font-size: 14px;
+      }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
+  <!-- ✅ Top Buttons (Centered + Responsive) -->
   <div class="top-btns">
-    <a href="admin.php" class="w3-button w3-red">🏠 Back to Dashboard</a>
-    <a href="add_staff.php" class="w3-button w3-green">➕ Add New Staff</a>
+    <a href="admin.php" class="btn red">🏠 Back to Dashboard</a>
+    <a href="add_staff.php" class="btn green">➕ Add New Staff</a>
   </div>
 
-  <h1 class="w3-animate-top">👨‍💼 Staff Management</h1>
+  <h1>👨‍💼 Staff Management</h1>
 
-  <div class="w3-responsive">
-    <table class="w3-table-all w3-hoverable w3-card-4">
+  <div class="container">
+    <table>
       <tr>
         <th>ID</th>
         <th>Name</th>
@@ -94,25 +203,21 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
             <td><?= ucfirst($row['role']) ?></td>
             <td><?= $row['date_registered'] ?></td>
             <td>
-              <!-- View Button -->
-              <a href="view_staff.php?id=<?= $row['id'] ?>" class="w3-button w3-blue w3-round">👁 View</a>
-
-              <!-- Remove Button -->
-              <a href="staff_manage.php?delete=<?= $row['id'] ?>" 
-                 class="w3-button w3-red w3-round" 
-                 onclick="return confirm('⚠️ Are you sure to remove this staff?')">🗑 Remove</a>
-
-              <a href="edit_staff.php?id=<?= $row['id'] ?>" class="w3-button w3-orange w3-round">✏️ Edit</a>
+              <a href="view_staff.php?id=<?= $row['id'] ?>" class="view">👁 View</a>
+              <a href="edit_staff.php?id=<?= $row['id'] ?>" class="edit">✏️ Edit</a>
+              <a href="staff_manage.php?delete=<?= $row['id'] ?>" class="delete" onclick="return confirm('⚠️ Are you sure you want to remove this staff?')">🗑 Remove</a>
             </td>
           </tr>
         <?php endwhile; ?>
       <?php else: ?>
         <tr>
-          <td colspan="6" style="text-align:center; color:red;">No staff found</td>
+          <td colspan="6" style="color:red;">No staff found</td>
         </tr>
       <?php endif; ?>
     </table>
   </div>
+
+  <footer>© 2025 Lucky Milk Tea — Admin Panel</footer>
 
 </body>
 </html>

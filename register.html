@@ -12,37 +12,30 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9a8b);
-      background-size: 300% 300%;
-      animation: gradientMove 10s ease infinite;
-      margin: 0;
-      padding: 0;
+      background-color: #fff8f0;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      color: #fff;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      margin: 0;
+      padding: 0;
     }
 
     .register-box {
-      background: rgba(255,255,255,0.1);
-      padding: 40px;
+      background: #ffffff;
+      padding: 40px 35px;
       border-radius: 20px;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       text-align: center;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      border: 2px solid #f5e6ca;
     }
 
     .register-box h2 {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      color: #8b4513;
+      font-weight: 600;
     }
 
     .register-box input[type="text"],
@@ -50,64 +43,81 @@
     .register-box input[type="password"] {
       width: 100%;
       padding: 12px;
-      margin: 8px 0;
+      margin: 8px 0 15px 0;
       border-radius: 10px;
-      border: none;
+      border: 1px solid #d9b99b;
       outline: none;
-      font-size: 14px;
-      background: rgba(255,255,255,0.2);
-      color: #fff;
+      font-size: 15px;
+      background-color: #fffdf8;
+      transition: border-color 0.3s;
+    }
+
+    .register-box input:focus {
+      border-color: #cfa47e;
+      box-shadow: 0 0 5px rgba(207,164,126,0.4);
     }
 
     .register-box button {
       width: 100%;
       padding: 12px;
-      margin: 15px 0;
+      margin-top: 10px;
       border: none;
-      border-radius: 12px;
-      background-color: #4facfe;
+      border-radius: 10px;
+      background-color: #cfa47e;
       color: #fff;
       font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
     }
 
     .register-box button:hover {
-      background-color: #00f2fe;
+      background-color: #b68c68;
+    }
+
+    .back-links {
+      margin-top: 15px;
     }
 
     .back-btn {
       display: inline-block;
       margin: 5px;
-      color: #fff;
+      color: #8b4513;
       text-decoration: none;
       font-size: 14px;
-      padding: 6px 12px;
+      padding: 8px 14px;
       border-radius: 8px;
-      background-color: rgba(0,0,0,0.2);
-      transition: 0.3s;
+      background-color: #f9e4c8;
+      transition: all 0.3s ease;
     }
 
     .back-btn:hover {
-      background-color: rgba(0,0,0,0.4);
+      background-color: #f1d3a8;
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
 
-<div class="register-box w3-card-4 w3-animate-top">
-    <h2>✨ Create Account ✨</h2>
+  <div class="register-box w3-animate-top">
+    <h2>☕ Create Your Account</h2>
     <form action="register.php" method="POST" class="w3-container">
         <input type="text" name="name" placeholder="👤 Username" required>
         <input type="email" name="email" placeholder="📧 Email" required>
         <input type="password" name="password" placeholder="🔑 Password" required>
-        <button type="submit" class="w3-button w3-blue w3-round">Register</button>
+        <button type="submit">Register</button>
     </form>
-    <br>
-    <a href="login.html" class="back-btn w3-hover-shadow">← Back to Login</a>
-    <br>
-    <a href="home.html" class="back-btn w3-hover-shadow">🏠 Home</a>
-</div>
+
+    <div class="back-links">
+      <a href="login.html" class="back-btn">← Back to Login</a>
+      <a href="home.html" class="back-btn">🏠 Home</a>
+    </div>
+  </div>
 
 </body>
 </html>

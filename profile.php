@@ -2,9 +2,9 @@
 session_start();
 $conn = new mysqli("localhost", "root", "", "milk_tea_shop");
 
-// simulate login (replace with your real login system)
+// Simulate login (replace with real login system)
 if (!isset($_SESSION['user_id'])) {
-    $_SESSION['user_id'] = 1; // Example: logged-in user is ID=1
+    $_SESSION['user_id'] = 1;
 }
 
 $user_id = $_SESSION['user_id'];
@@ -13,7 +13,7 @@ $user_id = $_SESSION['user_id'];
 $result = $conn->query("SELECT * FROM users WHERE id=$user_id");
 $user = $result->fetch_assoc();
 
-// Handle profile update (name & image)
+// Handle profile update
 if (isset($_POST['update_profile'])) {
     $name = $_POST['name'];
 
@@ -34,7 +34,7 @@ if (isset($_POST['update_profile'])) {
     echo "<script>
         alert('✅ Profile updated successfully!');
         window.location.href='profile.php';
-      </script>";
+    </script>";
     exit();
 }
 
@@ -44,7 +44,7 @@ if (isset($_POST['change_password'])) {
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
 
-    $stored_pass = $user['password']; // from DB
+    $stored_pass = $user['password'];
 
     $is_valid = password_verify($old_password, $stored_pass) || $old_password === $stored_pass;
 
@@ -55,12 +55,12 @@ if (isset($_POST['change_password'])) {
             $stmt->bind_param("si", $hashed_new, $user_id);
             $stmt->execute();
             $stmt->close();
-            $msg = "<p class='w3-text-green'>✅ Password changed successfully!</p>";
+            $msg = "<p style='color:green;'>✅ Password changed successfully!</p>";
         } else {
-            $msg = "<p class='w3-text-red'>⚠️ New passwords do not match!</p>";
+            $msg = "<p style='color:red;'>⚠️ New passwords do not match!</p>";
         }
     } else {
-        $msg = "<p class='w3-text-red'>⚠️ Old password is incorrect!</p>";
+        $msg = "<p style='color:red;'>⚠️ Old password is incorrect!</p>";
     }
 }
 ?>
@@ -69,80 +69,126 @@ if (isset($_POST['change_password'])) {
 <head>
   <meta charset="UTF-8">
   <title>Your Profile</title>
-
-  <!-- W3.CSS Framework -->
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9a8b);
-      background-size: 300% 300%;
-      animation: gradientMove 10s ease infinite;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom right, #fffaf5, #f8efe6);
       margin: 0;
-      padding: 0;
+      padding: 40px;
+      color: #4b3b2f;
     }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+
     .profile-container {
-      max-width: 450px;
-      margin: 50px auto;
-      padding: 30px;
-      background: rgba(255,255,255,0.1);
+      max-width: 500px;
+      margin: 0 auto;
+      background: #ffffff;
       border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(90, 62, 43, 0.15);
+      padding: 30px;
       text-align: center;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     }
+
     .profile-card img {
       width: 130px;
       height: 130px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid #fff;
-      box-shadow: 0 0 0 4px rgba(0,0,0,0.3), 0 6px 15px rgba(0,0,0,0.4);
+      border: 4px solid #d4a373;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      margin-bottom: 10px;
     }
-    h1, h2 { margin: 10px 0; }
-    .form-input { text-align: left; margin: 10px 0; }
-    label { font-weight: bold; }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #5a3e2b;
+      margin-bottom: 5px;
+    }
+
+    h2 {
+      margin-top: 25px;
+      color: #9b5c38;
+      font-size: 1.2rem;
+      border-bottom: 2px solid #f2e2d3;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .form-input {
+      text-align: left;
+      margin: 12px 0;
+    }
+
+    label {
+      font-weight: 600;
+      color: #5a3e2b;
+    }
+
     input[type="text"], input[type="file"], input[type="password"] {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 10px;
-      border: none;
+      border: 1px solid #e4cdb5;
+      background: #fffaf5;
       outline: none;
-      background: rgba(255,255,255,0.2);
-      color: #fff;
+      font-size: 14px;
     }
+
     .btn {
       padding: 10px 20px;
-      border-radius: 12px;
+      border-radius: 10px;
       border: none;
       cursor: pointer;
-      margin: 5px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      margin: 6px;
     }
-    .dashboard { background: #4facfe; color: #fff; }
-    .logout { background: #ff6a6a; color: #fff; }
+
+    .update { background: #d4a373; color: #fff; }
+    .update:hover { background: #b97a56; }
+
+    .change { background: #c07f56; color: #fff; }
+    .change:hover { background: #9b5c38; }
+
+    .dashboard { background: #5a3e2b; color: #fff; }
+    .dashboard:hover { background: #3d2b1f; }
+
+    .logout { background: #e57c73; color: #fff; }
+    .logout:hover { background: #cc5a5a; }
+
+    .show-password {
+      position: absolute;
+      right: 12px;
+      top: 36px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #9b5c38;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    p strong {
+      color: #6b4f4f;
+    }
   </style>
 </head>
 <body>
 
-<div class="profile-container w3-card-4 w3-padding-16">
+<div class="profile-container">
   <div class="profile-card">
-    <img src="uploads/<?php echo $user['profile_image']; ?>" alt="Profile Picture"><br><br>
-    <h1 class="w3-text-white"><?php echo $user['name']; ?></h1>
+    <img src="uploads/<?php echo $user['profile_image']; ?>" alt="Profile Picture"><br>
+    <h1><?php echo $user['name']; ?></h1>
     <p><strong>Email:</strong> <?php echo $user['email']; ?></p>
-    <p><strong>Role:</strong> <?php echo $user['role']; ?></p>
+    <p><strong>Role:</strong> <?php echo ucfirst($user['role']); ?></p>
     <p><strong>Registered:</strong> <?php echo $user['date_registered']; ?></p>
   </div>
 
-  <h2 class="w3-text-white">Edit Profile</h2>
-  <form method="POST" enctype="multipart/form-data" class="w3-container">
+  <h2>Edit Profile</h2>
+  <form method="POST" enctype="multipart/form-data">
     <div class="form-input">
       <label>Name:</label>
       <input type="text" name="name" value="<?php echo $user['name']; ?>" required>
@@ -151,31 +197,41 @@ if (isset($_POST['change_password'])) {
       <label>Upload New Picture:</label>
       <input type="file" name="profile_image" accept="image/*">
     </div>
-    <button type="submit" name="update_profile" class="btn dashboard w3-button w3-blue">💾 Update Profile</button>
+    <button type="submit" name="update_profile" class="btn update">💾 Update Profile</button>
   </form>
 
-  <h2 class="w3-text-white">Change Password</h2>
+  <h2>Change Password</h2>
   <?php if (!empty($msg)) echo $msg; ?>
-  <form method="POST" class="w3-container">
-    <div class="form-input">
+  <form method="POST">
+    <div class="form-input password-wrapper">
       <label>Old Password:</label>
-      <input type="password" name="old_password" required>
+      <input type="password" id="old_password" name="old_password" required>
+      <span class="show-password" onclick="togglePassword('old_password')">👁</span>
     </div>
-    <div class="form-input">
+    <div class="form-input password-wrapper">
       <label>New Password:</label>
-      <input type="password" name="new_password" required>
+      <input type="password" id="new_password" name="new_password" required>
+      <span class="show-password" onclick="togglePassword('new_password')">👁</span>
     </div>
-    <div class="form-input">
+    <div class="form-input password-wrapper">
       <label>Confirm New Password:</label>
-      <input type="password" name="confirm_password" required>
+      <input type="password" id="confirm_password" name="confirm_password" required>
+      <span class="show-password" onclick="togglePassword('confirm_password')">👁</span>
     </div>
-    <button type="submit" name="change_password" class="btn dashboard w3-button w3-green">🔑 Change Password</button>
+    <button type="submit" name="change_password" class="btn change">🔑 Change Password</button>
   </form>
 
   <br>
-  <a href="admin.php" class="btn dashboard w3-button w3-orange">🏠 Dashboard</a>
-  <a href="logout.php" class="btn logout w3-button w3-red">🚪 Logout</a>
+  <a href="admin.php" class="btn dashboard">🏠 Dashboard</a>
+  <a href="logout.php" class="btn logout">🚪 Logout</a>
 </div>
+
+<script>
+function togglePassword(id) {
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+</script>
 
 </body>
 </html>

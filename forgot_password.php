@@ -33,9 +33,8 @@ if (isset($_POST['request_otp'])) {
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
-            $mail->setFrom('yourgmail@gmail.com', 'Lucky Milk Tea');
+            $mail->setFrom('luckymilktea88@gmail.com', 'Lucky Milk Tea');
             $mail->addAddress($email);
-
             $mail->isHTML(true);
             $mail->Subject = 'Your OTP Code - Lucky Milk Tea';
             $mail->Body    = "<p>Your OTP code is: <b>$otp</b></p>";
@@ -82,37 +81,114 @@ if (isset($_POST['reset_password'])) {
   <style>
     body {
       font-family: "Poppins", sans-serif;
-      margin: 0; height: 100vh;
-      display: flex; justify-content: center; align-items: center;
-      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+      background-color: #fff8f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
     }
+
     .login-box {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 35px 40px; border-radius: 15px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
-      width: 100%; max-width: 380px; text-align: center;
-      animation: fadeIn 0.8s ease-in-out;
+      background: #ffffff;
+      padding: 40px 35px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      border: 2px solid #f5e6ca;
     }
-    .login-box h2 { margin-bottom: 20px; color: #fff; font-size: 24px; }
-    .login-box input { width: 100%; padding: 12px; margin: 10px 0;
-      border: none; border-radius: 8px; font-size: 14px; outline: none; }
-    .login-box button { width: 100%; padding: 12px; border: none;
-      border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 15px; }
-    .request-btn { background-color: #4facfe; color: #fff; }
-    .request-btn:hover { background-color: #00f2fe; }
-    .reset-btn { background-color: #ff6ec4; color: #fff; }
-    .reset-btn:hover { background-color: #ff9a8b; }
-    .cancel-btn { background-color: #f44336; color: #fff; }
-    .cancel-btn:hover { background-color: #d32f2f; }
-    .login-box a { display: block; margin-top: 12px; font-size: 14px; text-decoration: none; color: #fff; }
-    .login-box a:hover { text-decoration: underline; }
-    hr { margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.3); }
-    @keyframes fadeIn { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
+
+    .login-box h2 {
+      margin-bottom: 25px;
+      color: #8b4513;
+      font-weight: 600;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 15px 0;
+      border-radius: 10px;
+      border: 1px solid #d9b99b;
+      outline: none;
+      font-size: 15px;
+      background-color: #fffdf8;
+      transition: border-color 0.3s;
+    }
+
+    .login-box input:focus {
+      border-color: #cfa47e;
+      box-shadow: 0 0 5px rgba(207,164,126,0.4);
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .request-btn {
+      background-color: #cfa47e;
+    }
+    .request-btn:hover {
+      background-color: #b68c68;
+    }
+
+    .reset-btn {
+      background-color: #d4a373;
+    }
+    .reset-btn:hover {
+      background-color: #b98b59;
+    }
+
+    .cancel-btn {
+      background-color: #e57373;
+    }
+    .cancel-btn:hover {
+      background-color: #d32f2f;
+    }
+
+    hr {
+      margin: 25px 0;
+      border: none;
+      border-top: 1px solid #f2dfc2;
+    }
+
+    .login-box a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #8b4513;
+      text-decoration: none;
+      background-color: #f9e4c8;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .login-box a:hover {
+      background-color: #f1d3a8;
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
-  <div class="login-box w3-card-4 w3-animate-top">
+  <div class="login-box w3-animate-top">
     <h2>🔑 Forgot Password</h2>
 
     <!-- Step 1: Request OTP -->
@@ -120,11 +196,11 @@ if (isset($_POST['reset_password'])) {
       <input type="email" id="email" name="email" placeholder="📧 Email"
              value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>"
              <?php echo isset($_SESSION['email']) ? 'readonly' : ''; ?>
-             required class="w3-input w3-round">
+             required>
       <?php if (!isset($_SESSION['email'])): ?>
-        <button type="submit" name="request_otp" class="w3-button w3-blue w3-round request-btn">Request OTP</button>
+        <button type="submit" name="request_otp" class="request-btn">Request OTP</button>
       <?php else: ?>
-        <button type="submit" name="cancel_email" class="w3-button w3-red w3-round cancel-btn">Cancel</button>
+        <button type="submit" name="cancel_email" class="cancel-btn">Cancel</button>
       <?php endif; ?>
     </form>
 
@@ -132,9 +208,9 @@ if (isset($_POST['reset_password'])) {
 
     <!-- Step 2: Verify OTP + Reset Password -->
     <form method="POST" class="w3-container">
-      <input type="text" name="otp" placeholder="🔢 Enter OTP" required class="w3-input w3-round">
-      <input type="password" name="new_password" placeholder="🔒 New Password" required class="w3-input w3-round">
-      <button type="submit" name="reset_password" class="w3-button w3-pink w3-round reset-btn">Reset Password</button>
+      <input type="text" name="otp" placeholder="🔢 Enter OTP" required>
+      <input type="password" name="new_password" placeholder="🔒 New Password" required>
+      <button type="submit" name="reset_password" class="reset-btn">Reset Password</button>
     </form>
 
     <a href="login.html">⬅ Back to Login</a>

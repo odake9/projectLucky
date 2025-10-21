@@ -43,96 +43,90 @@ if ($result && $result->num_rows > 0) {
 }
 $conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Staff - View Orders (AJAX)</title>
+<title>Staff - View Orders</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   body {
     font-family: "Poppins", sans-serif;
-    background-color: #fff8f0;
+    background: linear-gradient(to bottom right, #fffaf5, #f7efe7);
     color: #4b3b2f;
     margin: 0;
     padding: 20px;
   }
 
   .container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
-  /* Back button */
+  /* Back Button */
   .back-btn {
     display: inline-block;
-    background: #f7b267;
-    color: #fff;
+    background: #d4a373;
+    color: white;
     text-decoration: none;
-    padding: 10px 16px;
+    padding: 10px 18px;
     border-radius: 10px;
     font-weight: 500;
-    transition: 0.3s ease;
+    transition: background 0.3s ease;
+    margin-bottom: 15px;
   }
   .back-btn:hover {
-    background: #f4845f;
+    background: #b97a56;
   }
 
   /* Title */
   h1 {
     text-align: center;
-    color: #6b4f4f;
-    margin: 20px 0;
+    color: #5a3e2b;
+    margin: 25px 0;
     font-size: 2rem;
+    font-weight: 600;
   }
 
-  /* Order card layout */
+  /* Order Card */
   .order-card {
     background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(107, 79, 79, 0.1);
-    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(90, 62, 43, 0.1);
+    padding: 20px 25px;
     margin-bottom: 25px;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    transition: all 0.3s ease;
   }
   .order-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(107, 79, 79, 0.15);
+    box-shadow: 0 8px 20px rgba(90, 62, 43, 0.15);
   }
 
-  /* Header alignment */
+  /* Header */
   .order-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #ffe3d8;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+    border-bottom: 2px solid #f1e0d6;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
   }
-
   .order-id {
     font-weight: 600;
     font-size: 1.1rem;
-    color: #5a3930;
+    color: #6b4f4f;
   }
-
   .order-date {
     font-size: 0.9rem;
     color: #a47148;
-    text-align: right;
   }
 
-  /* Dropdown + badge alignment */
+  /* Dropdown & Badge */
   .status-section {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-top: 8px;
   }
-
   select {
     padding: 6px 10px;
     border-radius: 8px;
@@ -140,19 +134,19 @@ $conn->close();
     background: #fff9f6;
     font-size: 0.9rem;
     color: #5a3930;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s ease;
   }
   select:focus {
-    border-color: #f4845f;
+    border-color: #c58f63;
     outline: none;
   }
 
   .status-badge {
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 8px;
     color: #fff;
     font-weight: 500;
-    font-size: 0.9em;
+    font-size: 0.85em;
   }
   .Pending {
     background: #ffb347;
@@ -161,7 +155,7 @@ $conn->close();
     background: #9fd356;
   }
   .Cancelled {
-    background: #f91313ff;
+    background: #f25c54;
   }
 
   /* Table */
@@ -169,99 +163,98 @@ $conn->close();
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-    table-layout: fixed;
+    font-size: 0.95rem;
   }
   .order-items th {
-    background: #ffe3d8;
-    color: #5a3930;
+    background: #fbe9d0;
+    color: #5a3e2b;
     text-align: left;
     padding: 10px;
-    font-size: 0.95rem;
   }
   .order-items td {
     padding: 8px 10px;
-    border-bottom: 1px solid #f8d9c4;
-    vertical-align: top;
+    border-bottom: 1px solid #f2d6b3;
   }
   .order-items tr:nth-child(even) {
     background: #fff8f5;
   }
 
-  /* Align prices and quantity columns */
-  .order-items td:nth-child(2),
-  .order-items td:nth-child(3) {
-    text-align: right;
-  }
-
-  /* Total row */
-  .total-row {
-    background: #ffefe5;
-    font-weight: bold;
-    border-top: 2px solid #f6c6a4;
+  /* Total Row */
+  .order-items tr:last-child {
+    background: #fcebd4;
+    font-weight: 600;
   }
 
   .msg {
     font-size: 0.85em;
     margin-left: 6px;
   }
-</style>
 
+  /* Center "No Orders" Message */
+  .empty {
+    text-align: center;
+    color: #9b8b7a;
+    font-style: italic;
+    margin-top: 40px;
+  }
+</style>
 </head>
 <body>
 
-<a href="staff.php" class="back-btn">← Back to Dashboard</a>
-<h1>🧾 Staff View Orders</h1>
+<div class="container">
+  <a href="staff.php" class="back-btn">← Back to Dashboard</a>
+  <h1>Admin - View Orders</h1>
 
-<div id="orderContainer">
-<?php if (empty($orders)): ?>
-  <p style="text-align:center;color:gray;">No orders found.</p>
-<?php else: ?>
-  <?php foreach ($orders as $id => $order): ?>
-    <div class="order-card" id="order-<?= $id ?>">
-      <div class="order-header">
-        <div>
-          <strong>Order #<?= $id ?></strong><br>
-          <small>Date: <?= $order['order_date'] ?></small>
-        </div>
-        <div>
-          <select class="status-select" data-id="<?= $id ?>">
-            <option value="Pending" <?= $order['status'] == 'Pending' ? 'selected' : '' ?>>Pending</option>
-            <option value="Completed" <?= $order['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
-            <option value="Cancelled" <?= $order['status'] == 'Cancelled' ? 'selected' : '' ?>>Cancelled</option>
-          </select>
-          <span class="status-badge <?= htmlspecialchars($order['status']) ?>" id="badge-<?= $id ?>">
-            <?= htmlspecialchars($order['status']) ?>
-          </span>
-          <span class="msg" id="msg-<?= $id ?>"></span>
-        </div>
-      </div>
+  <div id="orderContainer">
+    <?php if (empty($orders)): ?>
+      <p class="empty">No orders found.</p>
+    <?php else: ?>
+      <?php foreach ($orders as $id => $order): ?>
+        <div class="order-card" id="order-<?= $id ?>">
+          <div class="order-header">
+            <div>
+              <div class="order-id">Order #<?= $id ?></div>
+              <div class="order-date"><?= $order['order_date'] ?></div>
+            </div>
+            <div class="status-section">
+              <select class="status-select" data-id="<?= $id ?>">
+                <option value="Pending" <?= $order['status'] == 'Pending' ? 'selected' : '' ?>>Pending</option>
+                <option value="Completed" <?= $order['status'] == 'Completed' ? 'selected' : '' ?>>Completed</option>
+                <option value="Cancelled" <?= $order['status'] == 'Cancelled' ? 'selected' : '' ?>>Cancelled</option>
+              </select>
+              <span class="status-badge <?= htmlspecialchars($order['status']) ?>" id="badge-<?= $id ?>">
+                <?= htmlspecialchars($order['status']) ?>
+              </span>
+              <span class="msg" id="msg-<?= $id ?>"></span>
+            </div>
+          </div>
 
-      <table class="order-items">
-        <tr>
-          <th>Item Name</th><th>Qty</th><th>Price (RM)</th><th>Subtotal (RM)</th><th>Remark</th>
-        </tr>
-        <?php foreach ($order['items'] as $it): 
-          $subtotal = $it['price'] * $it['quantity']; ?>
-          <tr>
-            <td><?= htmlspecialchars($it['name']) ?></td>
-            <td><?= $it['quantity'] ?></td>
-            <td><?= number_format($it['price'], 2) ?></td>
-            <td><?= number_format($subtotal, 2) ?></td>
-            <td><?= htmlspecialchars($it['remark']) ?></td>
-          </tr>
-        <?php endforeach; ?>
-        <tr>
-          <td colspan="3" style="text-align:right;"><strong>Total:</strong></td>
-          <td colspan="2"><strong>RM <?= number_format($order['total'], 2) ?></strong></td>
-        </tr>
-      </table>
-    </div>
-  <?php endforeach; ?>
-<?php endif; ?>
+          <table class="order-items">
+            <tr>
+              <th>Item Name</th><th>Qty</th><th>Price (RM)</th><th>Subtotal (RM)</th><th>Remark</th>
+            </tr>
+            <?php foreach ($order['items'] as $it): 
+              $subtotal = $it['price'] * $it['quantity']; ?>
+              <tr>
+                <td><?= htmlspecialchars($it['name']) ?></td>
+                <td><?= $it['quantity'] ?></td>
+                <td><?= number_format($it['price'], 2) ?></td>
+                <td><?= number_format($subtotal, 2) ?></td>
+                <td><?= htmlspecialchars($it['remark']) ?></td>
+              </tr>
+            <?php endforeach; ?>
+            <tr>
+              <td colspan="3" style="text-align:right;">Total:</td>
+              <td colspan="2">RM <?= number_format($order['total'], 2) ?></td>
+            </tr>
+          </table>
+        </div>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
 </div>
 
 <script>
-// AJAX status update
 document.querySelectorAll('.status-select').forEach(select => {
   select.addEventListener('change', function() {
     const orderId = this.dataset.id;

@@ -1,59 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>About Us - Lucky Milk Tea</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="about.css"> <!-- Linked external CSS -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- GLOBAL RESET --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #faf8f5;
+      color: #3c2f2f;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+    img { max-width: 100%; display: block; }
+
+    /* --- HEADER --- */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #ffffff;
+      border-bottom: 1px solid #e5ddd2;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      z-index: 1000;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #b68c5a;
+      letter-spacing: 0.5px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav ul li a {
+      color: #5e4b3c;
+      font-weight: 400;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    nav ul li a:hover {
+      color: #b68c5a;
+    }
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 2px;
+      background: #b68c5a;
+      transition: width 0.3s;
+    }
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    .nav-actions .nav-btn {
+      display: flex;
+      align-items: center;
+      background: #b68c5a;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .nav-btn i { margin-right: 0.5rem; }
+    .nav-btn:hover {
+      background: #a47b48;
+      transform: translateY(-2px);
+    }
+
+    /* --- ABOUT SECTION --- */
+    .about {
+      margin-top: 120px;
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .about h1 {
+      text-align: center;
+      color: #b68c5a;
+      font-size: 2.4rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    .about p {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #5e4b3c;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .about-card {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .about-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .about-card h3 {
+      color: #b68c5a;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+    .about-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .about-card ul li {
+      padding: 0.3rem 0;
+      color: #6d5c4a;
+    }
+
+    /* --- IMAGE SECTION --- */
+    .about-image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 3rem;
+      text-align: center;
+    }
+    .about-image img {
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 70%;
+      max-width: 600px;
+      height: auto;
+      object-fit: cover;
+      margin: 0 auto;
+    }
+    .about-image p {
+      margin-top: 1rem;
+      color: #5e4b3c;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: #fff;
+      color: #6b5b4c;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.95rem;
+      border-top: 1px solid #eee3d9;
+      margin-top: 3rem;
+    }
+
+  </style>
 </head>
+
 <body>
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+      <div class="nav-logo">Lucky Milk Tea</div>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="menu.php">Menu</a></li>
+          <li><a href="contact.php">Contact & Feedback</a></li>
+          <li><a href="customer_view_order.php">Order Status</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-btn"><i class="fa fa-user"></i> Login</a>
+      </div>
+    </div>
+  </header>
 
-<!-- Back Button -->
-<div class="container back-btn-container">
-  <a href="home.html" class="btn back-btn">← Back</a>
-</div>
-
-<!-- About Section -->
-<div class="container">
-  <div class="jumbotron about-box">
+  <!-- ABOUT SECTION -->
+  <section class="about">
     <h1>About Lucky Milk Tea</h1>
-    <p>At <b>Lucky Milk Tea</b>, we believe that every cup tells a story. Since our humble beginnings, 
-       our mission has been to create drinks that not only refresh but also bring joy to your day. 
-       Our handcrafted milk teas, refreshing fruit blends, and creamy ice-blended specialties are 
-       made with the finest ingredients to ensure quality in every sip.</p>
-  </div>
+    <p>At <b>Lucky Milk Tea</b>, we believe every cup tells a story. From our humble beginnings, our mission has been to craft drinks that not only refresh but bring joy to your day. Our handcrafted milk teas, fruity blends, and creamy ice-blended specialties are made with only the finest ingredients.</p>
 
-  <div class="row">
-    <div class="col-sm-6">
-      <h3>✨ Our Story</h3>
-      <p>Founded by passionate milk tea lovers, Lucky Milk Tea started as a small family business 
-         and has grown into a beloved local brand. With creativity and care, we blend traditional tea-making 
-         with modern flavors to give you an unforgettable experience.</p>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>✨ Our Story</h3>
+        <p>Founded by passionate milk tea lovers, Lucky Milk Tea began as a small family business and has grown into a beloved local brand. We blend traditional tea-making with modern flavors for a truly memorable experience.</p>
+      </div>
+
+      <div class="about-card">
+        <h3>🌱 Our Values</h3>
+        <ul>
+          <li>✔ Quality Ingredients – Only the best tea leaves, fruits, and toppings.</li>
+          <li>✔ Customer Happiness – Every cup is made with care.</li>
+          <li>✔ Innovation – Constantly experimenting with new flavors.</li>
+          <li>✔ Community – Bringing people together, one drink at a time.</li>
+        </ul>
+      </div>
     </div>
-    <div class="col-sm-6">
-      <h3>🌱 Our Values</h3>
-      <ul>
-        <li>Quality Ingredients – We source only the best tea leaves, fruits, and toppings.</li>
-        <li>Customer Happiness – Every drink is crafted with care, just for you.</li>
-        <li>Innovation – We love experimenting with new flavors and unique blends.</li>
-        <li>Community – We aim to bring people together over a cup of milk tea.</li>
-      </ul>
+
+    <div class="about-image">
+      <img src="https://www.iyubocustom.com/wp-content/uploads/2025/02/Milk-Tea-Shop-Design-10.jpg" alt="Lucky Milk Tea Shop">
+      <p>📍 Visit us at our shop or order online to enjoy the magic of Lucky Milk Tea!</p>
     </div>
-  </div>
+  </section>
 
-  <div class="text-center shop-section">
-    <img src="https://www.iyubocustom.com/wp-content/uploads/2025/02/Milk-Tea-Shop-Design-10.jpg" alt="Lucky Milk Tea Shop" class="img-rounded shop-img">
-    <p class="visit-text">📍 Visit us at our shop or order online to enjoy the magic of Lucky Milk Tea!</p>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="container-fluid text-center footer">
-  <p>© 2025 Lucky Milk Tea | Crafted with love and tea 🍵</p>
-</footer>
-
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Lucky Milk Tea — Crafted with love, served with joy.
+  </footer>
 </body>
 </html>

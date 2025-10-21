@@ -3,17 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Cart - Milk Tea Shop</title>
+  <title>Your Cart - Lucky Milk Tea</title>
 
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    body { font-family: "Poppins", sans-serif; margin: 0; background: #fff8f0; }
-    header { background: #ffcfdf; padding: 1rem; text-align: center; position: relative; }
-    header h1 { margin: 0; color: #6b4f4f; }
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background-color: #fff8f0;
+      color: #5a3e36;
+    }
 
-    /* nav buttons container */
+    header {
+      background-color: #f8e8d0;
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #6b4f4f;
+      letter-spacing: 1px;
+    }
+
+    /* Navigation Buttons */
     .nav-buttons {
       position: absolute;
       left: 1rem;
@@ -24,39 +42,138 @@
     }
 
     .nav-btn {
-      background: #ff9aa2;
-      color: white;
+      background-color: #d9bca3;
+      color: #fff;
       padding: 0.5rem 1rem;
       border-radius: 8px;
       text-decoration: none;
       font-size: 0.9rem;
+      transition: background 0.3s;
     }
-    .nav-btn:hover { background: #ff6f91; }
 
-    main { max-width: 800px; margin: 2rem auto; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
-    th, td { padding: 0.8rem; border-bottom: 1px solid #ddd; text-align: center; }
-    th { background: #ffe5ec; color: #6b4f4f; }
-    .qty-btn, .remove-btn { cursor: pointer; border: none; border-radius: 6px; padding: 0.3rem 0.6rem; }
-    .qty-btn { background: #ffd3b6; }
-    .qty-btn:hover { background: #ffb085; }
-    .remove-btn { background: #ff9aa2; color: white; }
-    .remove-btn:hover { background: #ff6f91; }
-    .remark-box { width: 100%; padding: 0.6rem; margin: 1rem 0; border-radius: 6px; border: 1px solid #ccc; }
-    .total { text-align: right; font-size: 1.2rem; font-weight: bold; margin-top: 1rem; }
-    .checkout-btn, .payment-btn { background: #ff9aa2; color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 8px; margin-top: 1rem; display: block; margin-left: auto; cursor: pointer; }
-    .checkout-btn:hover, .payment-btn:hover { background: #ff6f91; }
-    .empty-message { text-align: center; color: #777; }
+    .nav-btn:hover {
+      background-color: #c79c73;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #e0cfc0;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f4e3d7;
+      color: #5a3e36;
+      font-weight: 600;
+    }
+
+    tr:hover {
+      background-color: #fff3e6;
+      transition: 0.2s;
+    }
+
+    .qty-btn {
+      background-color: #e6c9a8;
+      border: none;
+      border-radius: 6px;
+      padding: 0.3rem 0.6rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .qty-btn:hover {
+      background-color: #d9b58c;
+    }
+
+    .remove-btn {
+      background-color: #d48a7b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .remove-btn:hover {
+      background-color: #b86959;
+    }
+
+    .remark-box {
+      width: 100%;
+      padding: 0.6rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid #d2bba0;
+      background-color: #fffaf5;
+      resize: none;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #6b4f4f;
+      margin-top: 1rem;
+    }
+
+    .checkout-btn {
+      background-color: #d9bca3;
+      color: #fff;
+      padding: 0.9rem 1.8rem;
+      border: none;
+      border-radius: 10px;
+      margin-top: 1.5rem;
+      display: block;
+      margin-left: auto;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background-color: #c79c73;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #8c7b6a;
+      font-style: italic;
+      font-size: 1rem;
+      padding: 2rem 0;
+    }
+
+    img {
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
+
 <body>
   <header>
-    <!-- Home + Menu buttons -->
     <div class="nav-buttons">
-      <a href="home.html" class="nav-btn">← Home</a>
-      <a href="menu.php" class="nav-btn">← Menu</a>
+      <a href="home.html" class="nav-btn"><i class="fa fa-home"></i> Home</a>
+      <a href="menu.php" class="nav-btn"><i class="fa fa-mug-hot"></i> Menu</a>
     </div>
-    <h1>Your Cart</h1>
+    <h1>🧋 Your Cart</h1>
   </header>
 
   <main>
@@ -64,24 +181,22 @@
   </main>
 
   <script>
-  function removeItem(index) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    // ✅ confirmation popup
-    if (confirm(`Are you sure you want to remove "${cart[index].name}" from the cart?`)) {
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      loadCart();
-      alert("Item removed successfully!"); // optional success message
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (confirm(`Are you sure you want to remove "${cart[index].name}" from your cart?`)) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        loadCart();
+        alert("Item removed successfully!");
+      }
     }
-  }
 
     function loadCart() {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       const cartContainer = document.getElementById("cart-container");
 
       if (cart.length === 0) {
-        cartContainer.innerHTML = `<p class="empty-message">🛒 Your cart is empty.</p>`;
+        cartContainer.innerHTML = `<p class="empty-message">🛒 Your cart is empty. Go back and add your favorite drinks!</p>`;
         return;
       }
 
@@ -91,24 +206,27 @@
 
       cart.forEach((item, index) => {
         total += item.price * item.quantity;
-        tableHTML += `<tr>
-          <td><img src="${item.image}" alt="${item.name}" width="60" style="border-radius:8px;"></td>
-          <td>${item.name}</td>
-          <td>RM ${item.price.toFixed(2)}</td>
-          <td>
-            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
-            ${item.quantity}
-            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-          </td>
-          <td><button class="remove-btn" onclick="removeItem(${index})">REMOVE</button></td>
-        </tr>`;
+        tableHTML += `
+          <tr>
+            <td><img src="${item.image}" alt="${item.name}" width="60"></td>
+            <td>${item.name}</td>
+            <td>RM ${item.price.toFixed(2)}</td>
+            <td>
+              <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+              ${item.quantity}
+              <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+            </td>
+            <td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td>
+          </tr>`;
       });
 
-      tableHTML += `</table>
+      tableHTML += `
+        </table>
         <label><strong>Remark:</strong></label>
         <textarea id="remark" class="remark-box" placeholder="E.g., Less sugar, add pearls..."></textarea>
         <p class="total">Total: RM ${total.toFixed(2)}</p>
-        <button class="checkout-btn" onclick="goToCheckout()">🛒 Checkout</button>`;
+        <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout →</button>`;
+      
       cartContainer.innerHTML = tableHTML;
     }
 
@@ -126,45 +244,12 @@
         alert("Your cart is empty!");
         return;
       }
-
       let remark = document.getElementById("remark").value.trim();
       localStorage.setItem("remark", remark);
-
-      // ✅ go to payment page
       window.location.href = "payment.html";
     }
 
     loadCart();
   </script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const confirmBtn = document.getElementById("confirm-order");
-      if (confirmBtn) {
-        confirmBtn.addEventListener("click", () => {
-          const cart = JSON.parse(localStorage.getItem("cart")) || [];
-          const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-          fetch("save_order.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ cart, total })
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              alert("Order placed successfully!");
-              localStorage.removeItem("cart");
-              window.location.href = "order.html?order_id=" + data.order_id;
-            } else {
-              alert("Error placing order: " + data.message);
-            }
-          })
-          .catch(err => alert("Error: " + err));
-        });
-      }
-    });
-  </script>
-
 </body>
 </html>

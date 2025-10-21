@@ -17,54 +17,76 @@ function showError($message) {
     <head>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>Login Error</title>
+        <title>Login Error - Lucky Milk Tea</title>
+        <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap' rel='stylesheet'>
         <style>
             body {
                 font-family: 'Poppins', sans-serif;
-                background: #fff8f0;
+                background: linear-gradient(135deg, #fdf8f3, #f1e1c6);
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 height: 100vh;
                 margin: 0;
             }
+
             .error-box {
                 background: #fff;
-                padding: 30px;
+                padding: 35px;
                 border-radius: 15px;
-                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.1);
                 text-align: center;
                 max-width: 400px;
-                width: 100%;
+                width: 90%;
+                animation: fadeIn 0.6s ease-in-out;
             }
-            .error-box h2 {
-                color: #ff4d4d;
-                margin-bottom: 15px;
-                font-size: 22px;
+
+            .error-icon {
+                font-size: 2.5rem;
+                color: #c0392b;
+                margin-bottom: 10px;
             }
-            .error-box p {
-                color: #333;
-                font-size: 16px;
+
+            h2 {
+                color: #b68c5a;
+                margin-bottom: 12px;
+                font-size: 1.4rem;
+                font-weight: 600;
+            }
+
+            p {
+                color: #3c2f2f;
+                font-size: 0.95rem;
                 margin-bottom: 20px;
             }
+
             .btn {
                 display: inline-block;
-                padding: 10px 20px;
-                background: #ff4d4d;
+                padding: 10px 25px;
+                background: #b68c5a;
                 color: #fff;
-                border-radius: 8px;
+                border-radius: 25px;
                 text-decoration: none;
-                font-weight: bold;
-                transition: 0.3s;
+                font-size: 0.9rem;
+                font-weight: 500;
+                transition: background 0.3s ease, transform 0.2s ease;
             }
+
             .btn:hover {
-                background: #e63939;
+                background: #a47b48;
+                transform: translateY(-2px);
+            }
+
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-15px); }
+                to { opacity: 1; transform: translateY(0); }
             }
         </style>
     </head>
     <body>
         <div class='error-box'>
-            <h2>⚠️ Login Error</h2>
+            <div class='error-icon'>⚠️</div>
+            <h2>Login Error</h2>
             <p>$message</p>
             <a href='login.html' class='btn'>🔙 Back to Login</a>
         </div>
@@ -101,7 +123,7 @@ if (!empty($email) && !empty($pass)) {
             if ($row['role'] === 'admin') {
                 header("Location: admin.php");
             } else {
-                header("Location: staff.php"); 
+                header("Location: staff.php");
             }
             exit();
         } else {
@@ -110,6 +132,8 @@ if (!empty($email) && !empty($pass)) {
     } else {
         showError("No account found with that email.");
     }
+} else {
+    showError("Please fill in both email and password fields.");
 }
 
 $conn->close();

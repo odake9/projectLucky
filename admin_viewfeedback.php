@@ -18,45 +18,107 @@ $result = $conn->query($sql);
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>View Feedback - Milk Tea Shop</title>
+  <title>Customer Feedback - Lucky Milk Tea</title>
 
-  <!-- W3.CSS Framework -->
+  <!-- W3.CSS & Fonts -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: "Poppins", sans-serif;
-      background: #fff8f0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fdf6ec, #f7e3c6);
       margin: 0;
-      padding: 20px;
-      color: #333;
+      padding: 40px 20px;
+      color: #4b2e19;
     }
+
     h1 {
       text-align: center;
-      margin-bottom: 20px;
-      color: #8b4513;
+      margin-bottom: 25px;
+      color: #6b4f3b;
+      font-weight: 600;
     }
+
+    .top-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
     .back-btn {
-      margin-bottom: 15px;
+      background: #c17856;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: 0.3s;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    .w3-table td, .w3-table th {
+
+    .back-btn:hover {
+      background: #a9643b;
+      transform: translateY(-2px);
+      text-decoration: none;
+    }
+
+    .feedback-table {
+      width: 95%;
+      margin: auto;
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      border-collapse: collapse;
+    }
+
+    .feedback-table th {
+      background: #cfa17e;
+      color: #fff;
+      padding: 14px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .feedback-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f1e0c6;
       text-align: left;
+      vertical-align: top;
     }
-    .w3-table tr:hover {
-      background-color: #f9f9f9;
+
+    .feedback-table tr:hover {
+      background-color: #fff6e9;
+      transition: 0.3s;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 20px;
+      color: #a04e2d;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .feedback-table {
+        font-size: 13px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <a href="admin.php" class="w3-button w3-red back-btn">🏠 Back to Dashboard</a>
+  <div class="top-container">
+    <a href="admin.php" class="back-btn">🏠 Back to Dashboard</a>
+  </div>
 
-  <h1>Customer Feedback</h1>
+  <h1>💬 Customer Feedback</h1>
 
   <div class="w3-responsive">
-    <table class="w3-table-all w3-card-4 w3-hoverable">
-      <tr class="w3-orange">
+    <table class="feedback-table">
+      <tr>
         <th>ID</th>
         <th>Title</th>
         <th>Name</th>
@@ -64,6 +126,7 @@ $result = $conn->query($sql);
         <th>Message</th>
         <th>Date Submitted</th>
       </tr>
+
       <?php if ($result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
           <tr>
@@ -77,7 +140,7 @@ $result = $conn->query($sql);
         <?php endwhile; ?>
       <?php else: ?>
         <tr>
-          <td colspan="6" class="w3-center w3-text-red">No feedback found</td>
+          <td colspan="6" class="no-data">No feedback found 😔</td>
         </tr>
       <?php endif; ?>
     </table>
@@ -85,4 +148,5 @@ $result = $conn->query($sql);
 
 </body>
 </html>
+
 <?php $conn->close(); ?>

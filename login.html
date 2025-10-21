@@ -5,124 +5,184 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ✅ W3.CSS Framework -->
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <!-- Google Font + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     body {
       font-family: "Poppins", sans-serif;
-      margin: 0;
-      height: 100vh;
+      background: linear-gradient(135deg, #fdf8f3, #f1e1c6);
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+      height: 100vh;
+      margin: 0;
     }
 
-    /* Login Box */
-    .login-box {
-      background: #fff;
+    .login-container {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
       padding: 35px 40px;
-      border-radius: 15px;
-      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.2);
-      width: 350px;
+      width: 330px;
       text-align: center;
-      animation: fadeIn 0.8s ease-in-out;
+      transition: all 0.3s ease;
     }
 
-    .login-box h2 {
-      margin-bottom: 20px;
-      color: #333;
-      font-size: 24px;
+    .login-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
     }
 
-    /* Inputs */
-    .login-box input[type="email"],
-    .login-box input[type="password"] {
+    .login-logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #b68c5a;
+      margin-bottom: 10px;
+    }
+
+    .login-subtitle {
+      color: #6b5b4c;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+    }
+
+    /* Input Group */
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      transition: 0.3s;
+      display: flex;
+      justify-content: center;
     }
 
-    .login-box input[type="email"]:focus,
-    .login-box input[type="password"]:focus {
-      border-color: #7873f5;
+    .input-group input {
+      width: 85%;
+      padding: 10px 40px 10px 12px; /* space for icon */
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 14px;
+      background: #faf8f5;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+      border-color: #b68c5a;
+      box-shadow: 0 0 4px rgba(182, 140, 90, 0.4);
       outline: none;
-      box-shadow: 0 0 6px rgba(120, 115, 245, 0.6);
+    }
+
+    /* Eye icon (absolute but inside same width space) */
+    .toggle-password {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #b68c5a;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+      width: 20px;
+      text-align: center;
+    }
+
+    .toggle-password:hover {
+      color: #a47b48;
     }
 
     /* Button */
-    .login-box button {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    button {
+      width: 85%;
+      background: #b68c5a;
       border: none;
-      border-radius: 8px;
       color: white;
-      font-size: 16px;
+      font-size: 0.95rem;
+      padding: 10px;
+      border-radius: 25px;
       cursor: pointer;
-      margin-top: 15px;
-      transition: 0.3s ease;
+      font-weight: 500;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 10px;
     }
 
-    .login-box button:hover {
-      background: linear-gradient(135deg, #7873f5, #ff6ec4);
+    button:hover {
+      background: #a47b48;
+      transform: translateY(-2px);
     }
 
     /* Links */
-    .login-box a {
-      display: block;
-      margin-top: 12px;
-      font-size: 14px;
-      text-decoration: none;
-      color: #7873f5;
-      transition: 0.2s;
+    .links {
+      margin-top: 18px;
     }
 
-    .login-box a:hover {
+    .links a {
+      display: block;
+      font-size: 0.85rem;
+      color: #b68c5a;
+      text-decoration: none;
+      margin: 4px 0;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #a47b48;
       text-decoration: underline;
     }
 
-    .back-btn {
-      font-weight: 500;
-    }
-
-    .forgot-btn {
-      font-style: italic;
-      color: #555;
-    }
-
-    /* Animation */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
+    @media (max-width: 420px) {
+      .login-container {
+        width: 90%;
+        padding: 25px 20px;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+
+      .input-group input, button {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="login-box w3-animate-opacity">
-    <h2>🔑 Login</h2>
+  <div class="login-container">
+    <div class="login-logo">Lucky Milk Tea</div>
+    <div class="login-subtitle">Welcome back! Please login to continue 🧋</div>
+
     <form action="login.php" method="POST">
-      <input class="w3-input w3-border" type="email" name="email" placeholder="📧 Email" required>
-      <input class="w3-input w3-border" type="password" name="password" placeholder="🔒 Password" required>
-      <button class="w3-button w3-round-large" type="submit">Login</button>
+      <div class="input-group">
+        <input type="email" name="email" placeholder="📧 Email Address" required>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" name="password" placeholder="🔒 Password" required>
+        <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+      </div>
+
+      <button type="submit">Login</button>
     </form>
-    <a href="register.html" class="back-btn">✨ Create Account</a>
-    <a href="home.html" class="back-btn">🏠 Home</a>
-    <a href="forgot_password.php" class="forgot-btn">❓ Forgot Password?</a>
+
+    <div class="links">
+      <a href="register.html">✨ Create an Account</a>
+      <a href="forgot_password.php">❓ Forgot Password?</a>
+      <a href="home.html">🏠 Back to Home</a>
+    </div>
   </div>
+
+  <script>
+    // Toggle password visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('password');
+
+    togglePassword.addEventListener('click', () => {
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+
+      // Toggle eye icon
+      togglePassword.classList.toggle('fa-eye');
+      togglePassword.classList.toggle('fa-eye-slash');
+    });
+  </script>
 
 </body>
 </html>
