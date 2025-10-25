@@ -222,8 +222,6 @@ if (isset($_POST['change_password'])) {
   </form>
 
   <br>
-  <a href="staff.php" class="btn dashboard">🏠 Dashboard</a>
-  <a href="logout.php" class="btn logout">🚪 Logout</a>
 </div>
 
 <script>

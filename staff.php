@@ -13,186 +13,173 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      min-height: 100vh;
+      display: flex;
+      height: 100vh;
       background: linear-gradient(135deg, #fbe8e1, #f7d9c4, #fceee4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    h1 {
-      margin-top: 60px;
       color: #5c3b28;
-      font-weight: 600;
-      font-size: 36px;
-      letter-spacing: 1px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      animation: fadeInDown 1s ease-in-out;
+      overflow: hidden;
     }
 
-    /* Container */
-    .admin-container {
-      width: 90%;
-      max-width: 1100px;
-      margin: 40px auto;
+    /* ===== Sidebar ===== */
+    .sidebar {
+      width: 240px;
+      background-color: #b68c5a;
+      color: white;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 40px; /* spacing between rows */
-      animation: fadeInUp 1.2s ease-in-out;
+      padding: 20px 0;
+      box-shadow: 4px 0 10px rgba(0,0,0,0.1);
     }
 
-    /* Row for top 4 cards */
-    .row {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    /* Bottom row center 3 cards */
-    .row.center {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 30px 20px;
+    .sidebar h2 {
       text-align: center;
-      color: #5c3b28;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      transition: all 0.35s ease;
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.6);
-      width: 220px;
+      font-size: 1.6rem;
+      color: #fffbe6;
+      margin-bottom: 30px;
     }
 
-    .card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-      background: rgba(255, 255, 255, 0.95);
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
 
-    .icon {
-      font-size: 45px;
-      margin-bottom: 12px;
-      color: #c17856;
-      transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    .card:hover .icon {
-      transform: scale(1.2);
-      color: #a9643b;
-    }
-
-    .card a {
+    .nav a {
+      color: white;
       text-decoration: none;
-      color: #5c3b28;
-      font-size: 18px;
-      font-weight: 600;
-      transition: color 0.3s ease;
+      padding: 12px 20px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
-    .card:hover a {
-      color: #a9643b;
+    .nav a:hover, .nav a.active {
+      background-color: #a47b48;
+      transform: translateX(5px);
+    }
+
+    .nav i {
+      width: 20px;
+    }
+
+    .bottom-links {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 0 10px;
+    }
+
+    .bottom-links a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    .bottom-links a:hover {
+      background-color: #a47b48;
+    }
+
+    /* ===== Main Area ===== */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .header {
+      background-color: #fff8f3;
+      color: #5c3b28;
+      text-align: center;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: 600;
+      border-bottom: 1px solid #e2c9b1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background-color: #fff;
     }
 
     footer {
-      margin-top: auto;
-      padding: 20px;
-      text-align: center;
+      background: #fff8f3;
       color: #5c3b28;
+      text-align: center;
+      padding: 10px;
       font-size: 14px;
-      opacity: 0.8;
-    }
-
-    /* Animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      border-top: 1px solid #e2c9b1;
     }
 
     /* Responsive */
-    @media (max-width: 1000px) {
-      .row {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 800px) {
+      .sidebar {
+        width: 180px;
       }
-    }
-
-    @media (max-width: 700px) {
-      .row, .row.center {
-        flex-direction: column;
-        display: flex;
-        align-items: center;
+      .nav a {
+        font-size: 14px;
+        padding: 10px;
       }
-      .card {
-        width: 90%;
-        max-width: 300px;
-      }
-      h1 {
-        font-size: 28px;
-        margin-top: 40px;
+      .header {
+        font-size: 22px;
       }
     }
   </style>
 </head>
+
 <body>
 
-  <h1>Staff Dashboard</h1>
-
-  <div class="admin-container">
-
-    <!-- Top Row (4 cards) -->
-    <div class="row">
-      <div class="card">
-        <div class="icon">📚</div>
-        <a href="staff_menu.php">Edit Menu</a>
-      </div>
-      <div class="card">
-        <div class="icon">💬</div>
-        <a href="staff_view_feedback.php">View Feedback</a>
-      </div>
-      <div class="card">
-        <div class="icon">📦</div>
-        <a href="staff_view_orders.php">View Orders</a>
-      </div>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Lucky Milk Tea</h2>
+    <div class="nav">
+      <a href="#" class="active" onclick="loadPage('staff_dashboard_home.php', this)"><i class="fa fa-chart-pie"></i> Dashboard</a>
+      <a href="#" onclick="loadPage('staff_menu.php', this)"><i class="fa fa-mug-hot"></i> Edit Menu</a>
+      <a href="#" onclick="loadPage('staff_view_feedback.php', this)"><i class="fa fa-comments"></i> View Feedback</a>
+      <a href="#" onclick="loadPage('staff_view_orders.php', this)"><i class="fa fa-box"></i> View Orders</a>
+      <a href="#" onclick="loadPage('staff_sales_report.php', this)"><i class="fa fa-chart-line"></i> Sales Report</a>
+      <a href="#" onclick="loadPage('staff_profile.php', this)"><i class="fa fa-user"></i> Profile</a>
     </div>
 
-    <!-- Bottom Row (centered 3 cards) -->
-    <div class="row center">
-      <div class="card">
-        <div class="icon">📊</div>
-        <a href="staff_sales_report.php">Sales Report</a>
-      </div>
-      <div class="card">
-        <div class="icon">📝</div>
-        <a href="staff_profile.php">Profile</a>
-      </div>
-      <div class="card">
-        <div class="icon">🚪</div>
-        <a href="logout.php">Logout</a>
-      </div>
+    <div class="bottom-links">
+      <a href="home.html"><i class="fa fa-home"></i> Back to Home</a>
+      <a href="logout.php"><i class="fa fa-sign-out-alt"></i> Logout</a>
     </div>
-
   </div>
 
-  <footer>© 2025 Lucky Milk Tea — Admin Panel</footer>
+  <!-- Main Area -->
+  <div class="main-content">
+    <div class="header">Staff Dashboard</div>
+    <iframe id="contentFrame" src="staff_dashboard_home.php"></iframe>
+    <footer>© 2025 Lucky Milk Tea — Staff Panel</footer>
+  </div>
+
+  <script>
+    // Load pages inside iframe
+    function loadPage(page, element) {
+      document.getElementById("contentFrame").src = page;
+
+      // Highlight active link
+      document.querySelectorAll(".nav a").forEach(a => a.classList.remove("active"));
+      element.classList.add("active");
+    }
+  </script>
 
 </body>
 </html>

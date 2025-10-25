@@ -119,7 +119,6 @@ session_start();
 </head>
 <body>
 
-  <a href="admin.php" class="back-btn">← Back to Dashboard</a>
   <h1>📊 Sales Report</h1>
 
   <div id="sales-container">

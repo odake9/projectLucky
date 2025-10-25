@@ -10,8 +10,6 @@ if ($conn->connect_error) {
     die("DB Connection failed: " . $conn->connect_error);
 }
 
-$message = "";
-
 // ===== Add Staff =====
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name  = $conn->real_escape_string($_POST['name']);
@@ -23,12 +21,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$name', '$email', '$role', '$pass', NOW())";
 
     if ($conn->query($sql) === TRUE) {
-        $message = "✅ New staff added successfully!";
+        // ✅ Redirect automatically to staff_manage.php after successful insert
+        echo "<script>
+                alert('✅ New staff added successfully!');
+                window.location.href = 'staff_manage.php';
+              </script>";
+        exit;
     } else {
-        $message = "❌ Error: " . $conn->error;
+        echo "<script>
+                alert('❌ Error: " . addslashes($conn->error) . "');
+                window.history.back();
+              </script>";
+        exit;
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,9 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="w3-card-4 w3-white w3-padding form-card">
   <h2 class="w3-center">➕ Add New Staff</h2>
 
-  <?php if ($message): ?>
-    <p class="w3-center w3-text-red"><?= $message ?></p>
-  <?php endif; ?>
 
   <form method="post">
     <p><input class="w3-input w3-border" type="text" name="name" placeholder="Full Name" required></p>

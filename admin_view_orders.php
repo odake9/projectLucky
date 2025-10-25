@@ -202,7 +202,6 @@ $conn->close();
 <body>
 
 <div class="container">
-  <a href="admin.php" class="back-btn">← Back to Dashboard</a>
   <h1>Admin - View Orders</h1>
 
   <div id="orderContainer">

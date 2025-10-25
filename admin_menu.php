@@ -187,7 +187,6 @@ $result = $conn->query($sql);
 <h1>☕ Manage Menu</h1>
 
 <div class="top-actions">
-  <a href="admin.php" class="btn-dashboard">🏠 Back to Dashboard</a>
   <a href="admin_view_menu.php" class="btn-view">👀 View Menu</a>
   <a href="add_menu.php" class="btn-add">➕ Add New Menu Item</a>
 </div>

@@ -202,8 +202,7 @@ $conn->close();
 <body>
 
 <div class="container">
-  <a href="staff.php" class="back-btn">← Back to Dashboard</a>
-  <h1>Admin - View Orders</h1>
+  <h1>Staff - View Orders</h1>
 
   <div id="orderContainer">
     <?php if (empty($orders)): ?>

@@ -110,10 +110,6 @@ $result = $conn->query($sql);
 </head>
 <body>
 
-  <div class="top-container">
-    <a href="staff.php" class="back-btn">🏠 Back to Dashboard</a>
-  </div>
-
   <h1>💬 Customer Feedback</h1>
 
   <div class="w3-responsive">

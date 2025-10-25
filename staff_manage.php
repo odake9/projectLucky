@@ -25,8 +25,6 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
 <head>
   <meta charset="UTF-8">
   <title>Manage Staff - Lucky Milk Tea</title>
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -36,32 +34,24 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
       margin: 0;
       padding: 0;
       color: #5c3b28;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
 
     h1 {
       text-align: center;
       margin: 40px 0 25px;
-      color: #5c3b28;
       font-size: 34px;
+      color: #5c3b28;
       font-weight: 600;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      animation: fadeInDown 0.8s ease-in-out;
     }
 
-    /* ====== FIXED BUTTON SECTION ====== */
     .top-btns {
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-      margin-bottom: 30px;
-      width: 100%;
+      margin: 30px 0;
     }
 
     .btn {
@@ -72,21 +62,11 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
       border-radius: 10px;
       text-decoration: none;
       font-weight: 500;
-      transition: all 0.3s ease;
+      transition: all 0.3s;
       box-shadow: 0 4px 10px rgba(193,120,86,0.3);
-      font-size: 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .btn:hover {
-      background: #a9643b;
-      transform: translateY(-2px);
-    }
-
-    .btn.red { background: #e57373; }
-    .btn.red:hover { background: #c62828; }
+    .btn:hover { background: #a9643b; transform: translateY(-2px); }
 
     .btn.green { background: #81c784; }
     .btn.green:hover { background: #388e3c; }
@@ -94,11 +74,10 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
     .container {
       width: 90%;
       max-width: 1000px;
-      background: rgba(255, 255, 255, 0.95);
+      background: #fff;
       border-radius: 20px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.1);
       padding: 30px;
-      animation: fadeInUp 0.8s ease-in-out;
     }
 
     table {
@@ -106,79 +85,93 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
       border-collapse: collapse;
       border-radius: 10px;
       overflow: hidden;
+      table-layout: fixed;
     }
 
     th, td {
       padding: 14px;
       text-align: center;
       font-size: 16px;
+      word-wrap: break-word;
     }
 
     th {
       background: #c17856;
       color: #fff;
-      letter-spacing: 1px;
     }
 
-    tr:nth-child(even) {
-      background: #fff5ee;
-    }
+    tr:nth-child(even) { background: #fff5ee; }
+    tr:hover { background: #ffe8d6; }
 
-    tr:hover {
-      background: #ffe8d6;
-      transition: background 0.3s;
-    }
-
-    td a {
-      text-decoration: none;
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 8px;
-      margin: 0 4px;
+    /* ===== Dropdown Actions ===== */
+    .dropdown {
+      position: relative;
       display: inline-block;
-      transition: all 0.3s;
     }
 
-    td a.view { background: #81c784; }
-    td a.view:hover { background: #4caf50; }
+    .dropdown-btn {
+      background: #c17856;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-    td a.edit { background: #f4a261; }
-    td a.edit:hover { background: #e76f51; }
+    .dropdown-btn:hover {
+      background: #a9643b;
+    }
 
-    td a.delete { background: #e57373; }
-    td a.delete:hover { background: #c62828; }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: white;
+      min-width: 140px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      display: block;
+      color: #5c3b28;
+      padding: 10px 12px;
+      text-decoration: none;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      transition: 0.2s;
+    }
+
+    .dropdown-content a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #fbe8e1;
+    }
+
+    .show {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     footer {
-      margin-top: 40px;
-      text-align: center;
+      margin: 40px 0;
       color: #5c3b28;
       opacity: 0.8;
-      font-size: 14px;
-    }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 768px) {
-      .btn {
-        width: 80%;
-        font-size: 14px;
-      }
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Top Buttons (Centered + Responsive) -->
   <div class="top-btns">
-    <a href="admin.php" class="btn red">🏠 Back to Dashboard</a>
     <a href="add_staff.php" class="btn green">➕ Add New Staff</a>
   </div>
 
@@ -198,26 +191,43 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
         <?php while ($row = $result->fetch_assoc()): ?>
           <tr>
             <td><?= $row['id'] ?></td>
-            <td><?= htmlspecialchars($row['name']) ?></td>
-            <td><?= htmlspecialchars($row['email']) ?></td>
+            <td title="<?= htmlspecialchars($row['name']) ?>"><?= htmlspecialchars($row['name']) ?></td>
+            <td title="<?= htmlspecialchars($row['email']) ?>"><?= htmlspecialchars($row['email']) ?></td>
             <td><?= ucfirst($row['role']) ?></td>
             <td><?= $row['date_registered'] ?></td>
             <td>
-              <a href="view_staff.php?id=<?= $row['id'] ?>" class="view">👁 View</a>
-              <a href="edit_staff.php?id=<?= $row['id'] ?>" class="edit">✏️ Edit</a>
-              <a href="staff_manage.php?delete=<?= $row['id'] ?>" class="delete" onclick="return confirm('⚠️ Are you sure you want to remove this staff?')">🗑 Remove</a>
+              <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown(event)">...</button>
+                <div class="dropdown-content">
+                  <a href="view_staff.php?id=<?= $row['id'] ?>">👁 View</a>
+                  <a href="edit_staff.php?id=<?= $row['id'] ?>">✏️ Edit</a>
+                  <a href="staff_manage.php?delete=<?= $row['id'] ?>" onclick="return confirm('⚠️ Are you sure you want to remove this staff?')">🗑 Remove</a>
+                </div>
+              </div>
             </td>
           </tr>
         <?php endwhile; ?>
       <?php else: ?>
-        <tr>
-          <td colspan="6" style="color:red;">No staff found</td>
-        </tr>
+        <tr><td colspan="6" style="color:red;">No staff found</td></tr>
       <?php endif; ?>
     </table>
   </div>
 
   <footer>© 2025 Lucky Milk Tea — Admin Panel</footer>
+
+  <script>
+    function toggleDropdown(event) {
+      event.stopPropagation(); // prevent bubbling
+      const dropdown = event.currentTarget.nextElementSibling;
+      const openDropdowns = document.querySelectorAll('.dropdown-content.show');
+      openDropdowns.forEach(d => { if (d !== dropdown) d.classList.remove('show'); });
+      dropdown.classList.toggle('show');
+    }
+
+    window.onclick = function() {
+      document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show'));
+    }
+  </script>
 
 </body>
 </html>
