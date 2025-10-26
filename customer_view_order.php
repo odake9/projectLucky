@@ -62,86 +62,109 @@ $conn->close();
 <head>
 <meta charset="UTF-8">
 <title>Check My Order - Lucky Milk Tea</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
+  /* --- GLOBAL STYLE --- */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: "Poppins", sans-serif;
-    background-color: #fff8f0;
-    color: #4b3b2f;
-    margin: 0;
-    padding: 20px;
+    background-color: #faf8f5;
+    color: #3c2f2f;
+    padding: 40px 20px;
   }
 
   .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
+  /* --- BACK BUTTON --- */
   .back-btn {
     display: inline-block;
-    background: #f7b267;
+    background: #b68c5a;
     color: #fff;
     text-decoration: none;
-    padding: 10px 16px;
-    border-radius: 10px;
+    padding: 10px 18px;
+    border-radius: 25px;
     font-weight: 500;
-    transition: 0.3s ease;
+    transition: background 0.3s, transform 0.2s;
   }
   .back-btn:hover {
-    background: #f4845f;
+    background: #a47b48;
+    transform: translateY(-2px);
   }
 
+  /* --- PAGE TITLE --- */
   h1 {
     text-align: center;
-    color: #6b4f4f;
-    margin: 20px 0;
+    color: #5e4b3c;
+    margin: 30px 0;
+    font-size: 2rem;
   }
 
+  /* --- FORM --- */
   form {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+  }
+  label {
+    color: #5e4b3c;
+    font-weight: 500;
   }
   input[type="number"] {
     padding: 10px;
-    width: 200px;
-    border: 1px solid #d5b59c;
-    border-radius: 8px;
+    width: 220px;
+    border: 1px solid #e5ddd2;
+    border-radius: 25px;
     font-size: 1rem;
+    outline: none;
+    transition: border 0.3s;
+  }
+  input[type="number"]:focus {
+    border-color: #b68c5a;
   }
   button {
-    padding: 10px 18px;
+    padding: 10px 20px;
     border: none;
-    background: #f7b267;
+    background: #b68c5a;
     color: white;
     font-weight: 500;
-    border-radius: 8px;
-    margin-left: 5px;
+    border-radius: 25px;
+    margin-left: 8px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s, transform 0.2s;
   }
   button:hover {
-    background: #f4845f;
+    background: #a47b48;
+    transform: translateY(-2px);
   }
 
+  /* --- ORDER CARD --- */
   .order-card {
     background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(107, 79, 79, 0.1);
-    padding: 20px;
-    margin-bottom: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 25px;
+    margin-bottom: 30px;
   }
 
   .order-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #ffe3d8;
+    border-bottom: 2px solid #f2e6da;
     padding-bottom: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+  }
+
+  .order-header strong {
+    color: #b68c5a;
+    font-size: 1.1rem;
   }
 
   .status-badge {
-    padding: 5px 10px;
-    border-radius: 8px;
+    padding: 6px 12px;
+    border-radius: 25px;
     color: #fff;
     font-weight: 500;
     font-size: 0.9em;
@@ -150,34 +173,38 @@ $conn->close();
   .Completed { background: #9fd356; }
   .Cancelled { background: #f91313ff; }
 
+  /* --- TABLE --- */
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
   }
   th {
-    background: #ffe3d8;
-    color: #5a3930;
+    background: #f9f3ec;
+    color: #5e4b3c;
     text-align: left;
     padding: 10px;
+    border-radius: 6px 6px 0 0;
   }
   td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #f8d9c4;
+    padding: 10px;
+    border-bottom: 1px solid #f2e6da;
+    color: #6d5c4a;
   }
   tr:nth-child(even) {
-    background: #fff8f5;
+    background: #fdfaf7;
   }
 
   .total-row {
-    background: #ffefe5;
+    background: #f9f3ec;
     font-weight: bold;
   }
 
+  /* --- MESSAGE --- */
   .message {
     text-align: center;
-    color: gray;
-    margin-top: 10px;
+    color: #7b6a58;
+    margin-top: 15px;
+    font-style: italic;
   }
 </style>
 </head>

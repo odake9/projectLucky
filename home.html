@@ -20,71 +20,112 @@
     img { max-width: 100%; display: block; }
 
     /* --- HEADER --- */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: #ffffff;
-      border-bottom: 1px solid #e5ddd2;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      z-index: 1000;
-    }
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav-logo {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #b68c5a;
-      letter-spacing: 0.5px;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
-    nav ul li a {
-      color: #5e4b3c;
-      font-weight: 400;
-      position: relative;
-      padding-bottom: 4px;
-    }
-    nav ul li a:hover {
-      color: #b68c5a;
-    }
-    nav ul li a::after {
-      content: "";
-      position: absolute;
-      left: 0; bottom: 0;
-      width: 0; height: 2px;
-      background: #b68c5a;
-      transition: width 0.3s;
-    }
-    nav ul li a:hover::after {
-      width: 100%;
-    }
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e5ddd2;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  z-index: 1000;
+}
 
-    .nav-actions .nav-btn {
-      display: flex;
-      align-items: center;
-      background: #b68c5a;
-      color: white;
-      border: none;
-      padding: 0.5rem 1.25rem;
-      border-radius: 25px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .nav-btn i { margin-right: 0.5rem; }
-    .nav-btn:hover {
-      background: #a47b48;
-      transform: translateY(-2px);
-    }
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  position: relative;
+}
+
+/* --- LOGO + TEXT LEFT --- */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #b68c5a;
+  font-size: 1.6rem;
+  font-weight: 600;
+  height: 80px; /* same as navbar height */
+}
+
+.nav-logo img {
+  height: 70px; /* make it larger but still fit */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* --- CENTER NAVIGATION --- */
+nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav ul li a {
+  color: #5e4b3c;
+  font-weight: 400;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #b68c5a;
+}
+
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: #b68c5a;
+  transition: width 0.3s;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* --- LOGIN BUTTON RIGHT --- */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nav-actions .nav-btn {
+  display: flex;
+  align-items: center;
+  background: #b68c5a;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.nav-btn i {
+  margin-right: 0.5rem;
+}
+
+.nav-btn:hover {
+  background: #a47b48;
+  transform: translateY(-2px);
+}
+
 
     /* --- HERO SECTION WITH BACKGROUND --- */
     .hero {
@@ -189,21 +230,30 @@
 
 <body>
   <header>
-    <div class="nav-container">
-      <div class="nav-logo">Lucky Milk Tea</div>
-      <nav>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="menu.php">Menu</a></li>
-          <li><a href="contact.php">Contact & Feedback</a></li>
-          <li><a href="customer_view_order.php">Order Status</a></li>
-        </ul>
-      </nav>
-      <div class="nav-actions">
-        <a href="login.html" class="nav-btn"><i class="fa fa-user"></i> Login</a>
-      </div>
+  <div class="nav-container">
+    <!-- Left: Logo + Text -->
+    <a href="home.html" class="nav-logo">
+      <img src="logo.png" alt="Lucky Logo">
+      <span>Lucky Milk Tea</span>
+    </a>
+
+    <!-- Center: Navigation Menu -->
+    <nav>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="menu.php">Menu</a></li>
+        <li><a href="contact.php">Contact & Feedback</a></li>
+        <li><a href="customer_view_order.php">Order Status</a></li>
+      </ul>
+    </nav>
+
+    <!-- Right: Login Button -->
+    <div class="nav-actions">
+      <a href="login.html" class="nav-btn"><i class="fa fa-user"></i> Login</a>
     </div>
-  </header>
+  </div>
+</header>
+
 
   <section class="hero">
     <h1>Welcome to Lucky Milk Tea</h1>

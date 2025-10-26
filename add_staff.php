@@ -21,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES ('$name', '$email', '$role', '$pass', NOW())";
 
     if ($conn->query($sql) === TRUE) {
-        // ✅ Redirect automatically to staff_manage.php after successful insert
         echo "<script>
                 alert('✅ New staff added successfully!');
                 window.location.href = 'staff_manage.php';
@@ -41,41 +40,137 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Add Staff</title>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>Add Staff - Lucky Milk Tea</title>
   <style>
-    body { font-family: 'Poppins', sans-serif; background: #fdf6ec; }
-    .form-card { max-width: 500px; margin: 50px auto; }
-    .btn-submit { background: #28a745; color: white; }
-    .btn-submit:hover { background: #218838; }
-    .btn-back { background: #f76c6c; color: white; }
-    .btn-back:hover { background: #e63946; }
+    /* ===== BASE STYLES ===== */
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #fff8f0;
+      color: #4b3b2f;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 550px;
+      margin: 80px auto;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(107, 79, 79, 0.15);
+      padding: 40px 50px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #6b4f4f;
+      font-size: 1.8rem;
+    }
+
+    /* ===== INPUT STYLING ===== */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0 18px;
+      border: 1px solid #d5b59c;
+      border-radius: 10px;
+      font-size: 1rem;
+      background-color: #fffdf9;
+      color: #4b3b2f;
+      box-sizing: border-box;
+      transition: 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #f7b267;
+      box-shadow: 0 0 5px rgba(247, 178, 103, 0.5);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .btn-submit {
+      background: #f7b267;
+      color: #fff;
+      margin-right: 10px;
+    }
+    .btn-submit:hover {
+      background: #f4845f;
+    }
+
+    .btn-back {
+      background: #b68c5a;
+      color: #fff;
+      text-decoration: none;
+    }
+    .btn-back:hover {
+      background: #8c6b4a;
+    }
+
+    /* ===== DECORATIVE ELEMENT ===== */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .logo img {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo span {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #b68c5a;
+    }
   </style>
 </head>
 <body>
 
-<div class="w3-card-4 w3-white w3-padding form-card">
-  <h2 class="w3-center">➕ Add New Staff</h2>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="Lucky Logo">
+      <span>Lucky Milk Tea</span>
+    </div>
 
+    <h2>➕ Add New Staff</h2>
 
-  <form method="post">
-    <p><input class="w3-input w3-border" type="text" name="name" placeholder="Full Name" required></p>
-    <p><input class="w3-input w3-border" type="email" name="email" placeholder="Email" required></p>
-    <p>
-      <select class="w3-select w3-border" name="role" required>
+    <form method="post">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+
+      <select name="role" required>
         <option value="" disabled selected>Select Role</option>
         <option value="admin">Admin</option>
         <option value="staff">Staff</option>
       </select>
-    </p>
-    <p><input class="w3-input w3-border" type="password" name="password" placeholder="Password" required></p>
 
-    <div class="w3-center">
-      <button type="submit" class="w3-button btn-submit">✅ Add Staff</button>
-      <a href="staff_manage.php" class="w3-button btn-back">⬅ Cancel</a>
-    </div>
-  </form>
-</div>
+      <input type="password" name="password" placeholder="Password" required>
+
+      <div>
+        <button type="submit" class="btn btn-submit">✅ Add Staff</button>
+        <a href="staff_manage.php" class="btn btn-back">⬅ Cancel</a>
+      </div>
+    </form>
+  </div>
 
 </body>
 </html>
