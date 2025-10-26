@@ -78,6 +78,7 @@ if (isset($_POST['reset_password'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       font-family: "Poppins", sans-serif;
@@ -122,6 +123,21 @@ if (isset($_POST['reset_password'])) {
     .login-box input:focus {
       border-color: #cfa47e;
       box-shadow: 0 0 5px rgba(207,164,126,0.4);
+    }
+
+    .password-field {
+      position: relative;
+      width: 100%;
+    }
+
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #8b4513;
+      font-size: 16px;
     }
 
     .login-box button {
@@ -179,12 +195,6 @@ if (isset($_POST['reset_password'])) {
     .login-box a:hover {
       background-color: #f1d3a8;
     }
-
-    .logo {
-      width: 70px;
-      height: 70px;
-      margin-bottom: 10px;
-    }
   </style>
 </head>
 <body>
@@ -209,11 +219,31 @@ if (isset($_POST['reset_password'])) {
     <!-- Step 2: Verify OTP + Reset Password -->
     <form method="POST" class="w3-container">
       <input type="text" name="otp" placeholder="🔢 Enter OTP" required>
-      <input type="password" name="new_password" placeholder="🔒 New Password" required>
+
+      <div class="password-field">
+        <input type="password" id="new_password" name="new_password" placeholder="🔒 New Password" required>
+        <i class="fa fa-eye toggle-password" onclick="togglePassword('new_password', this)"></i>
+      </div>
+
       <button type="submit" name="reset_password" class="reset-btn">Reset Password</button>
     </form>
 
     <a href="login.html">⬅ Back to Login</a>
   </div>
+
+  <script>
+    function togglePassword(id, icon) {
+      const input = document.getElementById(id);
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+  </script>
 </body>
 </html>
