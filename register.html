@@ -8,6 +8,7 @@
   <!-- W3.CSS Framework -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     body {
@@ -38,23 +39,42 @@
       font-weight: 600;
     }
 
+    .input-group {
+      position: relative;
+      margin-bottom: 18px; /* Consistent spacing between all fields */
+    }
+
     .register-box input[type="text"],
     .register-box input[type="email"],
     .register-box input[type="password"] {
       width: 100%;
-      padding: 12px;
-      margin: 8px 0 15px 0;
+      padding: 12px 42px 12px 12px;
       border-radius: 10px;
       border: 1px solid #d9b99b;
       outline: none;
       font-size: 15px;
       background-color: #fffdf8;
-      transition: border-color 0.3s;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
 
     .register-box input:focus {
       border-color: #cfa47e;
       box-shadow: 0 0 5px rgba(207,164,126,0.4);
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #a17a5b;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .toggle-password:hover {
+      color: #8b4513;
     }
 
     .register-box button {
@@ -76,7 +96,7 @@
     }
 
     .back-links {
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     .back-btn {
@@ -94,22 +114,32 @@
     .back-btn:hover {
       background-color: #f1d3a8;
     }
-
-    .logo {
-      width: 70px;
-      height: 70px;
-      margin-bottom: 10px;
-    }
   </style>
 </head>
 <body>
 
   <div class="register-box w3-animate-top">
     <h2>☕ Create Your Account</h2>
-    <form action="register.php" method="POST" class="w3-container">
-        <input type="text" name="name" placeholder="👤 Username" required>
-        <input type="email" name="email" placeholder="📧 Email" required>
-        <input type="password" name="password" placeholder="🔑 Password" required>
+    <form action="register_otp.php" method="POST" class="w3-container" onsubmit="return validateForm()">
+        
+        <div class="input-group">
+          <input type="text" name="name" placeholder="👤 Username" required>
+        </div>
+
+        <div class="input-group">
+          <input type="email" name="email" placeholder="📧 Email" required>
+        </div>
+
+        <div class="input-group">
+          <input type="password" name="password" id="password" placeholder="🔑 Password" required>
+          <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+        </div>
+
+        <div class="input-group">
+          <input type="password" name="confirm_password" id="confirm_password" placeholder="🔒 Confirm Password" required>
+          <i class="fa-solid fa-eye toggle-password" onclick="togglePassword('confirm_password', this)"></i>
+        </div>
+
         <button type="submit">Register</button>
     </form>
 
@@ -118,6 +148,31 @@
       <a href="home.html" class="back-btn">🏠 Home</a>
     </div>
   </div>
+
+  <script>
+    function togglePassword(fieldId, icon) {
+      const field = document.getElementById(fieldId);
+      if (field.type === "password") {
+        field.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+      } else {
+        field.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+      }
+    }
+
+    function validateForm() {
+      const pass = document.getElementById("password").value;
+      const confirmPass = document.getElementById("confirm_password").value;
+      if (pass !== confirmPass) {
+        alert("❌ Passwords do not match!");
+        return false;
+      }
+      return true;
+    }
+  </script>
 
 </body>
 </html>
