@@ -1,32 +1,58 @@
 <?php
+// ===== START SESSION =====
 session_start();
 
-$conn = new mysqli("localhost", "root", "", "milk_tea_shop");
+// ===== SET JSON HEADER =====
+header('Content-Type: application/json');
+
+// ===== DATABASE CONNECTION =====
+$servername = "localhost";
+$username   = "root"; 
+$password   = "";   
+$dbname     = "milk_tea_shop";    
+
+$conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
-    die("DB connection failed: " . $conn->connect_error);
+    echo json_encode(["error" => "Database connection failed: " . $conn->connect_error]);
+    exit;
 }
 
-$cart = isset($_POST['cart']) ? json_decode($_POST['cart'], true) : [];
-$total = isset($_POST['total']) ? floatval($_POST['total']) : 0.00;
-$user_id = $_SESSION['user_id'] ?? 1; // demo user
+// ===== VALIDATE CART DATA =====
+if (!isset($_POST['cart']) || !isset($_POST['total'])) {
+    echo json_encode(["error" => "Missing cart or total data"]);
+    exit;
+}
 
-if (!empty($cart)) {
-    $stmt = $conn->prepare("INSERT INTO orders (user_id, total, status) VALUES (?, ?, 'pending')");
-    $stmt->bind_param("id", $user_id, $total);
-    $stmt->execute();
-    $order_id = $stmt->insert_id;
+$cart = json_decode($_POST['cart'], true);
+$total = floatval($_POST['total']);
 
-    $stmt_item = $conn->prepare("INSERT INTO order_items (order_id, item_name, price, qty, subtotal) VALUES (?, ?, ?, ?, ?)");
+if (empty($cart) || $total <= 0) {
+    echo json_encode(["error" => "Invalid cart data"]);
+    exit;
+}
+
+// ===== INSERT ORDER =====
+$order_sql = "INSERT INTO orders (order_date, total, status) VALUES (NOW(), '$total', 'Pending')";
+if ($conn->query($order_sql) === TRUE) {
+    $order_id = $conn->insert_id;
+
+    // ===== INSERT ITEMS INTO order_items TABLE =====
     foreach ($cart as $item) {
-        $name = $item['name'];
+        $name = $conn->real_escape_string($item['name']);
         $price = floatval($item['price']);
         $qty = intval($item['quantity']);
         $subtotal = $price * $qty;
-        $stmt_item->bind_param("isdid", $order_id, $name, $price, $qty, $subtotal);
-        $stmt_item->execute();
+
+        $item_sql = "INSERT INTO order_items (order_id, name, price, quantity, remark)
+                     VALUES ('$order_id', '$name', '$price', '$qty', '')";
+        $conn->query($item_sql);
     }
 
-    echo "Order saved with ID: " . $order_id;
+    // ===== RETURN JSON WITH ORDER ID =====
+    echo json_encode(["order_id" => $order_id]);
 } else {
-    echo "Cart is empty.";
+    echo json_encode(["error" => "Failed to create order: " . $conn->error]);
 }
+
+$conn->close();
+?>
