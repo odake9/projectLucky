@@ -63,46 +63,123 @@ $conn->close();
 <meta charset="UTF-8">
 <title>Check My Order - Lucky Milk Tea</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  /* --- GLOBAL STYLE --- */
+  /* --- GLOBAL --- */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: "Poppins", sans-serif;
-    background-color: #faf8f5;
+    background: url('homeimage.jpg') center/cover no-repeat fixed;
     color: #3c2f2f;
-    padding: 40px 20px;
   }
+  a { text-decoration: none; color: inherit; transition: 0.3s ease; }
 
-  .container {
-    max-width: 900px;
+  /* --- NAVBAR --- */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e5ddd2;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
+  }
+  .nav-container {
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    position: relative;
   }
-
-  /* --- BACK BUTTON --- */
-  .back-btn {
-    display: inline-block;
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #b68c5a;
+    font-size: 1.6rem;
+    font-weight: 600;
+    height: 80px;
+  }
+  .nav-logo img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+  }
+  nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+  nav ul li a {
+    color: #5e4b3c;
+    font-weight: 400;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+  }
+  nav ul li a:hover { color: #b68c5a; }
+  nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 2px;
     background: #b68c5a;
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 18px;
-    border-radius: 25px;
-    font-weight: 500;
-    transition: background 0.3s, transform 0.2s;
+    transition: width 0.3s;
   }
-  .back-btn:hover {
+  nav ul li a:hover::after { width: 100%; }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .nav-actions .nav-btn {
+    display: flex;
+    align-items: center;
+    background: #b68c5a;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .nav-btn i { margin-right: 0.5rem; }
+  .nav-btn:hover {
     background: #a47b48;
     transform: translateY(-2px);
   }
 
-  /* --- PAGE TITLE --- */
+  /* --- MAIN CONTENT --- */
+  .container {
+    max-width: 900px;
+    margin: 140px auto 50px auto;
+    padding: 20px;
+  }
+
+  .content-box {
+    background: #fffaf5;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
   h1 {
     text-align: center;
     color: #5e4b3c;
-    margin: 30px 0;
+    margin-bottom: 30px;
     font-size: 2rem;
   }
 
-  /* --- FORM --- */
   form {
     text-align: center;
     margin-bottom: 40px;
@@ -119,9 +196,11 @@ $conn->close();
     font-size: 1rem;
     outline: none;
     transition: border 0.3s;
+    background: #fff;
   }
   input[type="number"]:focus {
     border-color: #b68c5a;
+    background: #fffdf9;
   }
   button {
     padding: 10px 20px;
@@ -141,13 +220,12 @@ $conn->close();
 
   /* --- ORDER CARD --- */
   .order-card {
-    background: #fff;
+    background: #ffffff;
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     padding: 25px;
     margin-bottom: 30px;
   }
-
   .order-header {
     display: flex;
     justify-content: space-between;
@@ -156,12 +234,10 @@ $conn->close();
     padding-bottom: 10px;
     margin-bottom: 15px;
   }
-
   .order-header strong {
     color: #b68c5a;
     font-size: 1.1rem;
   }
-
   .status-badge {
     padding: 6px 12px;
     border-radius: 25px;
@@ -173,7 +249,6 @@ $conn->close();
   .Completed { background: #9fd356; }
   .Cancelled { background: #f91313ff; }
 
-  /* --- TABLE --- */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -193,73 +268,107 @@ $conn->close();
   tr:nth-child(even) {
     background: #fdfaf7;
   }
-
   .total-row {
     background: #f9f3ec;
     font-weight: bold;
   }
 
-  /* --- MESSAGE --- */
   .message {
     text-align: center;
     color: #7b6a58;
     margin-top: 15px;
     font-style: italic;
   }
+
+  footer {
+    text-align: center;
+    color: #6d5c4a;
+    padding: 1.5rem;
+    border-top: 1px solid #e5ddd2;
+    background: #fff;
+    margin-top: 190px;
+  }
 </style>
 </head>
+
 <body>
+  <!-- Navbar -->
+  <header>
+    <div class="nav-container">
+      <a href="home.html" class="nav-logo">
+        <img src="logo.png" alt="Lucky Logo">
+        <span>Lucky Milk Tea</span>
+      </a>
 
-<a href="home.html" class="back-btn">← Back to Home</a>
-<h1>🧾 Check My Order</h1>
+      <nav>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="menu.php">Menu</a></li>
+          <li><a href="contact.php">Contact & Feedback</a></li>
+          <li><a href="customer_view_order.php">Order Status</a></li>
+        </ul>
+      </nav>
 
-<div class="container">
-  <form method="GET">
-    <label for="order_id">Enter your Order ID:</label><br><br>
-    <input type="number" name="order_id" id="order_id" value="<?= htmlspecialchars($order_id) ?>" required>
-    <button type="submit">Check</button>
-  </form>
-
-  <?php if ($message): ?>
-    <p class="message"><?= $message ?></p>
-  <?php endif; ?>
-
-  <?php if (!empty($orders)): ?>
-    <?php foreach ($orders as $id => $order): ?>
-      <div class="order-card">
-        <div class="order-header">
-          <div>
-            <strong>Order #<?= $id ?></strong><br>
-            <small>Date: <?= $order['order_date'] ?></small>
-          </div>
-          <span class="status-badge <?= htmlspecialchars($order['status']) ?>">
-            <?= htmlspecialchars($order['status']) ?>
-          </span>
-        </div>
-
-        <table>
-          <tr>
-            <th>Item Name</th><th>Qty</th><th>Price (RM)</th><th>Subtotal (RM)</th><th>Remark</th>
-          </tr>
-          <?php foreach ($order['items'] as $it): 
-            $subtotal = $it['price'] * $it['quantity']; ?>
-            <tr>
-              <td><?= htmlspecialchars($it['name']) ?></td>
-              <td><?= $it['quantity'] ?></td>
-              <td><?= number_format($it['price'], 2) ?></td>
-              <td><?= number_format($subtotal, 2) ?></td>
-              <td><?= htmlspecialchars($it['remark']) ?></td>
-            </tr>
-          <?php endforeach; ?>
-          <tr class="total-row">
-            <td colspan="3" style="text-align:right;"><strong>Total:</strong></td>
-            <td colspan="2"><strong>RM <?= number_format($order['total'], 2) ?></strong></td>
-          </tr>
-        </table>
+      <div class="nav-actions">
+        <a href="login.html" class="nav-btn"><i class="fa fa-user"></i> Login</a>
       </div>
-    <?php endforeach; ?>
-  <?php endif; ?>
-</div>
+    </div>
+  </header>
 
+  <div class="container">
+    <div class="content-box">
+      <h1>🧾 Check My Order</h1>
+
+      <form method="GET">
+        <label for="order_id">Enter your Order ID:</label><br><br>
+        <input type="number" name="order_id" id="order_id" value="<?= htmlspecialchars($order_id) ?>" required>
+        <button type="submit">Check</button>
+      </form>
+
+      <?php if ($message): ?>
+        <p class="message"><?= $message ?></p>
+      <?php endif; ?>
+
+      <?php if (!empty($orders)): ?>
+        <?php foreach ($orders as $id => $order): ?>
+          <div class="order-card">
+            <div class="order-header">
+              <div>
+                <strong>Order #<?= $id ?></strong><br>
+                <small>Date: <?= $order['order_date'] ?></small>
+              </div>
+              <span class="status-badge <?= htmlspecialchars($order['status']) ?>">
+                <?= htmlspecialchars($order['status']) ?>
+              </span>
+            </div>
+
+            <table>
+              <tr>
+                <th>Item Name</th><th>Qty</th><th>Price (RM)</th><th>Subtotal (RM)</th><th>Remark</th>
+              </tr>
+              <?php foreach ($order['items'] as $it): 
+                $subtotal = $it['price'] * $it['quantity']; ?>
+                <tr>
+                  <td><?= htmlspecialchars($it['name']) ?></td>
+                  <td><?= $it['quantity'] ?></td>
+                  <td><?= number_format($it['price'], 2) ?></td>
+                  <td><?= number_format($subtotal, 2) ?></td>
+                  <td><?= htmlspecialchars($it['remark']) ?></td>
+                </tr>
+              <?php endforeach; ?>
+              <tr class="total-row">
+                <td colspan="3" style="text-align:right;"><strong>Total:</strong></td>
+                <td colspan="2"><strong>RM <?= number_format($order['total'], 2) ?></strong></td>
+              </tr>
+            </table>
+          </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Lucky Milk Tea — Brewed with love, served with joy.
+  </footer>
 </body>
 </html>
