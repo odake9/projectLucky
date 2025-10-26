@@ -38,11 +38,26 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
       box-shadow: 4px 0 10px rgba(0,0,0,0.1);
     }
 
-    .sidebar h2 {
-      text-align: center;
-      font-size: 1.6rem;
-      color: #fffbe6;
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 15px;
       margin-bottom: 30px;
+    }
+
+    .sidebar-header img {
+      height: 55px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .sidebar-header span {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fffbe6;
+      text-align: center;
     }
 
     .nav {
@@ -132,6 +147,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
       .sidebar {
         width: 180px;
       }
+      .sidebar-header span {
+        display: none; /* hide text on smaller screens */
+      }
+      .sidebar-header img {
+        height: 45px;
+      }
       .nav a {
         font-size: 14px;
         padding: 10px;
@@ -147,7 +168,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'staff') {
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <h2>Lucky Milk Tea</h2>
+    <div class="sidebar-header">
+      <img src="logo.png" alt="Lucky Logo">
+      <span>Lucky Milk Tea</span>
+    </div>
+
     <div class="nav">
       <a href="#" class="active" onclick="loadPage('staff_dashboard_home.php', this)"><i class="fa fa-chart-pie"></i> Dashboard</a>
       <a href="#" onclick="loadPage('staff_menu.php', this)"><i class="fa fa-mug-hot"></i> Edit Menu</a>

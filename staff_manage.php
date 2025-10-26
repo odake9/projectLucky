@@ -78,6 +78,9 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
       border-radius: 20px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.1);
       padding: 30px;
+      position: relative;
+      overflow: visible; /* ✅ Prevent clipping */
+      z-index: 1;
     }
 
     table {
@@ -105,62 +108,71 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
 
     /* ===== Dropdown Actions ===== */
     .dropdown {
-      position: relative;
-      display: inline-block;
-    }
+    position: relative;
+    display: inline-block;
+  }
 
-    .dropdown-btn {
-      background: #c17856;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+  .dropdown-btn {
+    background: #c17856;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    z-index: 2;
+  }
 
-    .dropdown-btn:hover {
-      background: #a9643b;
-    }
+  .dropdown-btn:hover {
+    background: #a9643b;
+  }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      background-color: white;
-      min-width: 140px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      border-radius: 10px;
-      z-index: 1;
-    }
+  /* === KEY CHANGE HERE === */
+  .dropdown-content {
+    display: none;
+    position: fixed; /* instead of absolute — fixes overlap issue */
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    border-radius: 10px;
+    z-index: 9999;
+    animation: fadeIn 0.15s ease;
+  }
 
-    .dropdown-content a {
-      display: block;
-      color: #5c3b28;
-      padding: 10px 12px;
-      text-decoration: none;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-      transition: 0.2s;
-    }
+  .dropdown-content.upward {
+    transform-origin: bottom right;
+  }
 
-    .dropdown-content a:last-child {
-      border-bottom: none;
-    }
+  .dropdown-content.downward {
+    transform-origin: top right;
+  }
 
-    .dropdown-content a:hover {
-      background-color: #fbe8e1;
-    }
+  .dropdown-content a {
+    display: block;
+    color: #5c3b28;
+    padding: 10px 12px;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    transition: 0.2s;
+  }
 
-    .show {
-      display: block;
-      animation: fadeIn 0.2s ease;
-    }
+  .dropdown-content a:last-child {
+    border-bottom: none;
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+  .dropdown-content a:hover {
+    background-color: #fbe8e1;
+  }
+
+  .show {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
 
     footer {
       margin: 40px 0;
@@ -216,17 +228,41 @@ $result = $conn->query("SELECT * FROM users ORDER BY date_registered DESC");
   <footer>© 2025 Lucky Milk Tea — Admin Panel</footer>
 
   <script>
-    function toggleDropdown(event) {
-      event.stopPropagation(); // prevent bubbling
-      const dropdown = event.currentTarget.nextElementSibling;
-      const openDropdowns = document.querySelectorAll('.dropdown-content.show');
-      openDropdowns.forEach(d => { if (d !== dropdown) d.classList.remove('show'); });
-      dropdown.classList.toggle('show');
-    }
+   function toggleDropdown(event) {
+    event.stopPropagation();
+    const btn = event.currentTarget;
+    const existing = document.querySelector('.dropdown-content.show');
+    if (existing) existing.remove();
 
-    window.onclick = function() {
-      document.querySelectorAll('.dropdown-content').forEach(d => d.classList.remove('show'));
+    const menu = btn.nextElementSibling.cloneNode(true);
+    menu.classList.add('show');
+
+    // Calculate button position
+    const rect = btn.getBoundingClientRect();
+    const menuHeight = 120; // estimated height
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+
+    // Positioning dynamically
+    if (spaceBelow < menuHeight && spaceAbove > spaceBelow) {
+      // Open upward
+      menu.classList.add('upward');
+      menu.style.top = `${rect.top - menuHeight}px`;
+    } else {
+      // Open downward
+      menu.classList.add('downward');
+      menu.style.top = `${rect.bottom}px`;
     }
+    menu.style.left = `${rect.right - 150}px`;
+
+    document.body.appendChild(menu);
+
+    // Close on click anywhere else
+    window.onclick = () => {
+      const openMenu = document.querySelector('.dropdown-content.show');
+      if (openMenu) openMenu.remove();
+    };
+  }
   </script>
 
 </body>
