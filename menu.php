@@ -76,7 +76,7 @@ $result = $conn->query($sql);
 
     nav {
       position: absolute;
-      left: 50%;
+      left: 55%;
       transform: translateX(-50%);
     }
 
@@ -262,6 +262,49 @@ main {
       font-size: 0.95rem;
       margin-top: 3rem;
     }
+
+    /* Floating Cart (beside category buttons) */
+.floating-cart {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.cart-float-btn {
+  display: flex;
+  align-items: center;
+  background: #b68c5a;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cart-float-btn i {
+  margin-right: 0.5rem;
+}
+
+.cart-float-btn:hover {
+  background: #a47b48;
+  transform: translateY(-2px);
+}
+
+.cart-count {
+  background-color: white;
+  color: #b68c5a;
+  border-radius: 50%;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
   </style>
 </head>
 
@@ -277,6 +320,7 @@ main {
       <!-- Center: Navigation Menu -->
       <nav>
         <ul>
+          <li><a href="home.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="menu.php" style="color:#b68c5a;">Menu</a></li>
           <li><a href="contact.php">Contact & Feedback</a></li>
@@ -285,9 +329,10 @@ main {
       </nav>
 
       <!-- Right: Cart Button -->
-      <div class="nav-actions">
-        <a href="cart.html" class="nav-btn"><i class="fa fa-shopping-cart"></i> Cart <span id="cart-count" class="cart-count">0</span></a>
-      </div>
+      <!-- Right: Login Button -->
+    <div class="nav-actions">
+      <a href="login.html" class="nav-btn"><i class="fa fa-user"></i> Login</a>
+    </div>
     </div>
   </header>
 
@@ -298,6 +343,14 @@ main {
       <button data-category="Refreshing">Refreshing</button>
       <button data-category="Ice Blended">Ice Blended</button>
     </div>
+
+    <div class="floating-cart">
+      <a href="cart.html" class="cart-float-btn">
+      <i class="fa fa-shopping-cart"></i> Cart
+      <span id="cart-count" class="cart-count">0</span>
+      </a>
+    </div>
+
 
     <section class="menu" id="menu">
       <?php while($row = $result->fetch_assoc()) { ?>

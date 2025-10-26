@@ -110,7 +110,7 @@ $conn->close();
   }
   nav {
     position: absolute;
-    left: 50%;
+    left: 55%;
     transform: translateX(-50%);
   }
   nav ul {
@@ -302,6 +302,7 @@ $conn->close();
 
       <nav>
         <ul>
+          <li><a href="home.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="menu.php">Menu</a></li>
           <li><a href="contact.php">Contact & Feedback</a></li>

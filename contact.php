@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     nav {
       position: absolute;
-      left: 50%;
+      left: 55%;
       transform: translateX(-50%);
     }
 
@@ -266,6 +266,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <nav>
         <ul>
+          <li><a href="home.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="menu.php">Menu</a></li>
           <li><a href="contact.php">Contact & Feedback</a></li>
