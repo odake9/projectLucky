@@ -120,7 +120,7 @@ session_start();
 <body>
 
   <h1>📊 Sales Report</h1>
-
+  <a href="downloadsales.php" class="download-btn" target="_blank">🧾 Download Sales Report (PDF)</a>
   <div id="sales-container">
     <div class="loading">Loading latest sales data...</div>
   </div>
