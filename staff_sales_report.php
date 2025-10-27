@@ -115,12 +115,37 @@ session_start();
       margin-top: 20px;
       font-size: 1rem;
     }
+    .download-btn {
+  display: inline-block;
+  background: #9b5c38;
+  color: white;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  margin-left: 15px;
+}
+.download-btn:hover {
+  background: #7d442a;
+}
+
+/* Header section for title + button */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto 25px auto;
+}
   </style>
 </head>
 <body>
 
+  <div class="header-section">
   <h1>📊 Sales Report</h1>
-
+  <a href="downloadsales.php" class="download-btn" target="_blank">🧾 Download Sales Report (PDF)</a>
+  </div>
   <div id="sales-container">
     <div class="loading">Loading latest sales data...</div>
   </div>
