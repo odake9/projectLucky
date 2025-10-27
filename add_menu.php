@@ -97,24 +97,54 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       font-weight: 600;
     }
 
-    label {
-      color: #5c3b28;
-      font-weight: 500;
-    }
+    .form-group {
+  margin-bottom: 25px; /* more space between inputs */
+}
 
-    .form-control {
-      border-radius: 10px;
-      border: 1px solid #d2b48c;
-      box-shadow: none;
-      padding: 10px 12px;
-      font-size: 15px;
-      color: #4b2e19;
-    }
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #5c3b28;
+  font-weight: 500;
+}
 
-    .form-control:focus {
-      border-color: #b68c5a;
-      box-shadow: 0 0 6px rgba(182,140,90,0.4);
-    }
+.form-control {
+  border-radius: 10px;
+  border: 1px solid #d2b48c;
+  padding: 10px 12px;
+  font-size: 15px;
+  color: #4b2e19;
+  width: 100%;
+}
+select.form-control {
+  height: auto;              /* let the select adjust naturally */
+  line-height: 1.4;          /* ensures text is vertically centered */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 15px;
+  appearance: none;          /* optional: remove system arrow for consistent look */
+  background-color: #fffaf5; /* matches your theme */
+  border: 1px solid #d2b48c;
+  border-radius: 10px;
+}
+
+
+.form-control:focus {
+  border-color: #b68c5a;
+  box-shadow: 0 0 6px rgba(182,140,90,0.4);
+}
+
+input[type="file"].form-control {
+  padding: 6px;
+  background-color: #fffaf5;
+}
+
+.btn-block {
+  margin-top: 15px;
+}
+
 
     .btn-brown {
       background: #c17856;
@@ -180,18 +210,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       </div>
 
       <div class="form-group">
-        <label>Category:</label>
-        <select name="category" class="form-control" required>
-          <option value="Signature">Signature</option>
-          <option value="Ice Blended">Ice Blended</option>
-          <option value="Refreshing">Refreshing</option>
-        </select>
-      </div>
+  <label for="category">Category:</label>
+  <select name="category" id="category" class="form-control" required>
+    <option value="Signature">Signature</option>
+    <option value="Ice Blended">Ice Blended</option>
+    <option value="Refreshing">Refreshing</option>
+  </select>
+</div>
 
-      <div class="form-group">
-        <label>Upload Image:</label>
-        <input type="file" name="image" class="form-control" accept="image/*">
-      </div>
+<div class="form-group">
+  <label for="image">Upload Image:</label>
+  <input type="file" name="image" id="image" class="form-control" accept="image/*">
+</div>
+
 
       <button type="submit" class="btn btn-brown btn-block">💾 Save Menu Item</button>
       <a href="admin_menu.php" class="btn btn-cancel btn-block">❌ Cancel</a>
