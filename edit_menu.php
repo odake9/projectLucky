@@ -25,21 +25,22 @@ if (isset($_POST['update_menu'])) {
     $name = $_POST['name'];
     $price = $_POST['price'];
     $category = $_POST['category'];
+    $description = $_POST['description'];
     $imageName = $menu['image']; // keep old image by default
 
     // Handle new image upload
-    // Handle new image upload
-if (!empty($_FILES['image']['name'])) {
-    $targetDir = "uploads/";
-    if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
+    if (!empty($_FILES['image']['name'])) {
+        $targetDir = "uploads/";
+        if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
 
-    $imageName = time() . "_" . basename($_FILES["image"]["name"]);
-    $targetFile = $targetDir . $imageName;
-    move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile);
-}
+        $imageName = time() . "_" . basename($_FILES["image"]["name"]);
+        $targetFile = $targetDir . $imageName;
+        move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile);
+    }
 
-    $stmt = $conn->prepare("UPDATE menu SET name=?, price=?, category=?, image=? WHERE id=?");
-    $stmt->bind_param("sdssi", $name, $price, $category, $imageName, $id);
+    // 🆕 Update description as well
+    $stmt = $conn->prepare("UPDATE menu SET name=?, price=?, category=?, description=?, image=? WHERE id=?");
+    $stmt->bind_param("sdsssi", $name, $price, $category, $description, $imageName, $id);
 
     if ($stmt->execute()) {
         echo "<script>alert('✅ Menu updated successfully!'); window.location.href='admin_menu.php';</script>";
@@ -101,7 +102,8 @@ if (!empty($_FILES['image']['name'])) {
 
     input[type="text"],
     input[type="number"],
-    input[type="file"] {
+    input[type="file"],
+    textarea {
       width: 100%;
       padding: 10px 12px;
       margin-bottom: 15px;
@@ -113,7 +115,12 @@ if (!empty($_FILES['image']['name'])) {
       transition: 0.3s;
     }
 
-    input:focus {
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
       border-color: #b68c5a;
       box-shadow: 0 0 5px rgba(182, 140, 90, 0.3);
     }
@@ -168,23 +175,26 @@ if (!empty($_FILES['image']['name'])) {
     <h2><i class="fa-solid fa-pen-to-square"></i> Edit Menu</h2>
     <form method="POST" enctype="multipart/form-data">
       <label>Menu Name:</label>
-      <input type="text" name="name" value="<?php echo $menu['name']; ?>" required>
+      <input type="text" name="name" value="<?php echo htmlspecialchars($menu['name']); ?>" required>
 
       <label>Price (RM):</label>
-      <input type="number" step="0.01" name="price" value="<?php echo $menu['price']; ?>" required>
+      <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($menu['price']); ?>" required>
 
       <label>Category:</label>
-      <input type="text" name="category" value="<?php echo $menu['category']; ?>" required>
+      <input type="text" name="category" value="<?php echo htmlspecialchars($menu['category']); ?>" required>
+
+      <!-- 🆕 New field: Description -->
+      <label>Description:</label>
+      <textarea name="description" required><?php echo htmlspecialchars($menu['description']); ?></textarea>
 
       <label>Current Image:</label>
-<div class="image-preview">
-  <?php if ($menu['image']) { ?>
-    <img src="uploads/<?php echo $menu['image']; ?>" width="120">
-  <?php } else { ?>
-    <p>No image uploaded</p>
-  <?php } ?>
-</div>
-
+      <div class="image-preview">
+        <?php if ($menu['image']) { ?>
+          <img src="uploads/<?php echo $menu['image']; ?>" width="120">
+        <?php } else { ?>
+          <p>No image uploaded</p>
+        <?php } ?>
+      </div>
 
       <label>Upload New Image:</label>
       <input type="file" name="image">
