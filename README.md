@@ -1,6 +1,6 @@
-Project Lucky Milk Tea Ordering System
-Developer: Lio Sean Guan, How Ching Yen, Ng Zong Heng, Lau Yi Jie, Tay Yu Heng
-Date: October 2025
+Project Lucky Milk Tea Ordering System  
+Developer: Lio Sean Guan, How Ching Yen, Ng Zong Heng, Lau Yi Jie, Tay Yu Heng  
+Date: October 2025  
 
 ------------------------------------------
 1. Installation Manual
