@@ -5,13 +5,13 @@ Date: October 2025
 ------------------------------------------
 1. Installation Manual
 ------------------------------------------
-1.Download the project from GitHub.
-2.Extract the ZIP file into htdocs (for XAMPP).
-3.Open phpMyAdmin and create a new database named 'milk_tea_shop'.
-4.Import the 'milk_tea_shop.sql' file.
-5.Start Apache and MySQL in XAMPP Control Panel.
-6.Open your browser and go to:
-  http://localhost/projectLucky/
+1. Download the project from GitHub.
+2. Extract the ZIP file into htdocs (for XAMPP).
+3. Open phpMyAdmin and create a new database named 'milk_tea_shop'.
+4. Import the 'milk_tea_shop.sql' file.
+5. Start Apache and MySQL in XAMPP Control Panel.
+6. Open your browser and go to:
+   http://localhost/projectLucky/
 
 ------------------------------------------
 2. GitHub Source Code Link

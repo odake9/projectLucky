@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - Lucky Milk Tea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- W3.CSS -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background-color: #fff8f0;
+      color: #5a3e36;
+    }
+
+    /* Header Bar */
+    header {
+      background-color: #f8e8d0;
+      color: #6b4f4f;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    .back-btn {
+      background-color: #d9bca3;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #c79c73;
+    }
+
+    /* Checkout Card */
+    .checkout-container {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 3rem auto;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    h2 {
+      color: #6b4f4f;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #8c7b6a;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      background: #fffdf9;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #e0cfc0;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f4e3d7;
+      color: #5a3e36;
+    }
+
+    tr:hover {
+      background-color: #fff3e6;
+      transition: 0.2s;
+    }
+
+    #total {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #b35b47;
+    }
+
+    /* Buttons */
+    .btn {
+      background-color: #d9bca3;
+      color: white;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      margin: 0.5rem;
+    }
+
+    .btn:hover {
+      background-color: #c79c73;
+      transform: scale(1.03);
+    }
+
+    .btn-cancel {
+      background-color: #b0a18f;
+    }
+
+    .btn-cancel:hover {
+      background-color: #8d7c6a;
+    }
+
+    /* Payment Section */
+    .payment-section {
+      display: none;
+      margin-top: 2rem;
+      text-align: center;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .payment-section h4 {
+      color: #6b4f4f;
+      margin-bottom: 0.5rem;
+    }
+
+    .payment-section img {
+      width: 150px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .payment-section img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    #paymentOptions {
+      margin-top: 2rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="cart.html" class="back-btn"><i class="fa fa-arrow-left"></i> Back to Cart</a>
+    <h1><i class="fa fa-credit-card"></i> Checkout</h1>
+  </header>
+
+  <div class="checkout-container">
+    <h2>Confirm Your Payment</h2>
+    <p>Please review your order before proceeding to payment.</p>
+
+    <!-- Cart items -->
+    <table id="cartTable">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Price (RM)</th>
+          <th>Qty</th>
+          <th>Subtotal (RM)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <p>Total: <span id="total">0.00</span> MYR</p>
+
+    <div style="text-align:center;">
+      <button class="btn" onclick="showPayments()"><i class="fa fa-money-bill-wave"></i> Confirm Payment</button>
+      <button class="btn btn-cancel" onclick="cancelPayment()"><i class="fa fa-times"></i> Cancel</button>
+    </div>
+
+    <!-- Payment Options -->
+    <div id="paymentOptions" style="display:none;">
+      <h3 style="color:#6b4f4f;">Select Payment Method</h3>
+
+      <div class="payment-section">
+        <h4>Touch ’n Go</h4>
+        <a id="tngLink" href="#" target="_blank">
+          <img src="tng.jpg" alt="Touch n Go">
+        </a>
+      </div>
+
+      <div class="payment-section">
+        <h4>FPX Payment</h4>
+        <a id="fpxLink" href="#" target="_blank">
+          <img src="fpx-logo.jpg" alt="FPX Payment">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let grandTotal = 0;
+    let tbody = document.querySelector("#cartTable tbody");
+
+    if (cart.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="4">Your cart is empty.</td></tr>`;
+    } else {
+      cart.forEach(item => {
+        let price = parseFloat(item.price) || 0;
+        let qty = parseInt(item.quantity) || 1;
+        let subtotal = price * qty;
+        grandTotal += subtotal;
+
+        let row = `
+          <tr>
+            <td>${item.name}</td>
+            <td>${price.toFixed(2)}</td>
+            <td>${qty}</td>
+            <td>${subtotal.toFixed(2)}</td>
+          </tr>`;
+        tbody.insertAdjacentHTML("beforeend", row);
+      });
+    }
+
+    document.getElementById("total").textContent = grandTotal.toFixed(2);
+
+    function showPayments() {
+      fetch("save_order.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "cart=" + encodeURIComponent(JSON.stringify(cart)) + "&total=" + grandTotal.toFixed(2)
+      })
+      .then(res => res.text())
+      .then(data => {
+        console.log("Order saved:", data);
+        document.getElementById("paymentOptions").style.display = "block";
+        document.querySelectorAll(".payment-section").forEach(div => div.style.display = "block");
+
+        document.getElementById("tngLink").href = "https://payment.tngdigital.com.my/sc/bDLofadvsx";
+        document.getElementById("fpxLink").href = "fpx.php?total=" + grandTotal.toFixed(2);
+      });
+    }
+
+
+    function redirectToPayment(method) {
+      const total = grandTotal.toFixed(2);
+      if (method === "tng") {
+        window.location.href = `https://payment.tngdigital.com.my/sc/bDLofadvsx?amount=${total}&desc=LuckyMilkTeaOrder`;
+      } else {
+        window.location.href = `fpx.php?total=${total}`;
+      }
+    }
+
+
+    function cancelPayment() {
+      if (confirm("Are you sure you want to cancel and return to your cart?")) {
+        window.location.href = "cart.html";
+      }
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("status") === "success") {
+      alert("✅ Payment Successful! Thank you for your order.");
+      localStorage.removeItem("cart"); // clear cart
+      window.location.href = "order-status.html"; // 👈 Redirect to order status page
+    }
+
+  </script>
+
+</body>
+</html>

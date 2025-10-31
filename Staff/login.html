@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login - Lucky Milk Tea</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google Font + Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #fdf8f3, #f1e1c6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      padding: 35px 40px;
+      width: 330px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .login-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .login-logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #b68c5a;
+      margin-bottom: 10px;
+    }
+
+    .login-subtitle {
+      color: #6b5b4c;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+    }
+
+    /* Input Group */
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .input-group input {
+      width: 85%;
+      padding: 10px 40px 10px 12px; /* space for icon */
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 14px;
+      background: #faf8f5;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .input-group input:focus {
+      border-color: #b68c5a;
+      box-shadow: 0 0 4px rgba(182, 140, 90, 0.4);
+      outline: none;
+    }
+
+    /* Eye icon (absolute but inside same width space) */
+    .toggle-password {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #b68c5a;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+      width: 20px;
+      text-align: center;
+    }
+
+    .toggle-password:hover {
+      color: #a47b48;
+    }
+
+    /* Button */
+    button {
+      width: 85%;
+      background: #b68c5a;
+      border: none;
+      color: white;
+      font-size: 0.95rem;
+      padding: 10px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #a47b48;
+      transform: translateY(-2px);
+    }
+
+    /* Links */
+    .links {
+      margin-top: 18px;
+    }
+
+    .links a {
+      display: block;
+      font-size: 0.85rem;
+      color: #b68c5a;
+      text-decoration: none;
+      margin: 4px 0;
+      transition: color 0.3s ease;
+    }
+
+    .links a:hover {
+      color: #a47b48;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 420px) {
+      .login-container {
+        width: 90%;
+        padding: 25px 20px;
+      }
+
+      .input-group input, button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-logo">Lucky Milk Tea</div>
+    <div class="login-subtitle">Welcome back! Please login to continue 🧋</div>
+
+    <form action="login.php" method="POST">
+      <div class="input-group">
+        <input type="email" name="email" placeholder="📧 Email Address" required>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" name="password" placeholder="🔒 Password" required>
+        <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="links">
+      <a href="register_otp.php">✨ Create an Account</a>
+      <a href="forgot_password.php">❓ Forgot Password?</a>
+      <a href="home.html">🏠 Back to Home</a>
+    </div>
+  </div>
+
+  <script>
+    // Toggle password visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('password');
+
+    togglePassword.addEventListener('click', () => {
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+
+      // Toggle eye icon
+      togglePassword.classList.toggle('fa-eye');
+      togglePassword.classList.toggle('fa-eye-slash');
+    });
+  </script>
+
+</body>
+</html>

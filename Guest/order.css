@@ -1,0 +1,60 @@
+body {
+  font-family: "Courier New", monospace;
+  background: #fff8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.receipt {
+  background: white;
+  padding: 20px;
+  border: 2px dashed #333;
+  width: 420px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.receipt h1 {
+  margin: 0;
+  color: #6b4f4f;
+}
+
+.date {
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.total {
+  font-weight: bold;
+  margin-top: 15px;
+  font-size: 1.1rem;
+}
+
+.print-btn {
+  background: #ff9aa2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.print-btn:hover {
+  background: #ff6f91;
+}

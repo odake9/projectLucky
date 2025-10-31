@@ -1,0 +1,85 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #f6d365, #fda085);
+  margin: 0;
+  padding: 20px;
+}
+
+.cart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+h1 {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #ff9800;
+  color: white;
+}
+
+tr {
+  transition: background 0.3s ease;
+}
+
+tr:hover {
+  background: rgba(255, 152, 0, 0.1);
+}
+
+input[type="number"], input[type="text"] {
+  padding: 5px;
+  width: 60px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+}
+
+button {
+  background: #ff5722;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+button:hover {
+  background: #e64a19;
+  transform: scale(1.05);
+}
+
+.cart-summary {
+  margin-top: 20px;
+  text-align: right;
+}
+
+#checkout-btn {
+  background: #4caf50;
+}
+
+#checkout-btn:hover {
+  background: #388e3c;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
