@@ -1,0 +1,3 @@
+Framework:
+Bootstrap download: https://getbootstrap.com/docs/4.0/getting-started/download
+w3school download: https://www.w3schools.com/w3css/w3css_downloads.asp
