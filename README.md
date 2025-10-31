@@ -27,10 +27,10 @@ https://www.luckymilktea.xyz/index.html
 ------------------------------------------
 4. Login Credentials
 ------------------------------------------
-Admin:
-Username: tayyuheng50@gmail.com
+Admin:  
+Username: tayyuheng50@gmail.com  
 Password: tyh292005
 
-Staff:
-Username: longqifgf@gmail.com
+Staff:  
+Username: longqifgf@gmail.com  
 Password: Lio_0110
